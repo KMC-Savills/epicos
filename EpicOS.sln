@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29025.244
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpicOS", "EpicOS.csproj", "{4E2CC008-C4C6-4119-9D14-34F07FD1D2F0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{4E2CC008-C4C6-4119-9D14-34F07FD1D2F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4E2CC008-C4C6-4119-9D14-34F07FD1D2F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4E2CC008-C4C6-4119-9D14-34F07FD1D2F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4E2CC008-C4C6-4119-9D14-34F07FD1D2F0}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {689B2415-7264-4637-8ACD-D0B6A4A57D15}
+	EndGlobalSection
+EndGlobal
