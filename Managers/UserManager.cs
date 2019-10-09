@@ -20,11 +20,11 @@ namespace EpicOS.Managers
 
         public List<User> GetAll()
         {
-            List<User> users = cacheNinja.cache["User_User_GetAll"] as List<User>;
+            List<User> users = cacheNinja.cache["User_GetAll"] as List<User>;
             if (users == null)
             {
                 users = user.GetUsers();
-                cacheNinja.cache.Set("User_User_GetAll", users, cacheNinja.cacheExpiry);
+                cacheNinja.cache.Set("User_GetAll", users, cacheNinja.cacheExpiry);
             }
             return users;
         }
@@ -45,9 +45,14 @@ namespace EpicOS.Managers
             return GetAll().FirstOrDefault(e => (e.UserName.Equals(username) || e.EmailAddress.Equals(username)) && e.Password.Equals(password));
         }
 
+        public Result Insert(User parameter)
+        {
+            return user.Insert(parameter);
+        }
+
         public Result Update(User parameter)
         {
-            return user.UpdateUser(parameter);
+            return user.Update(parameter);
         }
 
     }

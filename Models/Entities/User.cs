@@ -48,6 +48,12 @@ namespace EpicOS.Models.Entities
             return FirstName + " " + LastName;
         }
 
+        public Result Create()
+        {
+            UserManager manager = new UserManager();
+            return manager.Insert(this);
+        }
+
         public Result Save()
         {
             UserManager manager = new UserManager();

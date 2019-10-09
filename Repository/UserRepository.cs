@@ -19,7 +19,7 @@ namespace EpicOS.Repository
         {
             var result = new List<User>();
 
-            var reader = dbConnection.Select("usp_GetUsers", null, CommandType.StoredProcedure);
+            var reader = dbConnection.Select("usp_User_GetAll", null, CommandType.StoredProcedure);
             if (reader != null)
             {
                 if (reader.Rows.Count > 0)
@@ -45,9 +45,15 @@ namespace EpicOS.Repository
             return result;
         }
 
-        public Result UpdateUser(User parameter)
+        public Result Insert(User parameter)
         {
-            var result = dbConnection.Update("usp_UpdateUser", parameter);
+            var result = dbConnection.Insert("usp_User_Insert", parameter);
+            return result;
+        }
+
+        public Result Update(User parameter)
+        {
+            var result = dbConnection.Update("usp_User_Update", parameter);
             return result;
         }
 

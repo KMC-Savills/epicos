@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace EpicOS.Repository
 {
-    public class SensorRepository
+    public class OfficeRepository
     {
+
     }
 }
