@@ -13,6 +13,6 @@ namespace EpicOS.Models.Entities
         public int Type { get; set; }
         public int OfficeID { get; set; }
         public bool IsActive { get; set; }
-        public bool IsDelete { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

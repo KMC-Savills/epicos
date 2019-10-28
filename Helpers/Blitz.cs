@@ -13,7 +13,7 @@ namespace EpicOS.Helpers
     {
 
         //public static string Salt = ConfigurationManager.AppSettings["salt"];
-        public static string Salt = "EpicOS";
+        public static string Salt = "kmc";
 
         public static string CalculateMD5Hash(string secret)
         {

@@ -15,6 +15,6 @@ namespace EpicOS.Models.Entities
         public DateTime CheckIn { get; set; }
         public DateTime CheckOut { get; set; }
         public bool IsActive { get; set; }
-        public bool IsDelete { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

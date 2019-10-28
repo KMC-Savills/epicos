@@ -5,20 +5,16 @@ using System.Threading.Tasks;
 
 namespace EpicOS.Models.Entities
 {
-    public class Workpoint
+    public class Workpoint : Device
     {
-        public int ID { get; set; }
-        public string Name { get; set; }
-        public string MAC { get; set; }
-        public string IPAddress { get; set; }
-        public float CoordinateX { get; set; }
-        public float CoordinateY { get; set; }
-        public float CoordinateZ { get; set; }
+        public double CoordinateX { get; set; }
+        public double CoordinateY { get; set; }
+        public double CoordinateZ { get; set; }
         public int OfficeID { get; set; }
         public int FloorID { get; set; }
         public int RoomID { get; set; }
         public int HubID { get; set; }
         public bool IsActive { get; set; }
-        public bool IsDelete { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

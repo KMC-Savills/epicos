@@ -15,7 +15,7 @@ namespace EpicOS.Models.Entities
         public float Longitude { get; set; }
         public string Filename { get; set; }
         public bool IsActive { get; set; }
-        public bool IsDelete { get; set; }
+        public bool IsDeleted { get; set; }
 
     }
 }
