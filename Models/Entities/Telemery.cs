@@ -11,6 +11,7 @@ namespace EpicOS.Models.Entities
         public string MAC { get; set; }
         public string IPAddress { get; set; }
         public DateTime DateCreated { get; set; }
+        public string Battery { get; set; }
         public int HubID { get; set; }
         public int WorkpointID { get; set; }
         public bool IsActive { get; set; }

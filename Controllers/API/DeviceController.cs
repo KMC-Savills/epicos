@@ -16,21 +16,21 @@ namespace EpicOS.Controllers.API
     public class DeviceController : ControllerBase
     {
         // GET: api/Device
-        [HttpGet]
+        [HttpGet("/api/device/encryptmac", Name = "Device_EncryptMAC")]
         public IEnumerable<string> Get()
         {
-            //Blitz helper = new Blitz();
-            //string deviceMAC = helper.GenerateToken("A2:C54D:2B:5A:32");
-            //return new string[] { deviceMAC, "value2" };
-            return new string[] { "Please add a parameter", "Parameter is an encoded MAC address" };
+            Blitz helper = new Blitz();
+            string deviceMAC = helper.GenerateToken("B8:7C6F:1A:D8:25");
+            return new string[] { deviceMAC, "value2" };
+            //return new string[] { "Please add a parameter", "Parameter is an encoded MAC address" };
         }
 
         // GET: api/Device/5
-        [HttpGet("{id}", Name = "Get")]
-        public List<Device> Get(string id)
+        [HttpGet("/api/device/getbyhubmac/{token}", Name = "Device_Sensor_GetByHubMAC")]
+        public List<Device> GetSensorByHubMAC(string token)
         {
             Blitz helper = new Blitz();
-            string deviceMAC = helper.DecodeToken(id);
+            string deviceMAC = helper.DecodeToken(token);
 
             DeviceManager manager = new DeviceManager();
             List<Device> devices = new List<Device>();
@@ -45,31 +45,92 @@ namespace EpicOS.Controllers.API
             return devices;
         }
 
-        [HttpPost]
+        [HttpPost("/api/device/sensor-list", Name = "Device_SensorList")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        public List<Device> GetSensorsByHubMAC(Device parameter)
+        {
+            DeviceManager manager = new DeviceManager();
+            List<Device> devices = new List<Device>();
+            Hub hub = manager.HubGetByMAC(parameter.MAC);
+            if (hub != null)
+            {
+                if (hub.IsActive)
+                {
+                    devices = manager.GetDevicesByOffice(hub.OfficeID);
+                }
+            }
+            return devices;
+        }
+
+        [HttpPost("/api/device/generatetoken", Name = "Device_GenerateToken")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public IActionResult Create(Telemery parameter)
+        public IActionResult CreateToken(Device parameter)
         {
             DeviceManager manager = new DeviceManager();
-            if (!manager.IsActive(parameter.MAC, 1))
+            if (manager.IsActive(parameter.MAC, 2))
             {
-                return BadRequest();
+                Blitz helper = new Blitz();
+                string token = helper.GenerateToken(parameter.MAC);
+                return Ok(token);
             }
-            else
+            return BadRequest();
+        }
+
+        //[HttpPost("/api/device/telemery/insert", Name = "Device_Telemery_Insert")]
+        //[Consumes(MediaTypeNames.Application.Json)]
+        //[ProducesResponseType(StatusCodes.Status201Created)]
+        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
+        //public IActionResult CreateTelemery(Telemery parameter)
+        //{
+        //    DeviceManager manager = new DeviceManager();
+        //    if (manager.IsActive(parameter.MAC, 1))
+        //    {
+        //        Workpoint point = manager.WorkpointGetByMAC(parameter.MAC);
+        //        Telemery telemery = new Telemery();
+        //        telemery.MAC = parameter.MAC;
+        //        telemery.IPAddress = parameter.IPAddress;
+        //        telemery.DateCreated = parameter.DateCreated;
+        //        telemery.WorkpointID = point.ID;
+        //        telemery.IsActive = true;
+        //        telemery.IsDeleted = false;
+        //        Result result = manager.TelemeryInsert(telemery);
+        //        if (result.ID > 0)
+        //        {
+        //            return Ok(telemery);
+        //        }
+        //    }
+        //    return BadRequest();
+        //}
+
+        [HttpPost("/api/device/telemery/insert", Name = "Device_Telemery_Insert_Batch")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult CreateTelemeryByBatch(IEnumerable<Telemery> parameters)
+        {
+            DeviceManager manager = new DeviceManager();
+            if (parameters.Count() > 0)
             {
-                Workpoint point = manager.WorkpointGetByMAC(parameter.MAC);
-                Telemery telemery = new Telemery();
-                telemery.MAC = parameter.MAC;
-                telemery.IPAddress = parameter.IPAddress;
-                telemery.DateCreated = parameter.DateCreated;
-                telemery.WorkpointID = point.ID;
-                telemery.IsActive = true;
-                telemery.IsDeleted = false;
-                Result result = manager.TelemeryInsert(telemery);
-                if (result.ID > 0)
+                foreach (Telemery parameter in parameters)
                 {
-                    return Ok(telemery);
+                    if (manager.IsActive(parameter.MAC, 1))
+                    {
+                        Workpoint point = manager.WorkpointGetByMAC(parameter.MAC);
+                        Telemery telemery = new Telemery();
+                        telemery.MAC = parameter.MAC;
+                        telemery.IPAddress = parameter.IPAddress;
+                        telemery.DateCreated = parameter.DateCreated;
+                        telemery.WorkpointID = point.ID;
+                        telemery.IsActive = true;
+                        telemery.IsDeleted = false;
+                        Result result = manager.TelemeryInsert(telemery);
+                        if (result.ID > 0)
+                        {
+                            return Ok(telemery);
+                        }
+                    }
                 }
             }
             return BadRequest();
