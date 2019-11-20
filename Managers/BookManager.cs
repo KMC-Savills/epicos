@@ -17,11 +17,11 @@ namespace EpicOS.Managers
         }
         public List<Book> GetAll()
         {
-            List<Book> books = cacheNinja.cache["usp_Book_GetAll"] as List<Book>;
+            List<Book> books = cacheNinja.cache["Book_GetAll"] as List<Book>;
             if (books == null)
             {
                 books = book.GetAll();
-                cacheNinja.cache.Set("User_GetAll", books, cacheNinja.cacheExpiry);
+                cacheNinja.cache.Set("Book_GetAll", books, cacheNinja.cacheExpiry);
             }
             return books;
         }
