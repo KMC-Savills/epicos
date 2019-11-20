@@ -13,5 +13,6 @@ namespace EpicOS.Models
 
         [Required]
         public string Password { get; set; }
+
     }
 }

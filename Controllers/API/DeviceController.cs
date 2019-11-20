@@ -15,6 +15,15 @@ namespace EpicOS.Controllers.API
     [ApiController]
     public class DeviceController : ControllerBase
     {
+
+        [HttpGet("/api/office/getall", Name = "Office_GetAll")]
+        public IEnumerable<Office> GetAll()
+        {
+            OfficeManager manager = new OfficeManager();
+            return manager.GetAll();
+        }
+
+
         // GET: api/Device
         [HttpGet("/api/device/encryptmac", Name = "Device_EncryptMAC")]
         public IEnumerable<string> Get()
