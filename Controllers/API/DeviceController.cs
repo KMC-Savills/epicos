@@ -20,7 +20,7 @@ namespace EpicOS.Controllers.API
         public IEnumerable<Office> GetAll()
         {
             OfficeManager manager = new OfficeManager();
-            return manager.GetAll();
+            return manager.OfficeGetAll();
         }
 
 
