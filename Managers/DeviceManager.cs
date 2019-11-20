@@ -1,4 +1,5 @@
 ﻿using EpicOS.Models.Entities;
+using EpicOS.Models.Parameters;
 using EpicOS.Repository;
 using System;
 using System.Collections.Generic;
@@ -37,6 +38,33 @@ namespace EpicOS.Managers
                 cacheNinja.cache.Set("Workpoint_GetAll", hubs, cacheNinja.cacheExpiry);
             }
             return hubs;
+        }
+
+        public List<Telemery> TelemeryGetAll()
+        {
+            List<Telemery> telemetry = cacheNinja.cache["Telemetry_GetAll"] as List<Telemery>;
+            if (telemetry == null)
+            {
+                telemetry = deviceRepository.TelemeryGetFilter();
+                cacheNinja.cache.Set("Workpoint_GetAll", telemetry, cacheNinja.cacheExpiry);
+            }
+            return telemetry;
+        }
+
+        public List<Telemery> TelemeryGetFilter(TelemeryFilter parameter)
+        {
+            List<Telemery> telemetry = cacheNinja.cache["Telemetry_GetAll"] as List<Telemery>;
+            if (telemetry == null)
+            {
+                telemetry = deviceRepository.TelemeryGetFilter();
+                cacheNinja.cache.Set("Workpoint_GetAll", telemetry, cacheNinja.cacheExpiry);
+            }
+            return telemetry;
+        }
+
+        public Hub GetByID(int id)
+        {
+            return HubGetAll().FirstOrDefault(e => e.ID.Equals(id));
         }
 
         public Hub HubGetByMAC(string MAC)
@@ -104,9 +132,39 @@ namespace EpicOS.Managers
             return results;
         }
 
+        public Result WorkpointInsert(Workpoint workpoint)
+        {
+            Result result = deviceRepository.WorkpointInsert(workpoint);
+            return result;
+        }
+
+        public Result WorkpointUpdate(Workpoint workpoint)
+        {
+            Result result = deviceRepository.WorkpointUpdate(workpoint);
+            return result;
+        }
+
+        public Result HubInsert(Hub hub)
+        {
+            Result result = deviceRepository.HubInsert(hub);
+            return result;
+        }
+
+        public Result HubUpdate(Hub hub)
+        {
+            Result result = deviceRepository.HubUpdate(hub);
+            return result;
+        }
+
         public Result TelemeryInsert(Telemery telemery)
         {
             Result result = deviceRepository.TelemeryInsert(telemery);
+            return result;
+        }
+
+        public Result TelemeryUpdate(Telemery telemery)
+        {
+            Result result = deviceRepository.TelemeryUpdate(telemery);
             return result;
         }
 

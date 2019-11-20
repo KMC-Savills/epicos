@@ -14,7 +14,7 @@ namespace EpicOS.Controllers
         {
             List<Office> viewModel = new List<Office>();
             OfficeManager manager = new OfficeManager();
-            viewModel = manager.GetAll();
+            viewModel = manager.OfficeGetAll();
 
             return View(viewModel);
         }
