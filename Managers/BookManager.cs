@@ -30,12 +30,12 @@ namespace EpicOS.Managers
             return GetAll().FirstOrDefault(e => e.ID.Equals(id));
         }
 
-        public Result Insert(User parameter)
+        public Result Insert(Book parameter)
         {
             return book.Insert(parameter);
         }
 
-        public Result Update(User parameter)
+        public Result Update(Book parameter)
         {
             return book.Update(parameter);
         }
