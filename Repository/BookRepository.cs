@@ -51,7 +51,7 @@ namespace EpicOS.Repository
                 if (reader.Rows.Count > 0)
                 {
                     item.ID = ID;
-                    item.UserID = transform.ToInt(reader.Rows[0]["CityID"]);
+                    item.UserID = transform.ToInt(reader.Rows[0]["UserID"]);
                     item.WorkpointID = transform.ToInt(reader.Rows[0]["WorkpointID"]);
                     item.FloorID = transform.ToInt(reader.Rows[0]["FloorID"]);
                     item.OfficeID = transform.ToInt(reader.Rows[0]["OfficeID"]);
