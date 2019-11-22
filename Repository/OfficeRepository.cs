@@ -12,7 +12,7 @@ namespace EpicOS.Repository
 
         public List<Office> OfficeGetAll()
         {
-            var result = new List<Office>();
+            List<Office> result = new List<Office>();
 
             var reader = dbConnection.Select("usp_Office_GetAll", null, CommandType.StoredProcedure);
             if (reader != null)
@@ -40,7 +40,7 @@ namespace EpicOS.Repository
 
         internal List<Floor> FloorGetAll()
         {
-            var result = new List<Floor>();
+            List<Floor> result = new List<Floor>();
 
             var reader = dbConnection.Select("usp_Floor_GetAll", null, CommandType.StoredProcedure);
             if (reader != null)
@@ -66,7 +66,7 @@ namespace EpicOS.Repository
 
         internal List<Company> CompanyGetAll() 
         {
-            var result = new List<Company>();
+            List<Company> result = new List<Company>();
 
             var reader = dbConnection.Select("usp_Company_GetAll", null, CommandType.StoredProcedure);
             if (reader != null) 
@@ -84,6 +84,46 @@ namespace EpicOS.Repository
                     }
                 }
             }
+            return result;
+        }
+
+        public Office OfficeGetByID(int ID)
+        {
+            Office item = new Office();
+
+            object parameter = new Office()
+            {
+                ID = ID
+            };
+            var reader = dbConnection.Select("usp_Office_GetByID", parameter, CommandType.StoredProcedure);
+
+            if (reader != null)
+            {
+                if (reader.Rows.Count > 0)
+                {
+                    item.ID = ID;
+                    item.Name = reader.Rows[0]["Name"].ToString();
+                    item.Address = reader.Rows[0]["Address"].ToString();
+                    item.CityID = transform.ToInt(reader.Rows[0]["CityID"]);
+                    item.Latitude = transform.ToDouble(reader.Rows[0]["Latitude"]);
+                    item.Longitude = transform.ToDouble(reader.Rows[0]["Longitude"]);
+                    item.Filename = reader.Rows[0]["Filename"].ToString();
+                    item.IsActive = transform.ToBool(reader.Rows[0]["IsActive"]);
+                    item.IsDeleted = transform.ToBool(reader.Rows[0]["IsDeleted"]);
+                }
+            }
+            return item;
+        }
+
+        public Result OfficeInsert(Office parameter)
+        {
+            var result = dbConnection.Insert("usp_Office_Insert", parameter);
+            return result;
+        }
+
+        public Result OfficeUpdate(Office parameter)
+        {
+            var result = dbConnection.Update("usp_Office_Update", parameter);
             return result;
         }
 

@@ -1,4 +1,5 @@
-﻿using EpicOS.Models.Entities;
+﻿using EpicOS.Helpers;
+using EpicOS.Models.Entities;
 using EpicOS.Repository;
 using System;
 using System.Collections.Generic;
@@ -9,22 +10,22 @@ namespace EpicOS.Managers
 {
     public class OfficeManager : BaseManager
     {
-        private OfficeRepository officeRepository;
+        private OfficeRepository officeRepo;
 
         public OfficeManager()
         {
-            this.officeRepository = new OfficeRepository();
+            this.officeRepo = new OfficeRepository();
         }
 
         public List<Office> OfficeGetAll()
         {
-            List<Office> office = cacheNinja.cache["Office_GetAll"] as List<Office>;
-            if (office == null)
+            List<Office> offices = cacheNinja.cache["Office_GetAll"] as List<Office>;
+            if (offices == null)
             {
-                office = officeRepository.OfficeGetAll();
-                cacheNinja.cache.Set("Office_GetAll", office, cacheNinja.cacheExpiry);
+                offices = officeRepo.OfficeGetAll();
+                cacheNinja.cache.Set("Office_GetAll", offices, cacheNinja.cacheExpiry);
             }
-            return office;
+            return offices;
         }
 
         public List<Floor> FloorGetAll()
@@ -32,7 +33,7 @@ namespace EpicOS.Managers
             List<Floor> floor = cacheNinja.cache["Floor_GetAll"] as List<Floor>;
             if (floor == null)
             {
-                floor = officeRepository.FloorGetAll();
+                floor = officeRepo.FloorGetAll();
                 cacheNinja.cache.Set("Office_GetAll", floor, cacheNinja.cacheExpiry);
             }
             return floor;
@@ -43,10 +44,26 @@ namespace EpicOS.Managers
             List<Company> company = cacheNinja.cache["Company_GetAll"] as List<Company>;
             if (company == null)
             {
-                company = officeRepository.CompanyGetAll();
+                company = officeRepo.CompanyGetAll();
                 cacheNinja.cache.Set("Office_GetAll", company, cacheNinja.cacheExpiry);
             }
             return company;
+        }
+
+        public Result OfficeInsert(Office office)
+        {
+            Result result = officeRepo.OfficeInsert(office);
+            return result;
+        }
+
+        public Result OfficeUpdate(Office parameter)
+        {
+            return officeRepo.OfficeUpdate(parameter);
+        }
+
+        public Office OfficeGetByID(int id)
+        {
+            return OfficeGetAll().FirstOrDefault(e => e.ID.Equals(id));
         }
 
         public Floor FloorGetByID(int id)
@@ -61,25 +78,38 @@ namespace EpicOS.Managers
 
         public Result CompanyInsert(Company company)
         {
-            Result result = officeRepository.CompanyInsert(company);
+            Result result = officeRepo.CompanyInsert(company);
             return result;
         }
 
         public Result CompanyUpdate(Company company)
         {
-            Result result = officeRepository.CompanyUpdate(company);
+            Result result = officeRepo.CompanyUpdate(company);
             return result;
         }
 
         public Result FloorInsert(Floor floor)
         {
-            Result result = officeRepository.FloorInsert(floor);
+            Result result = officeRepo.FloorInsert(floor);
             return result;
         }
 
         public Result FloorUpdate(Floor floor)
         {
-            Result result = officeRepository.FloorUpdate(floor);
+            Result result = officeRepo.FloorUpdate(floor);
+            return result;
+        }
+
+        public Result Delete(int Id)
+        {
+            Office item = officeRepo.OfficeGetByID(Id);
+            item.IsDeleted = true;
+            Result result = officeRepo.OfficeUpdate(item);
+            if (result.IsSuccess) 
+            {
+                cacheNinja.ClearCache("Office_GetAll");
+            }
+
             return result;
         }
     }
