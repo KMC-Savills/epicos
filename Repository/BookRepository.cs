@@ -35,6 +35,7 @@ namespace EpicOS.Repository
             }
             return result;
         }
+
         public Book GetByID(int ID)
         {
             Book item = new Book();
@@ -50,7 +51,7 @@ namespace EpicOS.Repository
                 if (reader.Rows.Count > 0)
                 {
                     item.ID = ID;
-                    item.UserID = transform.ToInt(reader.Rows[0]["CityID"]);
+                    item.UserID = transform.ToInt(reader.Rows[0]["UserID"]);
                     item.WorkpointID = transform.ToInt(reader.Rows[0]["WorkpointID"]);
                     item.FloorID = transform.ToInt(reader.Rows[0]["FloorID"]);
                     item.OfficeID = transform.ToInt(reader.Rows[0]["OfficeID"]);
@@ -64,13 +65,13 @@ namespace EpicOS.Repository
             return item;
         }
 
-        public Result Insert(User parameter)
+        public Result Insert(Book parameter)
         {
             var result = dbConnection.Insert("usp_Book_Insert", parameter);
             return result;
         }
 
-        public Result Update(User parameter)
+        public Result Update(Book parameter)
         {
             var result = dbConnection.Update("usp_Book_Update", parameter);
             return result;
