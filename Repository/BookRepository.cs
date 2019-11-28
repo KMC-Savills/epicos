@@ -59,7 +59,6 @@ namespace EpicOS.Repository
                     item.CheckOut = transform.ToDateTime(reader.Rows[0]["CheckOut"]);
                     item.IsActive = transform.ToBool(reader.Rows[0]["IsActive"]);
                     item.IsDeleted = transform.ToBool(reader.Rows[0]["IsDeleted"]);
-
                 }
             }
             return item;

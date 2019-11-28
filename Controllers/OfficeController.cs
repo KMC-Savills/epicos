@@ -7,6 +7,8 @@ using EpicOS.Managers;
 using Microsoft.AspNetCore.Mvc;
 using EpicOS.Repository;
 using EpicOS.Helpers;
+using System.IO;
+using Microsoft.AspNetCore.Http;
 
 namespace EpicOS.Controllers
 {
@@ -42,23 +44,23 @@ namespace EpicOS.Controllers
         }
 
         [HttpGet]
-        public ActionResult Create()
+        public ActionResult AddOffice()
         {
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateOffice(Office office)
+        public ActionResult AddOffice(Office office)
         {
             OfficeManager manager = new OfficeManager();
             manager.OfficeInsert(office);
+
 
             CacheNinja cache = new CacheNinja();
             cache.ClearCache("Office_GetAll");
 
             return RedirectToAction("Index");
         }
-
         [HttpGet]
         public ActionResult Edit(int id)
         {

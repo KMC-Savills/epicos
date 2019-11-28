@@ -1,0 +1,87 @@
+﻿@model IEnumerable<EpicOS.Models.Entities.Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<br />
+<h2>Book Now!</h2>
+  <a asp-action="InsertBook" class="btn btn-primary">Add Book</a>
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th class="hidden">
+                @Html.DisplayNameFor(model => model.ID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkpointID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FloorID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.OfficeID)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckIn)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CheckOut)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsActive)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsDeleted)
+            </th>
+            <th>
+                Actions
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            using(Html.BeginForm("Delete", "AddBook", new { id = item.ID }))
+            {      <tr>
+                    <td class="hidden">
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WorkpointID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FloorID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.OfficeID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CheckIn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CheckOut)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsDeleted)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Update", "EditBook", new { id = item.ID }, new { @class = "btn btn-warning" }) |
+                        @*@Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })*@
+
+                        <input type="submit" value="Delete" class="btn btn-danger" onclick="return confirm('You are about to delete this! Continue?')"/>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>

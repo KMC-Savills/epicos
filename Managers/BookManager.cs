@@ -9,18 +9,18 @@ namespace EpicOS.Managers
 {
     public class BookManager : BaseManager
     {
-        private BookRepository book;
+        private BookRepository bookRepo;
 
         public BookManager()
         {
-            this.book = new BookRepository();
+            this.bookRepo = new BookRepository();
         }
         public List<Book> GetAll()
         {
             List<Book> books = cacheNinja.cache["Book_GetAll"] as List<Book>;
             if (books == null)
             {
-                books = book.GetAll();
+                books = bookRepo.GetAll();
                 cacheNinja.cache.Set("Book_GetAll", books, cacheNinja.cacheExpiry);
             }
             return books;
@@ -32,12 +32,23 @@ namespace EpicOS.Managers
 
         public Result Insert(Book parameter)
         {
-            return book.Insert(parameter);
+            return bookRepo.Insert(parameter);
         }
 
         public Result Update(Book parameter)
         {
-            return book.Update(parameter);
+            return bookRepo.Update(parameter);
+        }
+        public Result Delete(int id)
+        {
+            Book item = bookRepo.GetByID(id);
+            item.IsDeleted = true;
+            Result sub = bookRepo.Update(item);
+            if (sub.IsSuccess)
+            {
+                cacheNinja.ClearCache("Book_GetAll");
+            }
+            return sub;
         }
     }
 }

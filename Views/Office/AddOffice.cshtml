@@ -1,0 +1,253 @@
+﻿@model EpicOS.Models.Entities.Office
+
+
+<div class="container">
+    <form asp-action="AddOffice" onsubmit="return valSelect();" id="sel" class="val">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-12 col-sm-8 col-md-12">
+
+                    </div>
+                    <div class="col-12 col-sm-8 col-md-12">
+                        <h4 class="font-weight-bold float-left">Add Office Details</h4>
+                        <a class="btn btn-secondary float-right" asp-action="Index">Back to List</a>
+
+                        <button type="submit" class="btn btn-primary float-right sub-btn">Submit</button>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-sm-8 col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Name">Office Name</label>
+                            <input asp-for="Name" type="text" class="form-control name-val" required>
+                            <div class="invalid-feedback">Office name is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-sm-8 col-md-12">
+                        <div class="form-group">
+                            <label asp-for="Address">Address</label>
+                            <input asp-for="Address" type="text" class="form-control" required>
+                            <div class="invalid-feedback">Address is required.</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 col-sm-4 col-md-3">
+                        <label asp-for="CityID">City</label>
+                        <select asp-for="CityID" class="form-control">
+                            <option value="Select">Select City:</option>
+                            <option value="1">Manila</option>
+                            <option value="2">Caloocan</option>
+                            <option value="3">Pasay</option>
+                            <option value="4">Quezon City</option>
+                            <option value="5">Las Piñas</option>
+                            <option value="6">Makati</option>
+                            <option value="7">Malabon</option>
+                            <option value="8">Mandaluyong</option>
+                            <option value="9">Marikina</option>
+                            <option value="10">Muntinlupa</option>
+                            <option value="11">Navotas</option>
+                            <option value="12">Parañaque</option>
+                            <option value="13">Pasig</option>
+                            <option value="14">San Juan</option>
+                            <option value="15">Taguig</option>
+                            <option value="16">Valenzuela</option>
+                            <option value="17">Lamitan</option>
+                            <option value="18">Marawi</option>
+                            <option value="19">Baguio</option>
+                            <option value="20">Tabuk</option>
+                            <option value="21">Batac</option>
+                            <option value="22">Laoag</option>
+                            <option value="23">Candon</option>
+                            <option value="24">Vigan</option>
+                            <option value="25">San Fernando</option>
+                            <option value="26">Alaminos</option>
+                            <option value="27">Dagupan</option>
+                            <option value="28">San Carlos</option>
+                            <option value="29">Urdaneta</option>
+                            <option value="30">Tuguegarao</option>
+                            <option value="31">Cauayan</option>
+                            <option value="32">Ilagan</option>
+                            <option value="33">Santiago</option>
+                            <option value="34">Balanga</option>
+                            <option value="35">Malolos</option>
+                            <option value="36">Meycauayan</option>
+                            <option value="37">San Jose del Monte</option>
+                            <option value="38">Cabanatuan</option>
+                            <option value="39">Gapan</option>
+                            <option value="40">Muñoz</option>
+                            <option value="41">Palayan</option>
+                            <option value="42">San Jose</option>
+                            <option value="43">Angeles</option>
+                            <option value="44">Mabalacat</option>
+                            <option value="45">San Fernando</option>
+                            <option value="46">Tarlac City</option>
+                            <option value="47">Olongapo</option>
+                            <option value="48">Batangas City</option>
+                            <option value="49">Lipa</option>
+                            <option value="50">Tanauan</option>
+                            <option value="51">Bacoor</option>
+                            <option value="52">Cavite City</option>
+                            <option value="53">Dasmariñas</option>
+                            <option value="54">Imus</option>
+                            <option value="55">Tagaytay</option>
+                            <option value="56">Trece Martires</option>
+                            <option value="57">Biñan</option>
+                            <option value="58">Cabuyao</option>
+                            <option value="59">Calamba</option>
+                            <option value="60">San Pablo</option>
+                            <option value="61">Santa Rosa</option>
+                            <option value="62">Lucena</option>
+                            <option value="63">Tayabas</option>
+                            <option value="64">Antipolo</option>
+                            <option value="65">Calapan</option>
+                            <option value="66">Puerto Princesa</option>
+                            <option value="67">Legazpi</option>
+                            <option value="68">Ligao</option>
+                            <option value="69">Tabaco</option>
+                            <option value="70">Iriga</option>
+                            <option value="71">Naga</option>
+                            <option value="72">Masbate City</option>
+                            <option value="73">Sorsogon City</option>
+                            <option value="74">Roxas</option>
+                            <option value="75">Iloilo City</option>
+                            <option value="76">Passi</option>
+                            <option value="77">Bacolod</option>
+                            <option value="78">Bago</option>
+                            <option value="79">Cadiz</option>
+                            <option value="80">Escalante</option>
+                            <option value="81">Himamaylan</option>
+                            <option value="82">Kabankalan</option>
+                            <option value="83">La Carlota</option>
+                            <option value="84">Sagay</option>
+                            <option value="85">San Carlos</option>
+                            <option value="86">Silay</option>
+                            <option value="87">Sipalay</option>
+                            <option value="88">Talisay</option>
+                            <option value="89">Victorias</option>
+                            <option value="90">Tagbilaran</option>
+                            <option value="91">Bogo</option>
+                            <option value="92">Carcar</option>
+                            <option value="93">Cebu City</option>
+                            <option value="94">Danao</option>
+                            <option value="95">Lapu-Lapu</option>
+                            <option value="96">Mandaue</option>
+                            <option value="97">Naga</option>
+                            <option value="98">Talisay</option>
+                            <option value="99">Toledo</option>
+                            <option value="100">Bais</option>
+                            <option value="101">Bayawan</option>
+                            <option value="102">Canlaon</option>
+                            <option value="103">Dumaguete</option>
+                            <option value="104">Guihulngan</option>
+                            <option value="105">Tanjay</option>
+                            <option value="106">Borongan</option>
+                            <option value="107">Baybay</option>
+                            <option value="108">Ormoc</option>
+                            <option value="109">Tacloban</option>
+                            <option value="110">Calbayog</option>
+                            <option value="111">Catbalogan</option>
+                            <option value="112">Maasin</option>
+                            <option value="113">Isabela</option>
+                            <option value="114">Dapitan</option>
+                            <option value="115">Dipolog</option>
+                            <option value="116">Pagadian</option>
+                            <option value="117">Zamboanga City</option>
+                            <option value="118">Malaybalay</option>
+                            <option value="119">Valencia</option>
+                            <option value="120">Iligan</option>
+                            <option value="121">Oroquieta</option>
+                            <option value="122">Ozamiz</option>
+                            <option value="123">Tangub</option>
+                            <option value="124">Cagayan de Oro</option>
+                            <option value="125">El Salvador</option>
+                            <option value="126">Gingoog</option>
+                            <option value="127">Panabo</option>
+                            <option value="128">Samal</option>
+                            <option value="129">Tagum</option>
+                            <option value="130">Davao City</option>
+                            <option value="131">Digos</option>
+                            <option value="132">Mati</option>
+                            <option value="133">Kidapawan</option>
+                            <option value="134">Cotabato City</option>
+                            <option value="135">General Santos</option>
+                            <option value="136">Koronadal</option>
+                            <option value="137">Tacurong</option>
+                            <option value="138">Butuan</option>
+                            <option value="139">Cabadbaran</option>
+                            <option value="140">Bayugan</option>
+                            <option value="141">Surigao City</option>
+                            <option value="142">Bislig</option>
+                            <option value="143">Tandag</option>
+                            <option value="144">Boracay</option>
+                            <option value="145">Zambales</option>
+                            <option value="146">Sta Rosa</option>
+                            <option value="147">Sinandigan</option>
+                            <option value="148">San Juan</option>
+                            <option value="149">Rizal</option>
+                            <option value="150">Pangasinan</option>
+                            <option value="151">Mindoro</option>
+                            <option value="152">Eton City</option>
+                            <option value="153">Angono</option>
+                            <option value="154">Albay</option>
+                        </select>
+
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-2">
+                        <label asp-for="Latitude">Latitude</label>
+                        <input asp-for="Latitude" type="text" class="form-control" required>
+                        <div class="invalid-feedback">Latitude is required.</div>
+                    </div>
+
+                    <div class="col-12 col-sm-6 col-md-2">
+                        <label asp-for="Longitude">Longitude</label>
+                        <input asp-for="Longitude" type="text" class="form-control" required>
+                        <div class="invalid-feedback">Longitude is required.</div>
+                    </div>
+
+                    <div class="col-6 col-sm-6 col-md-4">
+                        <div id="map"></div>
+                    </div>
+
+                </div>
+                <hr />
+                @*<div class="row">
+                    <div class="col-12 col-sm-4 col-md-4">
+                        <input type="file" class="form-control" id="file" onchange="fileValidation()">
+                    </div>
+                    <div class="col-7">
+                        <div id="imagePreview"></div>
+                    </div>
+                </div>*@
+
+
+                <div class="row" hidden>
+                    <div class="form-check">
+                        <div class="col">
+                            <input asp-for="IsActive" type="checkbox" class="form-check-input" checked>
+                            <label asp-for="IsActive" class="form-check-label">IsActive</label>
+                        </div>
+                        <div class="col">
+                            <input asp-for="IsDeleted" type="checkbox" class="form-check-input" disabled>
+                            <label asp-for="IsDeleted" class="form-check-label">IsDeleted</label>
+                        </div>
+                    </div>
+                </div>
+                <hr />
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts
+{
+    <script src="~/js/track.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsyB1N3HPmTmg4aFJwPLv6uvqxEYtl9X8&callback=initMap" async defer></script>
+}
