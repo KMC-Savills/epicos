@@ -24,20 +24,20 @@ namespace EpicOS.Controllers
             return View(manager.OfficeGetAll());
         }
 
-        public ActionResult Details(Office office)
+        [HttpGet]
+        public ActionResult GetOfficeId(string id)
         {
-            /*OfficeRepository officeRepo = new OfficeRepository();
+            ViewBag.CaseId = id;
+            return View();
+        }
+
+        public ActionResult Details(int id)
+        {
+            OfficeRepository officeRepo = new OfficeRepository();
             Office office = officeRepo.OfficeGetByID(id);
 
             OfficeManager manager = new OfficeManager();
-
             manager.OfficeUpdate(office);
-
-            return View(office);*/
-            OfficeManager manager = new OfficeManager();
-
-            manager.OfficeGetByID(office.ID);
-
             return View(office);
         }
 
