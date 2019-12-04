@@ -64,7 +64,7 @@ namespace EpicOS
             app.UseCors(AllowedSpecificOrigins);
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            //app.UseCookiePolicy();
 
             app.UseMvc(routes =>
             {

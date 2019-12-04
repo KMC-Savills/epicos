@@ -138,7 +138,6 @@ b:hover {
 }
 /* Form */
 form input[type="text"], form input[type="password"], form input[type="color"], form input[type="date"], form input[type="datetime"], form input[type="datetime-local"], form input[type="email"], form input[type="month"], form input[type="number"], form input[type="password"], form input[type="search"], form input[type="tel"], form input[type="text"], form input[type="time"], form input[type="url"], form input[type="week"], form input[type="file"], form select, form textarea {
-	border: 1px solid #333;
 	border-image: none;
 	border-radius: 2px;
 	box-shadow: 1px 1px 0 #eee inset;

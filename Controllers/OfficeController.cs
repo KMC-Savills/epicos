@@ -9,6 +9,8 @@ using EpicOS.Repository;
 using EpicOS.Helpers;
 using System.IO;
 using Microsoft.AspNetCore.Http;
+using EpicOS.Models.ViewModel;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace EpicOS.Controllers
 {
@@ -18,6 +20,14 @@ namespace EpicOS.Controllers
         {
             OfficeManager manager = new OfficeManager();
             return View(manager.OfficeGetAll());
+        }
+        public void ReadyContextForView(int id = 0)
+        {
+            DropDownManager ddManager = new DropDownManager();
+            OfficeManager officeManager = new OfficeManager();
+            OfficeViewModel context = new OfficeViewModel();
+            context.ListOfCities = ddManager.CityDropDown();
+            ViewBag.Context = context;
         }
 
         public IActionResult OfficeList()
@@ -46,7 +56,8 @@ namespace EpicOS.Controllers
         [HttpGet]
         public ActionResult AddOffice()
         {
-            return View();
+            //return View();
+            return View(DefaultValueListing());
         }
 
         [HttpPost]
@@ -55,6 +66,8 @@ namespace EpicOS.Controllers
             OfficeManager manager = new OfficeManager();
             manager.OfficeInsert(office);
 
+            //LocationManager locationManager = new LocationManager();
+            //locationManager.CityGetAll();
 
             CacheNinja cache = new CacheNinja();
             cache.ClearCache("Office_GetAll");
@@ -64,12 +77,10 @@ namespace EpicOS.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            OfficeRepository officeRepo = new OfficeRepository();
-            Office office = officeRepo.OfficeGetByID(id);
-
             OfficeManager manager = new OfficeManager();
-            manager.OfficeUpdate(office);
-            return View(office);
+            var model = manager.OfficeGetByID(id);
+            ReadyContextForView(id);
+            return View(model);
         }
 
         [HttpPost]
@@ -90,6 +101,24 @@ namespace EpicOS.Controllers
             OfficeManager manager = new OfficeManager();
             manager.Delete(Id);
             return RedirectToAction("Index");
+        }
+        public OfficeViewModel DefaultValueListing()
+        {
+            var defaultDate = DateTime.UtcNow;
+            OfficeViewModel model = new OfficeViewModel();
+            model.Latitude = 14.5477349;
+            model.Longitude = 121.04621500000007;
+            DropDownManager dropDownManager = new DropDownManager();
+            model.ListOfCities = dropDownManager.CityDropDown();
+            return model;
+        }
+
+        public OfficeViewModel EditDefaultCityList(int id)
+        {
+            OfficeViewModel model = new OfficeViewModel();
+            DropDownManager dropDownManager = new DropDownManager();
+            model.ListOfCities = dropDownManager.CityDropDown();
+            return model;
         }
     }
 }

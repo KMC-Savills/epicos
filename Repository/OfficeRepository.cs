@@ -64,16 +64,16 @@ namespace EpicOS.Repository
             return result;
         }
 
-        internal List<Company> CompanyGetAll() 
+        internal List<Company> CompanyGetAll()
         {
             List<Company> result = new List<Company>();
 
             var reader = dbConnection.Select("usp_Company_GetAll", null, CommandType.StoredProcedure);
-            if (reader != null) 
+            if (reader != null)
             {
-                if (reader.Rows.Count > 0) 
+                if (reader.Rows.Count > 0)
                 {
-                    foreach (DataRow row in reader.Rows) 
+                    foreach (DataRow row in reader.Rows)
                     {
                         Company item = new Company();
                         item.ID = transform.ToInt(row["ID"]);
@@ -189,13 +189,13 @@ namespace EpicOS.Repository
             return item;
         }
 
-        public Result CompanyInsert(Company parameter) 
+        public Result CompanyInsert(Company parameter)
         {
             var result = dbConnection.Insert("usp_Company_Insert", parameter);
             return result;
         }
 
-        public Result CompanyUpdate(Company parameter) 
+        public Result CompanyUpdate(Company parameter)
         {
             var result = dbConnection.Update("usp_Company_Update", parameter);
             return result;

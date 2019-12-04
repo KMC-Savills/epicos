@@ -16,3 +16,8 @@ form {
     height: 350px;
     width: 400px;
 }
+span
+{
+    color: red;
+    font-family: Arial;
+}
