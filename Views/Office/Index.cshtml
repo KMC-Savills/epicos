@@ -2,85 +2,66 @@
 
 @{
     ViewData["Title"] = "Index";
+    var mainOffice = Model.FirstOrDefault();
+    var json = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
 }
 
-<h2>Office Infos</h2>
+<link rel="stylesheet" type="text/css" href="~/css/Office/Office-stylesheet.css" />
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="~/js/Office/Office-Script.js" async defer></script>
 
-<p>
-    <a asp-action="AddOffice" class="btn btn-primary">Create New</a>
-</p>
-<table class="table table-striped table-bordered">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CityID)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Latitude)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Longitude)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Filename)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsDeleted)
-            </th>
-            <th>Update</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CityID)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Latitude)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Longitude)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Filename)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsActive)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsDeleted)
-                </td>
-                <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = item.ID })
-                </td>
-                <td>
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { onclick = "return confirm('Are you sure you wish to delete this data?');" })
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2dS9tcUGxQmLovtBlRatCcoeISFEtbXk&callback=initMap">
+</script>
+
+<input type="hidden" id="GPSLat" value="@mainOffice.Latitude" />
+<input type="hidden" id="GPSLon" value="@mainOffice.Longitude" />
+<input type="hidden" id="Buildings" value="@json" />
+
+<h2>Index</h2>
+
+<div class="container">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="btn-toolbar">
+                <div class="btn col-3 col-lg-3">
+                    <a asp-action="Create" class="btn btn-primary">Create New</a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-8 col-xs-12 col-sm-12 col-md-8 col-lg-8">
+                @foreach (var item in Model)
+                {
+                    <div class="card col-xs-12 col-sm-4 col-lg-4 col-md-4">
+                        <a href="/Office/Details/@item.ID" class="office-item" onmouseover="centerMap(@item.Latitude, @item.Longitude)">
+                            <img id="image" src="~/images/Office/building.jpeg" alt="" class="img-rounded" />
+                            <div class="card-body centered">
+                                <div class="row">
+                                    <div class="overlay position-fixed" id="icon-delete">
+                                        @Html.ActionLink("", "Delete", new { id = item.ID }, new { @class = "btn glyphicon glyphicon-trash" })
+                                        @Html.ActionLink("", "Edit", new { id = item.ID }, new { @class = "btn glyphicon glyphicon-edit" })
+                                    </div>
+                                </div>
+                                <div class="justify-content-md-center">
+                                    <div class="text-wrap position-fixed" style="width: 15rem;">
+                                        <h4 id="officeDet">
+                                            <label style="color:aqua">@Html.DisplayFor(modelItem => item.Name)</label>
+                                            <br />
+                                            <label>@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.CityID)</label>
+                                           
+                                        </h4>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+            <div class="col-4 col-xs-12 col-sm-12 col-md-12 col-lg-4 ">
+                <div class="h-100 d-inline-block" id="map"></div>
+            </div>
+        </div>
+    </div>
+
+</div>
