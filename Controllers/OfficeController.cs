@@ -54,14 +54,14 @@ namespace EpicOS.Controllers
         }
 
         [HttpGet]
-        public ActionResult AddOffice()
+        public ActionResult Add()
         {
             //return View();
             return View(DefaultValueListing());
         }
 
         [HttpPost]
-        public ActionResult AddOffice(Office office)
+        public ActionResult Add(Office office)
         {
             OfficeManager manager = new OfficeManager();
             manager.OfficeInsert(office);

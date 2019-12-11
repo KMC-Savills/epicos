@@ -17,7 +17,9 @@ namespace EpicOS.Helpers
 
         public DatabaseConnection()
         {
-            this.connectionString = "data source=SUNL-HS9S0P2\\SQLEXPRESS;initial catalog=EpicOS;Integrated Security=SSPI;";
+            //this.connectionString = "data source=SUNL-HS9S0P2\\SQLEXPRESS;initial catalog=EpicOS;Integrated Security=SSPI;";
+            this.connectionString = "data source=SUNL-1GT8NV2\\CHAOS;initial catalog=EpicOS;user id=sa;password=Love2eat;";
+            //this.connectionString = "Data Source= localhost;Initial Catalog=EpicOS;user=sa;password=8Waystop";
         }
 
         public Result Insert(string _query, Object entityParameter = null, CommandType commandType = CommandType.StoredProcedure)

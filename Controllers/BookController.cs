@@ -12,7 +12,7 @@ using System.Data.SqlClient;
 
 namespace EpicOS.Controllers
 {
-    public class AddBookController : Controller
+    public class BookController : Controller
     {
         public IActionResult Index()
         {
@@ -27,17 +27,6 @@ namespace EpicOS.Controllers
         [HttpPost]
         public IActionResult InsertBook(Book book)
         {
-            //FieldTransformer transform = new FieldTransformer();
-            //Book newBook = new Book();
-            //newBook.UserID = transform.ToInt(book.UserID);
-            //newBook.WorkpointID = transform.ToInt(book.WorkpointID);
-            //newBook.FloorID = transform.ToInt(book.FloorID);
-            //newBook.OfficeID = transform.ToInt(book.OfficeID);
-            //newBook.CheckIn = transform.ToDateTime(book.CheckIn);
-            //newBook.CheckOut = transform.ToDateTime(book.CheckOut);
-            //newBook.IsActive = transform.ToBool(book.IsActive);
-            //newBook.IsDeleted = transform.ToBool(book.IsDeleted);
-
             BookManager bookManager = new BookManager();
             bookManager.Insert(book);
 
@@ -62,18 +51,6 @@ namespace EpicOS.Controllers
         [HttpPost]
         public IActionResult EditBook(Book book)
         {
-            //FieldTransformer transform = new FieldTransformer();
-            //BookRepository bookRepository = new BookRepository();
-            //Book newBook = bookRepository.GetByID(book.ID);
-            //newBook.UserID = transform.ToInt(book.UserID);
-            //newBook.WorkpointID = transform.ToInt(book.WorkpointID);
-            //newBook.FloorID = transform.ToInt(book.FloorID);
-            //newBook.OfficeID = transform.ToInt(book.OfficeID);
-            //newBook.CheckIn = transform.ToDateTime(book.CheckIn);
-            //newBook.CheckOut = transform.ToDateTime(book.CheckOut);
-            //newBook.IsActive = transform.ToBool(book.IsActive);
-            //newBook.IsDeleted = transform.ToBool(book.IsDeleted);
-
             BookManager manager = new BookManager();
             manager.Update(book);
 
