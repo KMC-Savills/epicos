@@ -71,7 +71,7 @@ namespace EpicOS.Repository
             return result;
         }
 
-        internal List<Telemery> TelemeryGetFilter() 
+        internal List<Telemery> TelemeryGetAll() 
         {
             var result = new List<Telemery>();
 
@@ -103,7 +103,7 @@ namespace EpicOS.Repository
         {
             var result = new List<Telemery>();
 
-            var reader = dbConnection.Select("usp_Telemetry_GetAll", parameter, CommandType.StoredProcedure);
+            var reader = dbConnection.Select("usp_Telemery_GetFilter", parameter, CommandType.StoredProcedure);
             if (reader != null)
             {
                 if (reader.Rows.Count > 0)

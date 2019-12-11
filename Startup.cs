@@ -38,7 +38,8 @@ namespace EpicOS
                 options.AddPolicy(AllowedSpecificOrigins,
                 builder =>
                 {
-                    builder.WithOrigins("http://192.168.10.28:86",
+                    builder.WithOrigins("https://localhost:44333",
+                                        "http://192.168.10.28:86",
                                         "https://kmcmaggroup.com",
                                         "https://www.kmcmaggroup.com");
                 });

@@ -16,9 +16,10 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        
+        @*<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />*@
+        <link href="~/css/front.css" rel="stylesheet" />
     </environment>
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     <section id="header">
@@ -40,10 +41,10 @@
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
+        @*<hr />
         <footer id="footer-main">
             <p>&copy; 2019 - EpicOS</p>
-        </footer>
+        </footer>*@
     </div>
 
     <environment include="Development">

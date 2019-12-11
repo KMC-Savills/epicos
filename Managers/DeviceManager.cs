@@ -35,7 +35,7 @@ namespace EpicOS.Managers
             if (hubs == null)
             {
                 hubs = deviceRepository.HubGetAll();
-                cacheNinja.cache.Set("Workpoint_GetAll", hubs, cacheNinja.cacheExpiry);
+                cacheNinja.cache.Set("Hub_GetAll", hubs, cacheNinja.cacheExpiry);
             }
             return hubs;
         }
@@ -45,21 +45,15 @@ namespace EpicOS.Managers
             List<Telemery> telemetry = cacheNinja.cache["Telemetry_GetAll"] as List<Telemery>;
             if (telemetry == null)
             {
-                telemetry = deviceRepository.TelemeryGetFilter();
-                cacheNinja.cache.Set("Workpoint_GetAll", telemetry, cacheNinja.cacheExpiry);
+                telemetry = deviceRepository.TelemeryGetAll();
+                cacheNinja.cache.Set("Telemery_GetAll", telemetry, cacheNinja.cacheExpiry);
             }
             return telemetry;
         }
 
         public List<Telemery> TelemeryGetFilter(TelemeryFilter parameter)
         {
-            List<Telemery> telemetry = cacheNinja.cache["Telemetry_GetAll"] as List<Telemery>;
-            if (telemetry == null)
-            {
-                telemetry = deviceRepository.TelemeryGetFilter();
-                cacheNinja.cache.Set("Workpoint_GetAll", telemetry, cacheNinja.cacheExpiry);
-            }
-            return telemetry;
+            return deviceRepository.TelemeryGetFilter(parameter);
         }
 
         public Hub GetByID(int id)
@@ -69,7 +63,7 @@ namespace EpicOS.Managers
 
         public Hub HubGetByMAC(string MAC)
         {
-            Hub hub = HubGetAll().FirstOrDefault(w => w.MAC.Equals(MAC));
+            Hub hub = HubGetAll().FirstOrDefault(w => w.MAC.ToLower().Equals(MAC.ToLower()));
             return hub;
         }
 
