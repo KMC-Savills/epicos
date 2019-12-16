@@ -22,7 +22,7 @@
 </head>
 <body>
     <section id="header">
-        <div class="container">
+        <div class="">
             <div class="row">
                 <div class="col-xs-12">
                     <nav class="navbar">
@@ -38,7 +38,7 @@
     </section>
     <partial name="_CookieConsentPartial" />
 
-    <div class="container body-content">
+    <div class="">
         @RenderBody()
         <hr />
         <footer id="footer-main">
@@ -48,7 +48,8 @@
 
     <environment include="Development">
         <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+        @*<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>*@
+        <script src="~/js/bootstrap.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>

@@ -3,78 +3,85 @@
     ViewData["Title"] = "Edit";
     var context = ViewBag.Context as EpicOS.Models.ViewModel.OfficeViewModel;
 }
-
-    
-<h2>Edit</h2>
-<div class="container">
+<div class="container-fluid">
     <form asp-action="Edit">
-        <div class="card">
-            <div class="card-header">
-                <h2>Edit Office Details</h2>
-            </div>
-            <div class="row">
-                <div class="col-12 col-sm-8 col-md-12">
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-12">
-                                <label asp-for="Name" class="control-label"></label>
-                                <input asp-for="Name" class="form-control" />
-                                <span asp-validation-for="Name" class="text-danger"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Address" class="control-label"></label>
-                            <input asp-for="Address" class="form-control" />
-                            <span asp-validation-for="Address" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="CityID" class="control-label"></label>
-                            @Html.DropDownListFor(Model => Model.CityID, context.ListOfCities, new { @class = "form-control" })
-                            @*<input asp-for="CityID" class="form-control" />*@
-                            <span asp-validation-for="CityID" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Latitude" class="control-label"></label>
-                            <input asp-for="Latitude" class="form-control" />
-                            <span asp-validation-for="Latitude" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label asp-for="Longitude" class="control-label"></label>
-                            <input asp-for="Longitude" class="form-control" />
-                            <span asp-validation-for="Longitude" class="text-danger"></span>
-                        </div>
+        <div class="card-group">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-12 col-sm-8 col-md-12">
+                            <h4 class="font-weight-bold float-left">Edit Office Details</h4>
+                            <a class="btn btn-secondary float-right" asp-action="Index">Back to List</a>
 
-                        <div class="col-12 col-sm-6 col-md-2">
-                            <div id="map"></div>
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label>
-                                    <input asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <input type="submit" value="Save" class="btn btn-default" />
+                            <button type="submit" class="btn btn-primary float-right sub-btn">Update</button>
                         </div>
                     </div>
                 </div>
-            </div>
+                <div class="row">
+                    <div class="col-12 col-sm-8 col-md-12">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-sm-8 col-md-12">
+                                    <label asp-for="Name" class="control-label"></label>
+                                    <input asp-for="Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-8 col-md-12">
+                                    <label asp-for="Address" class="control-label"></label>
+                                    <input asp-for="Address" class="form-control" />
+                                    <span asp-validation-for="Address" class="text-danger"></span>
+                                </div>
+                            </div>
 
+                            <div class="row">
+                                <div class="col-12 col-sm-4 col-md-4">
+                                    <label asp-for="CityID" class="control-label">City</label>
+                                    @Html.DropDownListFor(Model => Model.CityID, context.ListOfCities, new { @class = "form-control" })
+                                    @*<input asp-for="CityID" class="form-control" />*@
+                                    <span asp-validation-for="CityID" class="text-danger"></span>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4">
+                                    <label asp-for="Latitude" class="control-label"></label>
+                                    <input asp-for="Latitude" class="form-control" />
+                                    <span asp-validation-for="Latitude" class="text-danger"></span>
+                                </div>
+                                <div class="col-12 col-sm-6 col-md-4">
+                                    <label asp-for="Longitude" class="control-label"></label>
+                                    <input asp-for="Longitude" class="form-control" />
+                                    <span asp-validation-for="Longitude" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row" hidden>
+                                <div class="form-check">
+                                    <div class="col">
+                                        <input asp-for="IsActive" type="checkbox" class="form-check-input" checked>
+                                        <label asp-for="IsActive" class="form-check-label">IsActive</label>
+                                    </div>
+                                    <div class="col">
+                                        <input asp-for="IsDeleted" type="checkbox" class="form-check-input" disabled>
+                                        <label asp-for="IsDeleted" class="form-check-label">IsDeleted</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="font-weight-bold float-left">Map Location</h4>
+                        <small class="font-weight-bold float-right"><i>*Drag the pin to change location coordinates*</i></small>
+                    </div>
+                    <div class="card-body">
+                        <div id="map"></div>
+                    </div>
+                </div>
+            </div>
         </div>
     </form>
 </div>
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
 @section Scripts
 {
     <script src="~/js/track.js"></script>

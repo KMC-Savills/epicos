@@ -19,7 +19,7 @@ namespace EpicOS.Controllers
         public IActionResult Index()
         {
             OfficeManager manager = new OfficeManager();
-            return View(manager.OfficeGetAll());
+            return View(manager.OfficeExtendedGetAll());
         }
         public void ReadyContextForView(int id = 0)
         {

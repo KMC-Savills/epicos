@@ -1,5 +1,6 @@
 ﻿using EpicOS.Helpers;
 using EpicOS.Models.Entities;
+using EpicOS.Models.ViewModel;
 using EpicOS.Repository;
 using System;
 using System.Collections.Generic;
@@ -26,6 +27,30 @@ namespace EpicOS.Managers
                 cacheNinja.cache.Set("Office_GetAll", offices, cacheNinja.cacheExpiry);
             }
             return offices;
+        }
+        public List<OfficeDetailsViewModel> OfficeExtendedGetAll()
+        {
+            List<OfficeDetailsViewModel> officeDetailsViewModels = new List<OfficeDetailsViewModel>();
+            List<Office> offices = OfficeGetAll();
+            LocationManager locationManager = new LocationManager();
+
+            List<City> cities = locationManager.GetCities();
+            foreach (Office office in offices)
+            {
+                OfficeDetailsViewModel officeItems = new OfficeDetailsViewModel();
+                officeItems.ID = office.ID;
+                officeItems.Name = office.Name;
+                officeItems.Address = office.Address;
+                officeItems.CityID = office.CityID;
+                officeItems.Latitude = office.Latitude;
+                officeItems.Longitude = office.Longitude;
+                officeItems.Filename = office.Filename;
+                officeItems.IsActive = office.IsActive;
+                officeItems.IsDeleted = office.IsDeleted;
+                officeItems.CityName = cities.First(item => item.CityID.Equals(office.CityID)).CityName;
+                officeDetailsViewModels.Add(officeItems);
+            }
+            return officeDetailsViewModels;
         }
 
         public List<Floor> FloorGetAll()

@@ -1,84 +1,79 @@
 ﻿@model EpicOS.Models.ViewModel.OfficeViewModel
 
-<div class="container">
-    <form asp-action="AddOffice">
-        <div class="card">
-            <div class="card-header">
-                <div class="row">
-                    <div class="col-12 col-sm-8 col-md-12">
-                        <h4 class="font-weight-bold float-left">Add Office Details</h4>
-                        <a class="btn btn-secondary float-right" asp-action="Index">Back to List</a>
+<div class="container-fluid">
+    <form asp-action="Add">
+        <div class="card-group">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-12 col-sm-8 col-md-12">
+                            <h4 class="font-weight-bold float-left">Add Office Details</h4>
+                            <a class="btn btn-secondary float-right" asp-action="Index">Back to List</a>
 
-                        <button type="submit" class="btn btn-primary float-right sub-btn">Submit</button>
-                    </div>
-                </div>
-            </div>
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-12 col-sm-8 col-md-12">
-                        <div class="form-group">
-                            <label asp-for="Name">Office Name</label>
-                            <input asp-for="Name" type="text" class="form-control">
-                            <span asp-validation-for="Name"></span>
+                            <button type="submit" class="btn btn-primary float-right sub-btn">Submit</button>
                         </div>
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="col-12 col-sm-8 col-md-12">
-                        <div class="form-group">
-                            <label asp-for="Address">Address</label>
-                            <input asp-for="Address" type="text" class="form-control">
-                            <span asp-validation-for="Address"></span>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-sm-8 col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Name">Office Name</label>
+                                <input asp-for="Name" type="text" class="form-control">
+                                <span asp-validation-for="Name"></span>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="row">
-                    <div class="col-12 col-sm-4 col-md-3">
-                        <label asp-for="CityID">City</label>
-                        @Html.DropDownListFor(Model => Model.CityID, Model.ListOfCities, new { @class = "form-control" })
-                        <span asp-validation-for="CityID"></span>
-                    </div>
-                    <div class="col-12 col-sm-6 col-md-2">
-                        <label asp-for="Latitude">Latitude</label>
-                        <input asp-for="Latitude" type="text" class="form-control" required>
+                    <div class="row">
+                        <div class="col-12 col-sm-8 col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Address">Address</label>
+                                <input asp-for="Address" type="text" class="form-control">
+                                <span asp-validation-for="Address"></span>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="col-12 col-sm-6 col-md-2">
-                        <label asp-for="Longitude">Longitude</label>
-                        <input asp-for="Longitude" type="text" class="form-control" required>
-                    </div>
-
-                    <div class="col-12 col-sm-6 col-md-2">
-                        <div id="map"></div>
-                    </div>
-
-                </div>
-                <hr />
-                @*<div class="row">
+                    <div class="row">
                         <div class="col-12 col-sm-4 col-md-4">
-                            <input type="file" class="form-control" id="file" onchange="fileValidation()">
+                            <label asp-for="CityID">City</label>
+                            @Html.DropDownListFor(Model => Model.CityID, Model.ListOfCities, new { @class = "form-control" })
+                            <span asp-validation-for="CityID"></span>
                         </div>
-                        <div class="col-7">
-                            <div id="imagePreview"></div>
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <label asp-for="Latitude">Latitude</label>
+                            <input asp-for="Latitude" type="text" class="form-control" required>
                         </div>
-                    </div>*@
 
-
-                <div class="row" hidden>
-                    <div class="form-check">
-                        <div class="col">
-                            <input asp-for="IsActive" type="checkbox" class="form-check-input" checked>
-                            <label asp-for="IsActive" class="form-check-label">IsActive</label>
+                        <div class="col-12 col-sm-6 col-md-4">
+                            <label asp-for="Longitude">Longitude</label>
+                            <input asp-for="Longitude" type="text" class="form-control" required>
                         </div>
-                        <div class="col">
-                            <input asp-for="IsDeleted" type="checkbox" class="form-check-input" disabled>
-                            <label asp-for="IsDeleted" class="form-check-label">IsDeleted</label>
+                    </div>
+                    <div class="row" hidden>
+                        <div class="form-check">
+                            <div class="col">
+                                <input asp-for="IsActive" type="checkbox" class="form-check-input" checked>
+                                <label asp-for="IsActive" class="form-check-label">IsActive</label>
+                            </div>
+                            <div class="col">
+                                <input asp-for="IsDeleted" type="checkbox" class="form-check-input" disabled>
+                                <label asp-for="IsDeleted" class="form-check-label">IsDeleted</label>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <hr />
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="font-weight-bold float-left">Map Location</h4>
+                        <small class="font-weight-bold float-right"><i>*Drag the pin to change location coordinates*</i></small>
+                    </div>
+                    <div class="card-body">
+                        <div id="map"></div>
+
+                    </div>
+                </div>
             </div>
         </div>
     </form>

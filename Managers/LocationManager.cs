@@ -30,7 +30,6 @@ namespace EpicOS.Managers
             return cities;
         }
 
-
         public List<Region> RegionGetAll()
         {
             List<Region> regions = cacheNinja.cache["Region_GetAll"] as List<Region>;

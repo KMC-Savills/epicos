@@ -20,12 +20,12 @@ namespace EpicOS.Controllers
             return View(manager.GetAll());
         }
         [HttpGet]
-        public IActionResult InsertBook()
+        public IActionResult Insert()
         {
             return View();
         }
         [HttpPost]
-        public IActionResult InsertBook(Book book)
+        public IActionResult Insert(Book book)
         {
             BookManager bookManager = new BookManager();
             bookManager.Insert(book);
@@ -35,7 +35,7 @@ namespace EpicOS.Controllers
             return RedirectToAction("Index");
         }
         [HttpGet]
-        public IActionResult EditBook(int id)
+        public IActionResult Edit(int id)
         {
             
             BookRepository bookRepository = new BookRepository();
@@ -49,7 +49,7 @@ namespace EpicOS.Controllers
 
         // AddBook/EditBook
         [HttpPost]
-        public IActionResult EditBook(Book book)
+        public IActionResult Edit(Book book)
         {
             BookManager manager = new BookManager();
             manager.Update(book);

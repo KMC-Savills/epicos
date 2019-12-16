@@ -3,21 +3,44 @@ form {
     margin: 10px;
     padding: 0px 12px;
 }
-#file   
-{
+
+#file {
     padding: 5px;
 }
-.sub-btn
-{
-    margin-right: 20px;
 
+.sub-btn {
+    margin-right: 20px;
 }
+
 #map {
-    height: 350px;
-    width: 400px;
+    height: 400px;
+    width: 100%;
 }
-span
-{
+
+span {
     color: red;
     font-family: Arial;
 }
+
+card {
+    width: 150px;
+}
+
+#image {
+    width: 100% !important;
+    height: 100% !important;
+    border: 5px solid red;
+}
+
+#mainSticky {
+    border: 5px solid red;
+}
+
+#image {
+    opacity: .9;
+    transition: 0.3s;
+}
+
+    #image:hover {
+        transform: scale(.9);
+    }

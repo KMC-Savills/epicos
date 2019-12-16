@@ -44,7 +44,7 @@ namespace EpicOS.Repository
                     {
                         Region item = new Region();
                         item.RegionID = transform.ToInt(row["ID"]);
-                        item.RegionName = row["City Name"].ToString();
+                        item.RegionName = row["Region Name"].ToString();
                         item.Coordinates = row["Coordinates"].ToString();
                         item.IsDeleted = transform.ToBool(row["IsDeleted"]);
                         result.Add(item);
@@ -67,7 +67,7 @@ namespace EpicOS.Repository
                     {
                         SubMarket item = new SubMarket();
                         item.SubMarketID = transform.ToInt(row["ID"]);
-                        item.SubMarketName = row["City Name"].ToString();
+                        item.SubMarketName = row["Submarket Name"].ToString();
                         item.CityID = transform.ToInt(row["CityID"]);
                         item.Country = row["Country"].ToString();
                         result.Add(item);

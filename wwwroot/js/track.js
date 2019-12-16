@@ -11,9 +11,9 @@ var mapOptions;
 var markerOptions;
 
 
-$("#Address").on("focusout", function () {
-    codeAddress($("#Address").val() + ", " + country);
-});
+//$("#Address").on("focusout", function () {
+//    codeAddress($("#Address").val() + ", " + country);
+//});
 
 $("#Latitude").on("focusout", function () {
     refreshCoordinates();
