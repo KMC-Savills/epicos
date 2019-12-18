@@ -6,60 +6,80 @@
     var json = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
 }
 
-<link rel="stylesheet" type="text/css" href="~/css/Office/Office-stylesheet.css" />
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="~/js/Office/Office-Script.js" async defer></script>
 
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2dS9tcUGxQmLovtBlRatCcoeISFEtbXk&callback=initMap">
-</script>
 
 <input type="hidden" id="GPSLat" value="@mainOffice.Latitude" />
 <input type="hidden" id="GPSLon" value="@mainOffice.Longitude" />
 <input type="hidden" id="Buildings" value="@json" />
 
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-3 col-lg-3">
-            <br />
-            <a asp-action="Add" class="btn btn-primary">Add New Office</a>
-        </div>
-    </div>
-    <br />
-    @foreach (var item in Model)
-    {
-        <div class="container-fluid">
+@*<div class="container-fluid">
+
+        <br />
+        @foreach (var item in Model)
+        {
             <div class="row">
-                <div class="col-md-6">
-                    <div class="card-group">
-                        <div class="col-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h5>
-                                        <label style="color: red;">@Html.DisplayFor(modelItem => item.Name)</label>
-                                        <br />
-                                        <small>@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.CityName)</small>
-                                    </h5>
-                                </div>
-
-                                <div class="card-body">
-                                    <a href="/Office/Details/@item.ID" class="office-item" onmouseover="centerMap(@item.Latitude, @item.Longitude)">
-                                        <img id="image" src="~/images/Office/building.jpeg" />
-                                    </a>
-                                </div>
-                            </div>
+                <div class="col-xs-2 col-sm-4 col-md-2 col-lg-2" id="columnCard">
+                    <div class="card">
+                            <h5>
+                                <label style="color: red;">@Html.DisplayFor(modelItem => item.Name)</label>
+                                <br />
+                                <small>@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.CityName)</small>
+                            </h5>
+                            <a href="/Office/Details/@item.ID" class="office-item" onmouseover="centerMap(@item.Latitude, @item.Longitude)">
+                                <img id="image" src="~/images/Office/building.jpeg" />
+                            </a>
                         </div>
-
-
                     </div>
                 </div>
 
                 <div class="col-md-6">
-                    <div id="map"></div>
-                </div>
-            </div>
+                        <div id="map"></div>
+                    </div>
 
+        }
+    </div>*@
+<div class="container-fluid" style="padding: 15px;">
+    <div class="row">
+        <div class="col-3 col-lg-3">
+            <br />
+            <a asp-action="Add" class="btn btn-primary">Add New Office</a>
+            <a href="\Home\">Back to List</a>
         </div>
-
-    }
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-2 col-sm-4 col-md-2 col-lg-8">
+            <div class="row" id="officeList">
+                @foreach (var item in Model)
+                {
+                    <div class="col-xs-2 col-sm-10 col-md-4 col-lg-4">
+                        <div class="card office-item" onmouseover="centerMap(@item.Latitude, @item.Longitude)" data-latitude="@item.Latitude" data-longitude="@item.Longitude" data-id="@item.ID">
+                            <div class="card-header">
+                                <h5>
+                                    <label class="label-info" id="officesName">@Html.DisplayFor(modelItem => item.Name)</label>
+                                    <br />
+                                    
+                                </h5>
+                            </div>
+                            <div class="card-body">
+                                <a href="/Office/Details/@item.ID">
+                                    <img id="image" src="~/images/Office/building.jpeg" />
+                                    <label class="label-address">@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.CityName)</label>
+                                </a>
+                            </div>  
+                            <br />
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col">
+            <div id="map"></div>
+        </div>
+    </div>
 </div>
+@section Scripts
+{
+    <script src="~/js/Office/Office-Script.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2dS9tcUGxQmLovtBlRatCcoeISFEtbXk&callback=initMap" async defer></script>
+}

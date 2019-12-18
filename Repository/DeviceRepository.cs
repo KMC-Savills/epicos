@@ -26,7 +26,7 @@ namespace EpicOS.Repository
                         item.ID = transform.ToInt(row["ID"]);
                         item.Name = row["Name"].ToString();
                         item.MAC = row["MAC"].ToString();
-                        item.IPAddress = row["IPAddress"].ToString();
+                        item.IPaddress = row["IPAddress"].ToString();
                         item.CoordinateX = transform.ToDouble(row["CoordinateX"]);
                         item.CoordinateY = transform.ToDouble(row["CoordinateY"]);
                         item.CoordinateZ = transform.ToDouble(row["CoordinateZ"]);
@@ -58,7 +58,7 @@ namespace EpicOS.Repository
                         item.ID = transform.ToInt(row["ID"]);
                         item.Name = row["Name"].ToString();
                         item.MAC = row["MAC"].ToString();
-                        item.IPAddress = row["IPAddress"].ToString();
+                        item.IPaddress = row["IPAddress"].ToString();
                         item.OfficeID = transform.ToInt(row["OfficeID"]);
                         item.FloorID = transform.ToInt(row["FloorID"]);
                         item.RoomID = transform.ToInt(row["RoomID"]);
@@ -71,7 +71,7 @@ namespace EpicOS.Repository
             return result;
         }
 
-        internal List<Telemery> TelemeryGetFilter() 
+        internal List<Telemery> TelemeryGetAll() 
         {
             var result = new List<Telemery>();
 
@@ -103,7 +103,7 @@ namespace EpicOS.Repository
         {
             var result = new List<Telemery>();
 
-            var reader = dbConnection.Select("usp_Telemetry_GetAll", parameter, CommandType.StoredProcedure);
+            var reader = dbConnection.Select("usp_Telemery_GetFilter", parameter, CommandType.StoredProcedure);
             if (reader != null)
             {
                 if (reader.Rows.Count > 0)
@@ -145,7 +145,7 @@ namespace EpicOS.Repository
                     item.Name = reader.Rows[0]["Name"].ToString();
                     item.DeviceType = transform.ToInt(reader.Rows[0]["DeviceType"]);
                     item.MAC = reader.Rows[0]["Type"].ToString();
-                    item.IPAddress = reader.Rows[0]["OfficeID"].ToString();
+                    item.IPaddress = reader.Rows[0]["OfficeID"].ToString();
                     item.OfficeID = transform.ToInt(reader.Rows[0]["OfficeID"]);
                     item.RoomID = transform.ToInt(reader.Rows[0]["RoomID"]);
                     item.FloorID = transform.ToInt(reader.Rows[0]["FloorID"]);

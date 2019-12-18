@@ -10,6 +10,7 @@ namespace EpicOS.Models.Entities
         public int ID { get; set; }
         public string Name { get; set; }
         public string MAC { get; set; }
-        public string IPAddress { get; set; }
+        public string IPaddress { get; set; }
+        public int Type { get; set; }
     }
 }

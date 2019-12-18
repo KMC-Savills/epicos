@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using EpicOS.Helpers;
 using EpicOS.Managers;
 using EpicOS.Models.Entities;
+using EpicOS.Models.Parameters;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,16 @@ namespace EpicOS.Controllers.API
         {
             OfficeManager manager = new OfficeManager();
             return manager.OfficeGetAll();
+        }
+
+        [HttpPost("/api/device/telemery/list", Name = "Device_Telemery_LatestList")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IEnumerable<Telemery> RequestTelemery(TelemeryFilter filter)
+        {
+            DeviceManager manager = new DeviceManager();
+            return manager.TelemeryGetFilter(filter);
         }
 
 

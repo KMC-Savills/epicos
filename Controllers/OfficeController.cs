@@ -71,7 +71,7 @@ namespace EpicOS.Controllers
 
             CacheNinja cache = new CacheNinja();
             cache.ClearCache("Office_GetAll");
-
+            cache.ClearCache("Workpoint_GetAll");
             return RedirectToAction("Index");
         }
         [HttpGet]

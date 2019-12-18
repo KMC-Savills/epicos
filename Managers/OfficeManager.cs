@@ -2,6 +2,7 @@
 using EpicOS.Models.Entities;
 using EpicOS.Models.ViewModel;
 using EpicOS.Repository;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,6 @@ namespace EpicOS.Managers
     public class OfficeManager : BaseManager
     {
         private OfficeRepository officeRepo;
-
         public OfficeManager()
         {
             this.officeRepo = new OfficeRepository();
@@ -33,7 +33,6 @@ namespace EpicOS.Managers
             List<OfficeDetailsViewModel> officeDetailsViewModels = new List<OfficeDetailsViewModel>();
             List<Office> offices = OfficeGetAll();
             LocationManager locationManager = new LocationManager();
-
             List<City> cities = locationManager.GetCities();
             foreach (Office office in offices)
             {
@@ -137,5 +136,6 @@ namespace EpicOS.Managers
 
             return result;
         }
+        
     }
 }

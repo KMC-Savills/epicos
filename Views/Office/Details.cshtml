@@ -4,151 +4,152 @@
     ViewData["Title"] = "Details";
 }
 <br />
-<div class="card-group">
+<div class="container-fluid">
+    <div class="card-group">
+        <div class="card">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-12 col-sm-8 col-md-12">
+                        <h4 class="font-weight-bold float-left">Office Details</h4>
+                        <a class="btn btn-secondary float-right" asp-action="Index">Back to List</a>
+                        @Html.ActionLink("Delete", "Delete", new { id = Model.ID }, new { @class = "btn btn-danger float-right sub-btn " })
+                        @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary float-right sub-btn " })
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col">
+                        <label class="control-label"> @Html.DisplayNameFor(model => model.Name):</label>
+                        <input disabled value="@Html.DisplayFor(model => model.Name)" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="control-label"> @Html.DisplayNameFor(model => model.Address):</label>
+                        <input disabled value="@Html.DisplayFor(model => model.Address)" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label class="control-label">City</label>
+                        <input disabled value="@Html.DisplayFor(model => model.CityID)" class="form-control" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="Latitude" class="control-label"></label>
+                        <input asp-for="Latitude" class="form-control" disabled />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label asp-for="Longitude" class="control-label"></label>
+                        <input asp-for="Longitude" class="form-control" disabled />
+                    </div>
+                </div>
+
+                <div class="row" hidden>
+                    <div class="form-check">
+                        <div class="col">
+                            <input asp-for="IsActive" type="checkbox" class="form-check-input" checked>
+                            <label asp-for="IsActive" class="form-check-label">IsActive</label>
+                        </div>
+                        <div class="col">
+                            <input asp-for="IsDeleted" type="checkbox" class="form-check-input" disabled>
+                            <label asp-for="IsDeleted" class="form-check-label">IsDeleted</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-body">
+                <div id="map"></div>
+
+            </div>
+        </div>
+    </div>
+
+    <br />
+
     <div class="card">
         <div class="card-header">
             <div class="row">
                 <div class="col-12 col-sm-8 col-md-12">
-                    <h4 class="font-weight-bold float-left">Office Details</h4>
-                    <a class="btn btn-secondary float-right" asp-action="Index">Back to List</a>
-                    @Html.ActionLink("Delete", "Delete", new { id = Model.ID }, new { @class = "btn btn-danger float-right sub-btn " })
-                    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary float-right sub-btn " })
+                    <h4 class="font-weight-bold float-left">Floor Details</h4>
+                    @*<a asp-action="#" class="btn btn-primary float-right">Add Floor</a>*@
+                    <button asp-action="AddFloor" class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal">
+                        Add Floor
+                    </button>
                 </div>
             </div>
         </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col">
-                    <label class="control-label"> @Html.DisplayNameFor(model => model.Name):</label>
-                    <input disabled value="@Html.DisplayFor(model => model.Name)" class="form-control" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label class="control-label"> @Html.DisplayNameFor(model => model.Address):</label>
-                    <input disabled value="@Html.DisplayFor(model => model.Address)" class="form-control" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label class="control-label">City</label>
-                    <input disabled value="@Html.DisplayFor(model => model.CityID)" class="form-control" />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label asp-for="Latitude" class="control-label"></label>
-                    <input asp-for="Latitude" class="form-control" disabled />
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <label asp-for="Longitude" class="control-label"></label>
-                    <input asp-for="Longitude" class="form-control" disabled />
-                </div>
-            </div>
+        <!-- The Modal -->
+        <div class="modal" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
 
-            <div class="row" hidden>
-                <div class="form-check">
-                    <div class="col">
-                        <input asp-for="IsActive" type="checkbox" class="form-check-input" checked>
-                        <label asp-for="IsActive" class="form-check-label">IsActive</label>
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Add Floor Details</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
-                    <div class="col">
-                        <input asp-for="IsDeleted" type="checkbox" class="form-check-input" disabled>
-                        <label asp-for="IsDeleted" class="form-check-label">IsDeleted</label>
+
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        <label>Floor name:</label>
+                        <input type="text" class="form-control" name="Name" />
+                        <label>Add Floor Plan:</label>
+                        <br />
+                        <input type="file">
                     </div>
+
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success">Add</button>
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                    </div>
+
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="card">
         <div class="card-body">
-            <div id="map"></div>
-
+            <table class="card-table table">
+                <thead>
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Workplace</th>
+                        <th scope="col">Owner</th>
+                        <th scope="col">Edit</th>
+                        <th scope="col">Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>jpeg.jpg</td>
+                        <td>Jezreel</td>
+                        <td>TR Dept.</td>
+                        <td>Jezreel</td>
+                        <td>Edit</td>
+                        <td>Delete</td>
+                    </tr>
+                    <tr>
+                        <td>jpeg.jpg</td>
+                        <td>Lance</td>
+                        <td>Marketing Dept.</td>
+                        <td>Jezreel</td>
+                        <td>Edit</td>
+                        <td>Dekete</td>
+                    </tr>
+            </table>
         </div>
     </div>
+
 </div>
-
-<br />
-
-<div class="card">
-    <div class="card-header">
-        <div class="row">
-            <div class="col-12 col-sm-8 col-md-12">
-                <h4 class="font-weight-bold float-left">Floor Details</h4>
-                @*<a asp-action="#" class="btn btn-primary float-right">Add Floor</a>*@
-                <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal">
-                    Add Floor
-                </button>
-            </div>
-        </div>
-    </div>
-    <!-- The Modal -->
-    <div class="modal" id="myModal">
-        <div class="modal-dialog">
-            <div class="modal-content">
-
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Add Floor Details</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <label>Floor name:</label>
-                    <input type="text" class="form-control" name="Name"/>
-                    <label>Add Floor Plan:</label>
-                    <br />
-                    <input type="file">
-                </div>
-
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success">Add</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-
-            </div>
-        </div>
-    </div>
-
-    <div class="card-body">
-        <table class="card-table table">
-            <thead>
-                <tr>
-                    <th scope="col">Image</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Workplace</th>
-                    <th scope="col">Owner</th>
-                    <th scope="col">Edit</th>
-                    <th scope="col">Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>jpeg.jpg</td>
-                    <td>Jezreel</td>
-                    <td>TR Dept.</td>
-                    <td>Jezreel</td>
-                    <td>Edit</td>
-                    <td>Delete</td>
-                </tr>
-                <tr>
-                    <td>jpeg.jpg</td>
-                    <td>Lance</td>
-                    <td>Marketing Dept.</td>
-                    <td>Jezreel</td>
-                    <td>Edit</td>
-                    <td>Dekete</td>
-                </tr>
-        </table>
-    </div>
-</div>
-
-
 
 @section Scripts
 {

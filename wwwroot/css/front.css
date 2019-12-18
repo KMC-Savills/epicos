@@ -13,17 +13,13 @@ form {
 }
 
 #map {
-    height: 400px;
+    height: 600px;
     width: 100%;
 }
 
 span {
     color: red;
     font-family: Arial;
-}
-
-card {
-    width: 150px;
 }
 
 #image {
@@ -41,6 +37,36 @@ card {
     transition: 0.3s;
 }
 
-    #image:hover {
-        transform: scale(.9);
-    }
+#image:hover {
+    transform: scale(.9);
+}
+#columnCard 
+{
+    float: left !important;
+    width: 25%;
+    padding: 0 10px;
+    border: 5px solid red;
+}
+
+.label-info
+{
+    font-size: 18px;
+    color: black;
+    font-weight: bold;
+}
+.label-address
+{
+    font-size: 15px;
+}
+.card {
+    padding: 10px;
+}
+a
+{
+    text-decoration: none;
+    color: black;
+}
+a:hover
+{
+    color: black;
+}

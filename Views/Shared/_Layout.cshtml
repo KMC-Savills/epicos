@@ -16,13 +16,14 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
-        <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
-        
+        @*<link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />*@
+        <link href="~/css/front.css" rel="stylesheet" />
     </environment>
+    @RenderSection("Styles", required: false)
 </head>
 <body>
     <section id="header">
-        <div class="">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-xs-12">
                     <nav class="navbar">
@@ -40,15 +41,14 @@
 
     <div class="">
         @RenderBody()
-        <hr />
+        @*<hr />
         <footer id="footer-main">
             <p>&copy; 2019 - EpicOS</p>
-        </footer>
+        </footer>*@
     </div>
 
     <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        @*<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>*@
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <script src="~/js/bootstrap.min.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>

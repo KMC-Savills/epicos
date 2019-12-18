@@ -1,6 +1,8 @@
 ﻿using EpicOS.Models.Entities;
 using EpicOS.Models.Parameters;
+using EpicOS.Models.ViewModel;
 using EpicOS.Repository;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +20,15 @@ namespace EpicOS.Managers
             this.deviceRepository = new DeviceRepository();
         }
 
+        public enum Type
+        {
+            Sensor = 1,
+            Hub = 2,
+            Laptop = 3,
+            Desktop = 4,
+            Phone = 5,
+            Tablet = 6
+        }
         public List<Workpoint> WorkpointGetAll()
         {
             List<Workpoint> workpoints = cacheNinja.cache["Workpoint_GetAll"] as List<Workpoint>;
@@ -35,7 +46,7 @@ namespace EpicOS.Managers
             if (hubs == null)
             {
                 hubs = deviceRepository.HubGetAll();
-                cacheNinja.cache.Set("Workpoint_GetAll", hubs, cacheNinja.cacheExpiry);
+                cacheNinja.cache.Set("Hub_GetAll", hubs, cacheNinja.cacheExpiry);
             }
             return hubs;
         }
@@ -45,21 +56,15 @@ namespace EpicOS.Managers
             List<Telemery> telemetry = cacheNinja.cache["Telemetry_GetAll"] as List<Telemery>;
             if (telemetry == null)
             {
-                telemetry = deviceRepository.TelemeryGetFilter();
-                cacheNinja.cache.Set("Workpoint_GetAll", telemetry, cacheNinja.cacheExpiry);
+                telemetry = deviceRepository.TelemeryGetAll();
+                cacheNinja.cache.Set("Telemery_GetAll", telemetry, cacheNinja.cacheExpiry);
             }
             return telemetry;
         }
 
         public List<Telemery> TelemeryGetFilter(TelemeryFilter parameter)
         {
-            List<Telemery> telemetry = cacheNinja.cache["Telemetry_GetAll"] as List<Telemery>;
-            if (telemetry == null)
-            {
-                telemetry = deviceRepository.TelemeryGetFilter();
-                cacheNinja.cache.Set("Workpoint_GetAll", telemetry, cacheNinja.cacheExpiry);
-            }
-            return telemetry;
+            return deviceRepository.TelemeryGetFilter(parameter);
         }
 
         public Hub GetByID(int id)
@@ -69,7 +74,7 @@ namespace EpicOS.Managers
 
         public Hub HubGetByMAC(string MAC)
         {
-            Hub hub = HubGetAll().FirstOrDefault(w => w.MAC.Equals(MAC));
+            Hub hub = HubGetAll().FirstOrDefault(w => w.MAC.ToLower().Equals(MAC.ToLower()));
             return hub;
         }
 
@@ -124,7 +129,7 @@ namespace EpicOS.Managers
             {
                 Device x = new Device();
                 x.ID = item.ID;
-                x.IPAddress = item.IPAddress;
+                x.IPaddress = item.IPaddress;
                 x.MAC = item.MAC;
                 x.Name = item.Name;
                 results.Add(x);
@@ -167,6 +172,45 @@ namespace EpicOS.Managers
             Result result = deviceRepository.TelemeryUpdate(telemery);
             return result;
         }
-
+        public List<DeviceViewModel> DeviceGetAll()
+        {
+            OfficeManager officeManager = new OfficeManager();
+            List<DeviceViewModel> deviceViewModels = new List<DeviceViewModel>();
+            List<Workpoint> workpoints = WorkpointGetAll();
+            List<Office> offices = officeManager.OfficeGetAll();
+            List<Hub> hubs = HubGetAll();
+            List<Floor> floors = officeManager.FloorGetAll();
+            foreach (Hub hub in hubs)
+            {
+                DeviceViewModel deviceItems = new DeviceViewModel();
+                deviceItems.ID = hub.ID;
+                deviceItems.Name = hub.Name;
+                deviceItems.Type = 2;
+                deviceItems.MAC = hub.MAC;
+                deviceItems.IPaddress = hub.IPaddress;
+                deviceItems.OfficeID = hub.OfficeID;
+                deviceItems.FloorID = hub.FloorID;
+                deviceItems.RoomID = hub.RoomID;
+                deviceItems.OfficeName = offices.First(item => item.ID.Equals(hub.OfficeID)).Name;
+                deviceItems.Floor = floors.First(item => item.ID.Equals(hub.FloorID)).Name;
+                deviceViewModels.Add(deviceItems);
+            }
+            foreach (Workpoint workpoint in workpoints)
+            {
+                DeviceViewModel deviceItems = new DeviceViewModel();
+                deviceItems.ID = workpoint.ID;
+                deviceItems.Name = workpoint.Name;
+                deviceItems.Type = 1;
+                deviceItems.MAC = workpoint.MAC;
+                deviceItems.IPaddress = workpoint.IPaddress;
+                deviceItems.OfficeID = workpoint.OfficeID;
+                deviceItems.FloorID = workpoint.FloorID;
+                deviceItems.RoomID = workpoint.RoomID;
+                deviceItems.OfficeName = offices.First(item => item.ID.Equals(workpoint.OfficeID)).Name;
+                deviceItems.Floor = floors.First(item => item.ID.Equals(workpoint.FloorID)).Name;
+                deviceViewModels.Add(deviceItems);
+            }
+            return deviceViewModels;
+        }
     }
 }
