@@ -20,10 +20,6 @@ function refreshOccupancy() {
     filter.FloorID = 1;
 
     var parameter = JSON.stringify(filter);
-    //alert(parameter);
-    //$.post(url, filter, function (data) {
-    //    alert(JSON.stringify(data));
-    //});
 
     $.ajax({
         type: "POST",
