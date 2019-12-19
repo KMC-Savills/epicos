@@ -15,5 +15,10 @@ namespace EpicOS.Models.ViewModel
         public string OfficeName { get; set; }
         public string Floor { get; set; }
         public List<SelectListItem> ListOfOffices { get; set; }
+        public List<SelectListItem> ListOfFloors { get; set; }
+        public List<SelectListItem> ListOfDeviceTypes { get; set; }
     }
+   
+
+
 }

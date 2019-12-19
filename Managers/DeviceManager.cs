@@ -19,8 +19,7 @@ namespace EpicOS.Managers
         {
             this.deviceRepository = new DeviceRepository();
         }
-
-        public enum Type
+        public enum DeviceTypes
         {
             Sensor = 1,
             Hub = 2,
@@ -29,6 +28,7 @@ namespace EpicOS.Managers
             Phone = 5,
             Tablet = 6
         }
+
         public List<Workpoint> WorkpointGetAll()
         {
             List<Workpoint> workpoints = cacheNinja.cache["Workpoint_GetAll"] as List<Workpoint>;

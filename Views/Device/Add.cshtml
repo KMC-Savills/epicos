@@ -1,0 +1,54 @@
+﻿@model EpicOS.Models.ViewModel.DeviceViewModel
+@{
+    ViewData["Title"] = "Add";
+}
+
+<div class="container-fluid">
+    <form asp-action="Add">
+
+        <div class="card">
+        <div class="card-header">
+            <h4 class="font-weight-bold float-left">Add Office Details</h4>
+            <a class="btn btn-secondary float-right" asp-action="Index">Back to List</a>
+            <button type="submit" class="btn btn-primary float-right sub-btn">Submit</button>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                <div class="col">
+                    <label>Device</label>
+                    <input asp-for="Name" class="form-control" placeholder="Device Name" />
+                </div>
+                <div class="col">
+                    <label class="control-label">Office Name</label>
+                    @Html.DropDownListFor(Model => Model.OfficeID, Model.ListOfOffices, new { @class = "form-control" })
+                </div>
+                <div class="col">  
+                    <label class="control-label">Floor</label>
+                    @Html.DropDownListFor(Model => Model.FloorID, Model.ListOfFloors, new { @class = "form-control" })
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col" hidden>
+                    <label asp-for="RoomID" class="control-label"></label>
+                    <input asp-for="RoomID" class="form-control" />
+                </div>
+                <div class="col">
+                    <label asp-for="MAC" class="control-label">MAC Address</label>
+                    <input asp-for="MAC" class="form-control" />
+                </div>
+                <div class="col">
+                    <label asp-for="IPaddress" class="control-label">IP Address</label>
+                    <input asp-for="IPaddress" class="form-control" />
+                </div>
+                <div class="col">
+                    <label asp-for="Type" class="control-label"></label>
+                    @Html.DropDownListFor(Model => Model.Type, Model.ListOfDeviceTypes, new { @class = "form-control" })
+                </div>
+            </div>
+        </div>
+</div>
+
+    </form>
+</div>

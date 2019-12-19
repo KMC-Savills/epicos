@@ -6,11 +6,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using EpicOS.Models.Results;
 using EpicOS.Models.Entities;
+using static EpicOS.Managers.DeviceManager;
 
 namespace EpicOS.Managers
 {
     public class DropDownManager : BaseManager
-    { 
+    {
 
         private LocationRepository locationRepository;
         private OfficeManager officeManager;
@@ -26,7 +27,7 @@ namespace EpicOS.Managers
         {
             List<SelectListItem> result = new List<SelectListItem>();
             List<Office> offices = officeManager.OfficeGetAll();
-            foreach(Office office in offices)
+            foreach (Office office in offices)
             {
                 //SelectListItem item = new SelectListItem();
                 //item.Value = office.ID;
@@ -43,9 +44,33 @@ namespace EpicOS.Managers
             List<City> cities = locationManager.GetCities();
             foreach (City city in cities)
             {
-                result.Add(new SelectListItem() { Value = city.CityID.ToString(), Text = city.CityName});
+                result.Add(new SelectListItem() { Value = city.CityID.ToString(), Text = city.CityName });
             }
             return result;
         }
+
+        public List<SelectListItem> FloorDropdown()
+        {
+            List<SelectListItem> result = new List<SelectListItem>();
+            List<Floor> floors = officeManager.FloorGetAll();
+            foreach (Floor floor in floors)
+            {
+                SelectListItem item = new SelectListItem();
+                item.Value = floor.ID.ToString();
+                item.Text = floor.Name;
+                result.Add(item);
+            }
+            return result;
+        }
+        public List<SelectListItem> DeviceTypeDropdown()
+        {
+            List<SelectListItem> result = new List<SelectListItem>();
+            SelectListItem item1 = new SelectListItem() { Value = "1", Text = "Sensor" };
+            SelectListItem item2 = new SelectListItem() { Value = "2", Text = "Hub" };
+            result.Add(item1);
+            result.Add(item2);
+            return result;
+        }
+
     }
 }

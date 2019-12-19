@@ -9,6 +9,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Content Include="Controllers\favicon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="compilerconfig.json" />
   </ItemGroup>
 

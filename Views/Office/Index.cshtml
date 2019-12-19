@@ -12,32 +12,6 @@
 <input type="hidden" id="GPSLon" value="@mainOffice.Longitude" />
 <input type="hidden" id="Buildings" value="@json" />
 
-@*<div class="container-fluid">
-
-        <br />
-        @foreach (var item in Model)
-        {
-            <div class="row">
-                <div class="col-xs-2 col-sm-4 col-md-2 col-lg-2" id="columnCard">
-                    <div class="card">
-                            <h5>
-                                <label style="color: red;">@Html.DisplayFor(modelItem => item.Name)</label>
-                                <br />
-                                <small>@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.CityName)</small>
-                            </h5>
-                            <a href="/Office/Details/@item.ID" class="office-item" onmouseover="centerMap(@item.Latitude, @item.Longitude)">
-                                <img id="image" src="~/images/Office/building.jpeg" />
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                        <div id="map"></div>
-                    </div>
-
-        }
-    </div>*@
 <div class="container-fluid" style="padding: 15px;">
     <div class="row">
         <div class="col-3 col-lg-3">
@@ -52,21 +26,30 @@
             <div class="row" id="officeList">
                 @foreach (var item in Model)
                 {
+                    string filepath = "/uploads/img/office/" + @item.ID + "/" + @item.Filename;
                     <div class="col-xs-2 col-sm-10 col-md-4 col-lg-4">
                         <div class="card office-item" onmouseover="centerMap(@item.Latitude, @item.Longitude)" data-latitude="@item.Latitude" data-longitude="@item.Longitude" data-id="@item.ID">
                             <div class="card-header">
                                 <h5>
                                     <label class="label-info" id="officesName">@Html.DisplayFor(modelItem => item.Name)</label>
                                     <br />
-                                    
+
                                 </h5>
                             </div>
                             <div class="card-body">
                                 <a href="/Office/Details/@item.ID">
-                                    <img id="image" src="~/images/Office/building.jpeg" />
+                                    @if (filepath == null)
+                                    {
+                                        <img id="image" src="~/images/Office/building.jpeg" />
+                                    }
+                                    else
+                                    {
+                                        <img id="image" src="@filepath" />
+                                    }
+
                                     <label class="label-address">@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.CityName)</label>
                                 </a>
-                            </div>  
+                            </div>
                             <br />
                         </div>
                     </div>

@@ -12,5 +12,15 @@ namespace EpicOS.Models.Entities
         public string MAC { get; set; }
         public string IPaddress { get; set; }
         public int Type { get; set; }
+
+        public enum Types
+        {
+            Sensor = 1,
+            Hub = 2,
+            Laptop = 3,
+            Desktop = 4,
+            Phone = 5,
+            Tablet = 6
+        }
     }
 }
