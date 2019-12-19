@@ -11,11 +11,20 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using EpicOS.Models.ViewModel;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Hosting;
 
 namespace EpicOS.Controllers
 {
     public class OfficeController : Controller
     {
+        IHostingEnvironment hosting;
+        private string officeFilePath = "uploads\\img\\office";
+
+        public OfficeController(IHostingEnvironment host)
+        {
+            hosting = host;
+        }
+
         public IActionResult Index()
         {
             OfficeManager manager = new OfficeManager();
@@ -56,24 +65,51 @@ namespace EpicOS.Controllers
         [HttpGet]
         public ActionResult Add()
         {
-            //return View();
             return View(DefaultValueListing());
         }
 
         [HttpPost]
-        public ActionResult Add(Office office)
+        public async Task<ActionResult> Add(Office office)
         {
-            OfficeManager manager = new OfficeManager();
-            manager.OfficeInsert(office);
 
-            //LocationManager locationManager = new LocationManager();
-            //locationManager.CityGetAll();
+            if (ModelState.IsValid)
+            {
+                OfficeManager manager = new OfficeManager();
+                var files = HttpContext.Request.Form.Files;
 
-            CacheNinja cache = new CacheNinja();
-            cache.ClearCache("Office_GetAll");
-            cache.ClearCache("Workpoint_GetAll");
-            return RedirectToAction("Index");
+                Result result = manager.OfficeInsert(office);
+                if (result.IsSuccess)
+                {
+                    foreach (var Image in files)
+                    {
+                        var file = Image;
+                        var uploads = Path.Combine(hosting.WebRootPath, officeFilePath + "\\" + result.ID);
+                        if (!Directory.Exists(uploads))
+                        {
+                            Directory.CreateDirectory(uploads);
+                        }
+                        if (file.Length > 0)
+                        {
+                            var fileName = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(file.FileName);
+                            using (var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create))
+                            {
+                                await file.CopyToAsync(fileStream);
+                                office.Filename = fileName;
+                                office.ID = result.ID;
+                                manager.OfficeUpdate(office);
+                            }
+                        }
+                    }
+                    return RedirectToAction("Index");
+                }
+            }
+            else
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors);
+            }
+            return View();
         }
+
         [HttpGet]
         public ActionResult Edit(int id)
         {

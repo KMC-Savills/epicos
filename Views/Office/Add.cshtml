@@ -1,7 +1,7 @@
 ﻿@model EpicOS.Models.ViewModel.OfficeViewModel
 
 <div class="container-fluid">
-    <form asp-action="Add">
+    <form asp-action="Add" enctype="multipart/form-data">
         <div class="card-group">
             <div class="card">
                 <div class="card-header">
@@ -36,6 +36,15 @@
                     </div>
 
                     <div class="row">
+                        <div class="col-12 col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label asp-for="Filename">Filename</label>
+                                <input asp-for="Filename" type="file" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
                         <div class="col-12 col-sm-4 col-md-4">
                             <label asp-for="CityID">City</label>
                             @Html.DropDownListFor(Model => Model.CityID, Model.ListOfCities, new { @class = "form-control" })
@@ -45,7 +54,6 @@
                             <label asp-for="Latitude">Latitude</label>
                             <input asp-for="Latitude" type="text" class="form-control" required>
                         </div>
-
                         <div class="col-12 col-sm-6 col-md-4">
                             <label asp-for="Longitude">Longitude</label>
                             <input asp-for="Longitude" type="text" class="form-control" required>

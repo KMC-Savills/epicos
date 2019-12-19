@@ -77,12 +77,15 @@ namespace EpicOS.Managers
         public Result OfficeInsert(Office office)
         {
             Result result = officeRepo.OfficeInsert(office);
+            cacheNinja.ClearCache("Office_GetAll");
             return result;
         }
 
         public Result OfficeUpdate(Office parameter)
         {
-            return officeRepo.OfficeUpdate(parameter);
+            Result result = officeRepo.OfficeUpdate(parameter);
+            cacheNinja.ClearCache("Office_GetAll");
+            return result;
         }
 
         public Office OfficeGetByID(int id)
