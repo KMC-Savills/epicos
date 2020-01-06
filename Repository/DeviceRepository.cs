@@ -87,7 +87,7 @@ namespace EpicOS.Repository
                         item.MAC = row["MAC"].ToString();
                         item.IPAddress = row["IPAddress"].ToString();
                         item.DateCreated = transform.ToDateTime(row["DateCreated"]);
-                        item.Battery = row["Battery"].ToString();
+                        item.Battery = Convert.ToBoolean(row["Battery"]);
                         item.HubID = transform.ToInt(row["HubID"]);
                         item.WorkpointID = transform.ToInt(row["WorkpointID"]);
                         item.IsActive = transform.ToBool(row["IsActive"]);
@@ -115,7 +115,7 @@ namespace EpicOS.Repository
                         item.MAC = row["MAC"].ToString();
                         item.IPAddress = row["IPAddress"].ToString();
                         item.DateCreated = transform.ToDateTime(row["DateCreated"]);
-                        item.Battery = row["Battery"].ToString();
+                        item.Battery = Convert.ToBoolean(row["Battery"]);
                         item.HubID = transform.ToInt(row["HubID"]);
                         item.WorkpointID = transform.ToInt(row["WorkpointID"]);
                         item.IsActive = transform.ToBool(row["IsActive"]);
@@ -189,6 +189,12 @@ namespace EpicOS.Repository
         public Result TelemeryUpdate(Telemery parameter)
         {
             var result = dbConnection.Update("usp_Telemery_Update", parameter);
+            return result;
+        }
+
+        public Result LogInsert(Log parameter)
+        {
+            var result = dbConnection.Insert("usp_Log_Insert", parameter);
             return result;
         }
     }

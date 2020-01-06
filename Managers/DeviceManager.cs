@@ -19,6 +19,7 @@ namespace EpicOS.Managers
         {
             this.deviceRepository = new DeviceRepository();
         }
+
         public enum DeviceTypes
         {
             Sensor = 1,
@@ -115,7 +116,7 @@ namespace EpicOS.Managers
                         break;
                 }
             }
-            catch
+            catch (Exception error)
             {
                 result = false;
             }
@@ -158,6 +159,12 @@ namespace EpicOS.Managers
         public Result HubUpdate(Hub hub)
         {
             Result result = deviceRepository.HubUpdate(hub);
+            return result;
+        }
+
+        public Result LogInsert(Log log)
+        {
+            Result result = deviceRepository.LogInsert(log);
             return result;
         }
 
