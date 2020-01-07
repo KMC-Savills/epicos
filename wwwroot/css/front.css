@@ -25,12 +25,9 @@ span {
 #image {
     width: 100% !important;
     height: 100% !important;
-    border: 5px solid red;
+    border: 5px solid gray;
 }
 
-#mainSticky {
-    border: 5px solid red;
-}
 
 #image {
     opacity: .9;

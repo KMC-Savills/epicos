@@ -17,7 +17,7 @@
         <div class="col-3 col-lg-3">
             <br />
             <a asp-action="Add" class="btn btn-primary">Add New Office</a>
-            <a href="\Home\">Back to List</a>
+            <a href="Home">Back to Homepage</a>
         </div>
     </div>
     <br />
@@ -28,7 +28,7 @@
                 {
                     string filepath = "/uploads/img/office/" + @item.ID + "/" + @item.Filename;
                     <div class="col-xs-2 col-sm-10 col-md-4 col-lg-4">
-                        <div class="card office-item" onmouseover="centerMap(@item.Latitude, @item.Longitude)" data-latitude="@item.Latitude" data-longitude="@item.Longitude" data-id="@item.ID">
+                        <div class="card" onmouseover="centerMap(@item.Latitude, @item.Longitude)" data-latitude="@item.Latitude" data-longitude="@item.Longitude" data-id="@item.ID">
                             <div class="card-header">
                                 <h5>
                                     <label class="label-info" id="officesName">@Html.DisplayFor(modelItem => item.Name)</label>
@@ -38,9 +38,12 @@
                             </div>
                             <div class="card-body">
                                 <a href="/Office/Details/@item.ID">
-                                    @if (filepath == null)
+
+                                    @*<img id="image" src="" />*@
+
+                                    @if (item.Filename == "")
                                     {
-                                        <img id="image" src="~/images/Office/building.jpeg" />
+                                        <img id="image" src="~/uploads/img/office/default.jpg" />
                                     }
                                     else
                                     {
@@ -56,8 +59,11 @@
                 }
             </div>
         </div>
+
         <div class="col">
-            <div id="map"></div>
+            <div class="sticky">
+                <div id="map"></div>
+            </div>
         </div>
     </div>
 </div>

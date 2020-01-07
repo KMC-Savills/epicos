@@ -25,35 +25,52 @@ $("#Longitude").on("focusout", function () {
     initMap();
 });
 
-
-function initMap() {
-    map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 17,
-        center: coordinates,
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-    marker = new google.maps.Marker({
-        map: map,
-        draggable: true,
-        animation: google.maps.Animation.DROP,
-        position: coordinates
-    });
-    marker.addListener('click', toggleBounce);
-    marker.addListener('dragend', updateCoordinates);
-    var noPoi = [
-        {
-            featureType: 'poi.business',
-            stylers: [{ visibility: 'off' }]
-        },
-        {
-            featureType: 'transit',
-            elementType: 'labels.icon',
-            stylers: [{ visibility: 'off' }]
-        }
-    ];
-    map.setOptions({ styles: noPoi });
+if (window.location.href.indexOf("Details") > -1) {
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'),
+            {
+                zoom: 17,
+                center: coordinates,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+        marker = new google.maps.Marker({
+            map: map,
+            draggable: false,
+            animation: google.maps.Animation.DROP,
+            position: coordinates
+        });
+    }
 }
+else {
 
+    function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 17,
+            center: coordinates,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+        marker = new google.maps.Marker({
+            map: map,
+            draggable: true,
+            animation: google.maps.Animation.DROP,
+            position: coordinates
+        });
+        marker.addListener('click', toggleBounce);
+        marker.addListener('dragend', updateCoordinates);
+        var noPoi = [
+            {
+                featureType: 'poi.business',
+                stylers: [{ visibility: 'off' }]
+            },
+            {
+                featureType: 'transit',
+                elementType: 'labels.icon',
+                stylers: [{ visibility: 'off' }]
+            }
+        ];
+        map.setOptions({ styles: noPoi });
+    }
+}
 function toggleBounce() {
     if (marker.getAnimation() !== null) {
         marker.setAnimation(null);
