@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EpicOS.Models.Entities.Office>
+﻿@model IEnumerable<EpicOS.Models.ViewModel.OfficeDetailsViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -6,62 +6,81 @@
     var json = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
 }
 
-<link rel="stylesheet" type="text/css" href="~/css/Office/Office-stylesheet.css" />
-<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
-<script src="~/js/Office/Office-Script.js" async defer></script>
-
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2dS9tcUGxQmLovtBlRatCcoeISFEtbXk&callback=initMap">
-</script>
+<script src="~/js/Office/Office-Script.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2dS9tcUGxQmLovtBlRatCcoeISFEtbXk&callback=initMap" async defer></script>
 
 <input type="hidden" id="GPSLat" value="@mainOffice.Latitude" />
 <input type="hidden" id="GPSLon" value="@mainOffice.Longitude" />
 <input type="hidden" id="Buildings" value="@json" />
 
-<h2>Index</h2>
+@*<div class="container-fluid">
 
-<div class="container">
-    <div class="container-fluid">
-        <div class="row">
-            <div class="btn-toolbar">
-                <div class="btn col-3 col-lg-3">
-                    <a asp-action="Create" class="btn btn-primary">Create New</a>
+        <br />
+        @foreach (var item in Model)
+        {
+            <div class="row">
+                <div class="col-xs-2 col-sm-4 col-md-2 col-lg-2" id="columnCard">
+                    <div class="card">
+                            <h5>
+                                <label style="color: red;">@Html.DisplayFor(modelItem => item.Name)</label>
+                                <br />
+                                <small>@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.CityName)</small>
+                            </h5>
+                            <a href="/Office/Details/@item.ID" class="office-item" onmouseover="centerMap(@item.Latitude, @item.Longitude)">
+                                <img id="image" src="~/images/Office/building.jpeg" />
+                            </a>
+                        </div>
+                    </div>
                 </div>
-            </div>
+
+                <div class="col-md-6">
+                        <div id="map"></div>
+                    </div>
+
+        }
+    </div>*@
+<div class="container-fluid" style="padding: 15px;">
+    <div class="row">
+        <div class="col-3 col-lg-3">
+            <br />
+            <a asp-action="Add" class="btn btn-primary">Add New Office</a>
+            <a href="\Home\">Back to List</a>
         </div>
-        <div class="row">
-            <div class="col-8 col-xs-12 col-sm-12 col-md-8 col-lg-8">
+    </div>
+    <br />
+    <div class="row">
+        <div class="col-xs-2 col-sm-4 col-md-2 col-lg-8">
+            <div class="row" id="officeList">
                 @foreach (var item in Model)
                 {
-                    <div class="card col-xs-12 col-sm-4 col-lg-4 col-md-4">
-                        <a href="/Office/Details/@item.ID" class="office-item" onmouseover="centerMap(@item.Latitude, @item.Longitude)">
-                            <img id="image" src="~/images/Office/building.jpeg" alt="" class="img-rounded" />
-                            <div class="card-body centered">
-                                <div class="row">
-                                    <div class="overlay position-fixed" id="icon-delete">
-                                        @Html.ActionLink("", "Delete", new { id = item.ID }, new { @class = "btn glyphicon glyphicon-trash" })
-                                        @Html.ActionLink("", "Edit", new { id = item.ID }, new { @class = "btn glyphicon glyphicon-edit" })
-                                    </div>
-                                </div>
-                                <div class="justify-content-md-center">
-                                    <div class="text-wrap position-fixed" style="width: 15rem;">
-                                        <h4 id="officeDet">
-                                            <label style="color:aqua">@Html.DisplayFor(modelItem => item.Name)</label>
-                                            <br />
-                                            <label>@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.CityID)</label>
-                                           
-                                        </h4>
-                                    </div>
-                                </div>
+                    <div class="col-xs-2 col-sm-10 col-md-4 col-lg-4">
+                        <div class="card office-item" onmouseover="centerMap(@item.Latitude, @item.Longitude)" data-latitude="@item.Latitude" data-longitude="@item.Longitude" data-id="@item.ID">
+                            <div class="card-header">
+                                <h5>
+                                    <label class="label-info" id="officesName">@Html.DisplayFor(modelItem => item.Name)</label>
+                                    <br />
+
+                                </h5>
                             </div>
-                        </a>
+                            <div class="card-body">
+                                <a href="/Office/Details/@item.ID">
+                                    <img id="image" src="~/images/Office/building.jpeg" />
+                                    <label class="label-address">@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.CityName)</label>
+                                </a>
+                            </div>
+                            <br />
+                        </div>
                     </div>
                 }
             </div>
-            <div class="col-4 col-xs-12 col-sm-12 col-md-12 col-lg-4 ">
-                <div class="h-100 d-inline-block" id="map"></div>
-            </div>
+        </div>
+        <div class="col">
+            <div id="map"></div>
         </div>
     </div>
-
 </div>
+@*@section Scripts
+    {
+        <script src="~/js/Office/Office-Script.js"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2dS9tcUGxQmLovtBlRatCcoeISFEtbXk&callback=initMap" async defer></script>
+    }*@
