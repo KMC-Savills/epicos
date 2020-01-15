@@ -34,8 +34,6 @@ namespace EpicOS.Controllers.API
             return manager.TelemeryGetFilter(filter);
         }
 
-
-        // GET: api/Device
         [HttpGet("/api/device/encryptmac", Name = "Device_EncryptMAC")]
         public IEnumerable<string> Get()
         {
@@ -45,7 +43,6 @@ namespace EpicOS.Controllers.API
             //return new string[] { "Please add a parameter", "Parameter is an encoded MAC address" };
         }
 
-        // GET: api/Device/5
         [HttpGet("/api/device/getbyhubmac/{token}", Name = "Device_Sensor_GetByHubMAC")]
         public List<Device> GetSensorByHubMAC(string token)
         {
@@ -98,32 +95,6 @@ namespace EpicOS.Controllers.API
             return BadRequest();
         }
 
-        //[HttpPost("/api/device/telemery/insert", Name = "Device_Telemery_Insert")]
-        //[Consumes(MediaTypeNames.Application.Json)]
-        //[ProducesResponseType(StatusCodes.Status201Created)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public IActionResult CreateTelemery(Telemery parameter)
-        //{
-        //    DeviceManager manager = new DeviceManager();
-        //    if (manager.IsActive(parameter.MAC, 1))
-        //    {
-        //        Workpoint point = manager.WorkpointGetByMAC(parameter.MAC);
-        //        Telemery telemery = new Telemery();
-        //        telemery.MAC = parameter.MAC;
-        //        telemery.IPAddress = parameter.IPAddress;
-        //        telemery.DateCreated = parameter.DateCreated;
-        //        telemery.WorkpointID = point.ID;
-        //        telemery.IsActive = true;
-        //        telemery.IsDeleted = false;
-        //        Result result = manager.TelemeryInsert(telemery);
-        //        if (result.ID > 0)
-        //        {
-        //            return Ok(telemery);
-        //        }
-        //    }
-        //    return BadRequest();
-        //}
-
         [HttpPost("/api/device/telemery/insert", Name = "Device_Telemery_Insert_Batch")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -131,6 +102,7 @@ namespace EpicOS.Controllers.API
         public IActionResult CreateTelemeryByBatch(IEnumerable<Telemery> parameters)
         {
             DeviceManager manager = new DeviceManager();
+            List<Result> results = new List<Result>();
             if (parameters.Count() > 0)
             {
                 foreach (Telemery parameter in parameters)
@@ -138,34 +110,63 @@ namespace EpicOS.Controllers.API
                     if (manager.IsActive(parameter.MAC, 1))
                     {
                         Workpoint point = manager.WorkpointGetByMAC(parameter.MAC);
-                        Telemery telemery = new Telemery();
-                        telemery.MAC = parameter.MAC;
-                        telemery.IPAddress = parameter.IPAddress;
-                        telemery.DateCreated = parameter.DateCreated;
-                        telemery.WorkpointID = point.ID;
-                        telemery.IsActive = true;
-                        telemery.IsDeleted = false;
-                        Result result = manager.TelemeryInsert(telemery);
+                        parameter.WorkpointID = point.ID;
+                        parameter.IsActive = true;
+                        parameter.IsDeleted = false;
+                        Result result = manager.TelemeryInsert(parameter);
                         if (result.ID > 0)
                         {
-                            return Ok(telemery);
+                            results.Add(result);
                         }
                     }
+                }
+                if (results.Count() > 0)
+                {
+                    return Ok(results);
                 }
             }
             return BadRequest();
         }
 
-        // PUT: api/Device/5
+        [HttpPost("/api/device/log/insert", Name = "Device_Log_Insert_Batch")]
+        [Consumes(MediaTypeNames.Application.Json)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public IActionResult CreateLog(IEnumerable<Log> parameters)
+        {
+            DeviceManager manager = new DeviceManager();
+            List<Result> results = new List<Result>();
+            if (parameters.Count() > 0)
+            {
+                foreach (Log parameter in parameters)
+                {
+                    if (manager.IsActive(parameter.MAC, 2))
+                    {
+                        Result result = manager.LogInsert(parameter);
+                        if (result.ID > 0)
+                        {
+                            results.Add(result);
+                        }
+                    }
+                }
+                if (results.Count() > 0)
+                {
+                    return Ok(results);
+                }
+            }
+            return BadRequest();
+        }
+
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
+
         }
 
-        // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
         }
     }
 }

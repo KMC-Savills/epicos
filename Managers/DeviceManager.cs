@@ -19,6 +19,7 @@ namespace EpicOS.Managers
         {
             this.deviceRepository = new DeviceRepository();
         }
+
         public enum DeviceTypes
         {
             Sensor = 1,
@@ -53,7 +54,7 @@ namespace EpicOS.Managers
 
         public List<Telemery> TelemeryGetAll()
         {
-            List<Telemery> telemetry = cacheNinja.cache["Telemetry_GetAll"] as List<Telemery>;
+            List<Telemery> telemetry = cacheNinja.cache["Telemery_GetAll"] as List<Telemery>;
             if (telemetry == null)
             {
                 telemetry = deviceRepository.TelemeryGetAll();
@@ -115,7 +116,7 @@ namespace EpicOS.Managers
                         break;
                 }
             }
-            catch
+            catch (Exception error)
             {
                 result = false;
             }
@@ -161,9 +162,37 @@ namespace EpicOS.Managers
             return result;
         }
 
+        public Result LogInsert(Log log)
+        {
+            Result result = deviceRepository.LogInsert(log);
+            return result;
+        }
+
         public Result TelemeryInsert(Telemery telemery)
         {
-            Result result = deviceRepository.TelemeryInsert(telemery);
+            Result result = new Result();
+            TelemeryFilter filter = new TelemeryFilter();
+            Workpoint point = WorkpointGetByMAC(telemery.MAC);
+            if (point.IsActive)
+            {
+                filter.DateStart = telemery.DateCreated.AddMinutes(-2);
+                filter.DateEnd = telemery.DateCreated.AddMinutes(2);
+                filter.FloorID = point.FloorID;
+                filter.OfficeID = point.OfficeID;
+                List<Telemery> LatestTelemeries = TelemeryGetFilter(filter);
+                if (LatestTelemeries.Count > 0)
+                {
+                    Telemery theOne = LatestTelemeries.Where(t => t.MAC.ToLower().Equals(telemery.MAC.ToLower())).FirstOrDefault();
+                    if (!theOne.IsActive)
+                    {
+                        result = deviceRepository.TelemeryInsert(telemery);
+                    }
+                }
+                else
+                {
+                    result = deviceRepository.TelemeryInsert(telemery);
+                }
+            }
             return result;
         }
 
