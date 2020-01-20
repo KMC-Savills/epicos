@@ -58,6 +58,8 @@ namespace EpicOS.Controllers
         {
             UserManager userManager = new UserManager();
             userManager.Delete(id);
+            CacheNinja cache = new CacheNinja();
+            cache.ClearCache("User_GetAll");
             return RedirectToAction("Index");
         }
     }

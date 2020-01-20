@@ -297,31 +297,6 @@ body {
     text-align: center;
 }
 
-/*.nav-button {
-    padding: 6px 8px 10px 16px;
-    padding: 10px;
-    margin: 10px;
-    margin-bottom: 15px;
-    text-decoration: none;
-    font-size: 18px;
-    background-color: #0a437d;
-    color: white;
-    display: block;
-    box-shadow: 0 5px #888888;
-}
-
-    .nav-button:hover {
-        background-color: #1e6bba;
-        color: white;
-        cursor: pointer;
-        text-decoration: none;
-    }
-
-#side-bar li.active a {
-    box-shadow: none;
-    top: 5px;
-    background-color: red;
-}*/
 
 span {
     color: white;
@@ -336,13 +311,11 @@ li {
 }
 
 ul li a {
+    margin-bottom: 5px;
     padding: 10px;
-    margin: 10px;
     text-decoration: none;
     background-color: #0a437d;
-    color: white;
     display: block;
-    box-shadow: 0 5px darkblue;
     font-weight: bold;
     text-align: left;
 }
@@ -352,12 +325,12 @@ li:hover a {
     background-color: #025dbf;
 }
 
-ul li.active a {
+/*ul li.active a {
     padding: 10px;
     box-shadow: none;
     text-decoration: none;
     background-color: #0077f7;
-}
+}*/
 
 .google-css {
     font-size: 30px;
@@ -380,7 +353,7 @@ ul li.active a {
 footer a:hover {
     text-decoration: none;
 }
-
-.link-active a {
-    background-color: red;
+.link-active
+{
+    background-color: white;
 }

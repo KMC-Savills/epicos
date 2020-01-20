@@ -17,8 +17,8 @@
                     <thead>
                         <tr>
                             @*<th>
-                                @Html.DisplayNameFor(model => model.ID)
-                            </th>*@
+                                    @Html.DisplayNameFor(model => model.ID)
+                                </th>*@
                             <th>
                                 @Html.DisplayNameFor(model => model.Name)
                             </th>
@@ -32,14 +32,14 @@
                                 @Html.DisplayNameFor(model => model.IPaddress)
                             </th>
                             @*<th>
-                                @Html.DisplayNameFor(model => model.OfficeID)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.FloorID)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.RoomID)
-                            </th>*@
+                                    @Html.DisplayNameFor(model => model.OfficeID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.FloorID)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.RoomID)
+                                </th>*@
                             <th>
                                 @Html.DisplayNameFor(model => model.OfficeName)
                             </th>
@@ -47,50 +47,53 @@
                             <th>
                                 @Html.DisplayNameFor(model => model.Floor)
                             </th>
-
-                            <th></th>
+                            <th>Edit</th>
+                            <th>Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
-                            <tr>
-                                @*<td>
-                                    @Html.DisplayFor(modelItem => item.ID)
-                                </td>*@
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Name)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Type)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.MAC)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.IPaddress)
-                                </td>
-                                @*<td>
-                                    @Html.DisplayFor(modelItem => item.OfficeID)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FloorID)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.RoomID)
-                                </td>*@
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.OfficeName)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Floor)
-                                </td>
-                                <td>
-                                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                                </td>
-                            </tr>
+                        <tr>
+                            @*<td>
+            @Html.DisplayFor(modelItem => item.ID)
+        </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Type)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MAC)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.IPaddress)
+                            </td>
+                            @*<td>
+            @Html.DisplayFor(modelItem => item.OfficeID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FloorID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.RoomID)
+        </td>*@
+                            <td>
+                                @Html.DisplayFor(modelItem => item.OfficeName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Floor)
+                            </td>
+                            <td>
+                                <a href="@Url.Action("Edit", "Device", new {id = item.ID})" class="btn btn-info"><i class="fa fa-edit"></i>Edit</a>
+
+                                @*@Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }, new { @class = "btn btn-info" })*@
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-danger" onclick="alert('Sorry, you cannot delete for now.');"><i class="fa fa-trash"></i>Delete</a>
+                            </td>
+                        </tr>
                         }
                     </tbody>
 

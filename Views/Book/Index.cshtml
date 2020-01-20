@@ -37,13 +37,13 @@
                                     @Html.DisplayNameFor(model => model.CheckOut)
                                 </th>
                                 @*<th>
-                                    @Html.DisplayNameFor(model => model.IsActive)
-                                </th>
+                                        @Html.DisplayNameFor(model => model.IsActive)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.IsDeleted)
+                                    </th>*@
                                 <th>
-                                    @Html.DisplayNameFor(model => model.IsDeleted)
-                                </th>*@
-                                <th>
-                                    Update 
+                                    Update
                                 </th>
                                 <th>
                                     Delete
@@ -55,43 +55,41 @@
                             {
                                 using (Html.BeginForm("Delete", "AddBook", new { id = item.ID }))
                                 {
-                            <tr>
-                                <td hidden>
-                                    @Html.DisplayFor(modelItem => item.ID)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UserID)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.WorkpointID)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.FloorID)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.OfficeID)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CheckIn)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.CheckOut)
-                                </td>
-                                @*<td>
-                                    @Html.DisplayFor(modelItem => item.IsActive)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.IsDeleted)
-                                </td>*@
-                            <td>
-                                @Html.ActionLink("Update", "Edit", new { id = item.ID }, new { @class = "btn btn-info" })
-                                @*@Html.ActionLink("Delete", "Delete", new { id = item.ID }, new { @class = "btn btn-danger" })*@
-                            </td>
-                            <td>
-                                <a href="@Url.Action("Delete", "Book", new {id = item.ID})" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
-
-                            </td>
-                            </tr>
+                                    <tr>
+                                        <td hidden>
+                                            @Html.DisplayFor(modelItem => item.ID)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.UserID)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.WorkpointID)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FloorID)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.OfficeID)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CheckIn)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CheckOut)
+                                        </td>
+                                        @*<td>
+                                                @Html.DisplayFor(modelItem => item.IsActive)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.IsDeleted)
+                                            </td>*@
+                                        <td>
+                                            @Html.ActionLink("Update", "Edit", new { id = item.ID }, new { @class = "btn btn-info" })
+                                        </td>
+                                        <td>
+                                            <a href="@Url.Action("Delete", "Book", new {id = item.ID})" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
+                                        </td>
+                                    </tr>
                                 }
                             }
                         </tbody>

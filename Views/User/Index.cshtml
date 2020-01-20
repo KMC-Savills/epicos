@@ -32,18 +32,18 @@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Password)
                                 </th>
-                                <th>
+                                @*<th>
                                     @Html.DisplayNameFor(model => model.CompanyID)
-                                </th>
+                                </th>*@
                                 <th>
                                     @Html.DisplayNameFor(model => model.Phone)
                                 </th>
                                 <th>
                                     @Html.DisplayNameFor(model => model.EmailAddress)
                                 </th>
-                                <th>
+                                @*<th>
                                     @Html.DisplayNameFor(model => model.RoleID)
-                                </th>
+                                </th>*@
  
                                 <th>
                                     Edit
@@ -72,18 +72,18 @@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Password)
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @Html.DisplayFor(modelItem => item.CompanyID)
-                                    </td>
+                                    </td>*@
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Phone)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.EmailAddress)
                                     </td>
-                                    <td>
+                                    @*<td>
                                         @Html.DisplayFor(modelItem => item.RoleID)
-                                    </td>
+                                    </td>*@
                                     <td hidden>
                                         @Html.DisplayFor(modelItem => item.IsActive)
                                     </td>
@@ -91,10 +91,10 @@
                                         @Html.DisplayFor(modelItem => item.IsDeleted)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Edit", "Edit", new { id = item.ID })
+                                        @Html.ActionLink("Edit", "Edit", new { id = item.ID }, new { @class = "btn btn-info"})
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+                                        <a href="@Url.Action("Delete", "User", new {id = item.ID})" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
                                     </td>
                                 </tr>
                             }

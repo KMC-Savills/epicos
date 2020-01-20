@@ -70,6 +70,48 @@ namespace EpicOS.Controllers
             ninja.ClearCache("Hub_GetAll");
             return RedirectToAction("Index");
         }
+
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            DeviceManager deviceManager = new DeviceManager();
+            var getDevices = deviceManager.GetByID(id);
+            return View(getDevices);
+        }
         
+        //[HttpPost]
+        //public IActionResult Edit(DeviceViewModel deviceViewModel)
+        //{
+        //    DeviceManager deviceManager = new DeviceManager();
+        //    if (deviceViewModel.Type == 1)
+        //    {
+        //        Workpoint workpoint = new Workpoint();
+        //        workpoint.Name = deviceViewModel.Name;
+        //        workpoint.Type = deviceViewModel.Type;
+        //        workpoint.MAC = deviceViewModel.MAC;
+        //        workpoint.IPaddress = deviceViewModel.IPaddress;
+        //        workpoint.OfficeID = deviceViewModel.OfficeID;
+        //        workpoint.FloorID = deviceViewModel.FloorID;
+        //        deviceManager.WorkpointUpdate(workpoint);
+        //    }
+        //    else
+        //    if (deviceViewModel.Type == 2)
+        //    {
+        //        Hub hubs = new Hub();
+        //        hubs.ID = deviceViewModel.ID;
+        //        hubs.Name = deviceViewModel.Name;
+        //        hubs.Type = deviceViewModel.Type;
+        //        hubs.MAC = deviceViewModel.MAC;
+        //        hubs.IPaddress = deviceViewModel.IPaddress;
+        //        hubs.OfficeID = deviceViewModel.OfficeID;
+        //        hubs.FloorID = deviceViewModel.FloorID;
+        //        deviceManager.HubUpdate(hubs);
+        //    }
+        //    CacheNinja ninja = new CacheNinja();
+        //    ninja.ClearCache("Workpoint_GetAll");
+        //    ninja.ClearCache("Hub_GetAll");
+        //    return RedirectToAction("Index");
+        //}
     }
 }
+
