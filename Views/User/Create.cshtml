@@ -3,17 +3,6 @@
 @{
     ViewData["Title"] = "Add";
 }
-<style>
-    .personal-card {
-    }
-
-    .user-details-card {
-    }
-
-    .mother-card {
-    }
-</style>
-
 <div class="container-fluid">
     <form asp-action="Create">
         <div class="card mother-card">
@@ -21,7 +10,7 @@
                 <h4 class="font-weight-bold float-left">Add User</h4>
                 <button class="btn btn-primary float-right"><i class="fa fa-save"></i> Create User</button>
                 <button type="reset" class="btn btn-danger float-right sub-btn"><i class="fa fa-refresh"></i> Reset Fields</button>
-                <a href="~/User/" class="btn btn-secondary float-right" style="margin-right: 10px;">Back to Users</a>
+                <a href="~/User/" class="btn btn-secondary float-right  sub-btn"><i class="fa fa-arrow-left"></i>Back to Users</a>
 
             </div>
             <div class="card-body">
@@ -98,10 +87,3 @@
         </div>>
     </form>
 </div>>
-
-@*<div class="row">
-        <div class="col">
-            <label asp-for="UserName" class="control-label">Username</label>
-            <input asp-for="UserName" class="form-control" />
-        </div>
-    </div>*@

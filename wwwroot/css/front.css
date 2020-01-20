@@ -5,6 +5,10 @@ form {
     padding: 0px 12px;
 }
 
+.sub-btn {
+    margin-right: 20px;
+}
+
 #file {
     padding: 5px;
 }
@@ -354,6 +358,7 @@ ul li.active a {
     text-decoration: none;
     background-color: #0077f7;
 }
+
 .google-css {
     font-size: 30px;
     text-align: center;
@@ -362,6 +367,7 @@ ul li.active a {
     text-decoration: none;
     color: #4885ed;
 }
+
 .skype-css {
     font-size: 30px;
     text-align: center;
@@ -370,10 +376,11 @@ ul li.active a {
     text-decoration: none;
     color: white;
 }
+
 footer a:hover {
     text-decoration: none;
 }
-.link-active a
-{
+
+.link-active a {
     background-color: red;
 }
