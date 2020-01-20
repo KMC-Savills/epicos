@@ -202,6 +202,7 @@ namespace EpicOS.Managers
             Result result = deviceRepository.TelemeryUpdate(telemery);
             return result;
         }
+
         public List<DeviceViewModel> DeviceGetAll()
         {
             OfficeManager officeManager = new OfficeManager();
@@ -219,10 +220,17 @@ namespace EpicOS.Managers
                 deviceItems.MAC = hub.MAC;
                 deviceItems.IPaddress = hub.IPaddress;
                 deviceItems.OfficeID = hub.OfficeID;
-                deviceItems.FloorID = hub.FloorID;
-                deviceItems.RoomID = hub.RoomID;
-                deviceItems.OfficeName = offices.First(item => item.ID.Equals(hub.OfficeID)).Name;
-                deviceItems.Floor = floors.First(item => item.ID.Equals(hub.FloorID)).Name;
+                try
+                {
+                    deviceItems.FloorID = hub.FloorID;
+                    deviceItems.RoomID = hub.RoomID;
+                    deviceItems.OfficeName = offices.FirstOrDefault(item => item.ID.Equals(hub.OfficeID)).Name;
+                    deviceItems.Floor = floors.FirstOrDefault(item => item.ID.Equals(hub.FloorID)).Name;
+                }
+                catch
+                {
+
+                }
                 deviceViewModels.Add(deviceItems);
             }
             foreach (Workpoint workpoint in workpointGetAll)
@@ -233,11 +241,18 @@ namespace EpicOS.Managers
                 deviceItems.Type = 1;
                 deviceItems.MAC = workpoint.MAC;
                 deviceItems.IPaddress = workpoint.IPaddress;
-                deviceItems.OfficeID = workpoint.OfficeID;
-                deviceItems.FloorID = workpoint.FloorID;
-                deviceItems.RoomID = workpoint.RoomID;
-                deviceItems.OfficeName = offices.First(item => item.ID.Equals(workpoint.OfficeID)).Name;
-                deviceItems.Floor = floors.First(item => item.ID.Equals(workpoint.FloorID)).Name;
+                try
+                {
+                    deviceItems.OfficeID = workpoint.OfficeID;
+                    deviceItems.FloorID = workpoint.FloorID;
+                    deviceItems.RoomID = workpoint.RoomID;
+                    deviceItems.OfficeName = offices.FirstOrDefault(item => item.ID.Equals(workpoint.OfficeID)).Name;
+                    deviceItems.Floor = floors.FirstOrDefault(item => item.ID.Equals(workpoint.FloorID)).Name;
+                }
+                catch
+                {
+
+                }
                 deviceViewModels.Add(deviceItems);
             }
             return deviceViewModels;
