@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EpicOS.Helpers;
 using EpicOS.Models.Entities;
+using EpicOS.Models.ViewModel;
 using EpicOS.Repository;
 namespace EpicOS.Managers
 {
@@ -50,5 +51,36 @@ namespace EpicOS.Managers
             }
             return sub;
         }
+        public List<Workpoint> GetWorkpoints()
+        {
+            List<Workpoint> workpoints = cacheNinja.cache["Workpoint_GetAll"] as List<Workpoint>;
+            DeviceManager deviceManager = new DeviceManager();
+            if (workpoints == null)
+            {
+                workpoints = deviceManager.WorkpointGetAll();
+                cacheNinja.cache.Set("Workpoint_GetAll", workpoints, cacheNinja.cacheExpiry);
+            }
+            return workpoints;
+        }
+        //public List<BookViewModel> BookExtendedGetAll()
+        //{
+        //    List<BookViewModel> bookViewModels = new List<BookViewModel>();
+        //    List<Book> books = GetAll();
+        //    List<Workpoint> workpoints = GetWorkpoints();
+        //    foreach (Book book in books)
+        //    {
+        //        BookViewModel bookItems = new BookViewModel();
+        //        bookItems.ID = book.ID;
+        //        bookItems.UserID = book.UserID;
+        //        bookItems.WorkpointID = book.WorkpointID;
+        //        bookItems.FloorID = book.FloorID;
+        //        bookItems.OfficeID = book.OfficeID;
+        //        bookItems.CheckIn = book.CheckIn;
+        //        bookItems.CheckOut = book.CheckOut;
+        //        bookItems.IsActive = book.IsActive;
+        //        bookItems.IsDeleted = book.IsDeleted;
+        //        bookItems.ListOfWorkpoint = workpoints.First(item => item.ID.Equals(book.)).Name;
+        //    }
+        //}
     }
 }

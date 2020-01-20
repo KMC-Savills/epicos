@@ -36,13 +36,13 @@ namespace EpicOS.Repository
             return result;
         }
 
-        public Book GetByID(int ID)
+        public Book GetByID(int id)
         {
             Book item = new Book();
 
             object parameter = new Book()
             {
-                ID = ID
+                ID = id
             };
             var reader = dbConnection.Select("usp_Book_GetByID", parameter, CommandType.StoredProcedure);
 
@@ -50,7 +50,7 @@ namespace EpicOS.Repository
             {
                 if (reader.Rows.Count > 0)
                 {
-                    item.ID = ID;
+                    item.ID = id;
                     item.UserID = transform.ToInt(reader.Rows[0]["UserID"]);
                     item.WorkpointID = transform.ToInt(reader.Rows[0]["WorkpointID"]);
                     item.FloorID = transform.ToInt(reader.Rows[0]["FloorID"]);

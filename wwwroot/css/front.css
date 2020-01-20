@@ -1,3 +1,4 @@
+
 form {
     width: 100%;
     margin: 10px;
@@ -8,13 +9,8 @@ form {
     padding: 5px;
 }
 
-.sub-btn {
-    margin-right: 20px;
-}
-
-#map {
-    height: 600px;
-    width: 100%;
+.btn-margins {
+    margin-right: 15px;
 }
 
 span {
@@ -25,7 +21,7 @@ span {
 #image {
     width: 100% !important;
     height: 100% !important;
-    border: 5px solid gray;
+    border: 5px solid #b6b8ba;
 }
 
 
@@ -34,39 +30,39 @@ span {
     transition: 0.3s;
 }
 
-#image:hover {
-    transform: scale(.9);
-}
-#columnCard 
-{
-    float: left !important;
-    width: 25%;
-    padding: 0 10px;
-    border: 5px solid red;
-}
+    #image:hover {
+        transform: scale(.9);
+    }
 
-.label-info
-{
+
+.label-info {
     font-size: 18px;
     color: black;
     font-weight: bold;
 }
-.label-address
-{
+
+.label-address {
     font-size: 15px;
 }
+
 .card {
-    padding: 10px;
+    margin: 10px;
 }
-a
-{
+
+.no-margin-card {
+    margin: 0;
+    height: 21em !important;
+}
+
+a {
     text-decoration: none;
     color: black;
 }
-a:hover
-{
-    color: black;
-}
+
+    a:hover {
+        color: black;
+    }
+
 ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     font-style: italic;
 }
@@ -81,4 +77,303 @@ a:hover
 
 :-moz-placeholder { /* Firefox 18- */
     font-style: italic;
+}
+
+
+
+
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+    .details-map {
+        height: 18.5em !important;
+        width: 39em !important;
+    }
+
+    .add-map {
+        height: 20em !important;
+    }
+
+    .edit-map {
+        height: 20em !important;
+    }
+
+    #office-image {
+        text-align: center;
+        border: 2px solid #b6b8ba;
+        cursor: pointer;
+    }
+
+        #office-image img {
+            margin: 0;
+            height: 15em !important;
+            width: 15em !important;
+        }
+}
+
+#details-option-btn {
+    border: none;
+}
+/* ----------- Retina Screens ----------- */
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+}
+
+@media screen and (min-width: 1920px) {
+    .details-map {
+        height: 19.5em !important;
+        width: 56em !important;
+    }
+
+    .add-map {
+        height: 25em !important;
+    }
+
+    .edit-map {
+        height: 25em !important;
+    }
+
+    #office-image {
+        text-align: center;
+        border: 2px solid #b6b8ba;
+        cursor: pointer;
+    }
+
+        #office-image img {
+            height: 20em !important;
+            width: 20em !important;
+        }
+}
+
+#custom-button {
+    padding: 10px;
+    color: white;
+    background-color: #009578;
+    border: 1px solid #000;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    #custom-button:hover {
+        background-color: #00b28f;
+    }
+
+#custom-text {
+    margin-left: 10px;
+    font-family: sans-serif;
+    color: #aaa;
+}
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 300px;
+    overflow: auto;
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+}
+
+.padding-file {
+    padding: 5px !important;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#myImg {
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+    #myImg:hover {
+        opacity: 0.7;
+    }
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
+}
+
+/* Modal Content (image) */
+.modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+}
+
+/* Caption of Modal Image */
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 150px;
+}
+
+/* Add Animation */
+.modal-content, #caption {
+    -webkit-animation-name: zoom;
+    -webkit-animation-duration: 0.6s;
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@-webkit-keyframes zoom {
+    from {
+        -webkit-transform: scale(0)
+    }
+
+    to {
+        -webkit-transform: scale(1)
+    }
+}
+
+@keyframes zoom {
+    from {
+        transform: scale(0)
+    }
+
+    to {
+        transform: scale(1)
+    }
+}
+
+/* The Close Button */
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+    .close:hover,
+    .close:focus {
+        color: #bbb;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+/* 100% Image Width on Smaller Screens */
+@media only screen and (max-width: 700px) {
+    .modal-content {
+        width: 100%;
+    }
+}
+
+
+
+.thumb {
+    height: 100px;
+    border: 1px solid black;
+    margin: 10px;
+}
+
+#footer-main {
+    background-color: #00264d;
+    height: 96px;
+    margin-top: -100px;
+    clear: both;
+    text-align: center;
+}
+
+/*.nav-button {
+    padding: 6px 8px 10px 16px;
+    padding: 10px;
+    margin: 10px;
+    margin-bottom: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    background-color: #0a437d;
+    color: white;
+    display: block;
+    box-shadow: 0 5px #888888;
+}
+
+    .nav-button:hover {
+        background-color: #1e6bba;
+        color: white;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+#side-bar li.active a {
+    box-shadow: none;
+    top: 5px;
+    background-color: red;
+}*/
+
+span {
+    color: white;
+    font-family: "Verdana", sans-serif;
+    text-decoration: none;
+    font-style: normal;
+}
+
+
+li {
+    margin: 0;
+}
+
+ul li a {
+    padding: 10px;
+    margin: 10px;
+    text-decoration: none;
+    background-color: #0a437d;
+    color: white;
+    display: block;
+    box-shadow: 0 5px darkblue;
+    font-weight: bold;
+    text-align: left;
+}
+
+li:hover a {
+    text-decoration: none;
+    background-color: #025dbf;
+}
+
+ul li.active a {
+    padding: 10px;
+    box-shadow: none;
+    text-decoration: none;
+    background-color: #0077f7;
+}
+.google-css {
+    font-size: 30px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    text-decoration: none;
+    color: #4885ed;
+}
+.skype-css {
+    font-size: 30px;
+    text-align: center;
+    text-decoration: none;
+    margin: 5px 2px;
+    text-decoration: none;
+    color: white;
+}
+footer a:hover {
+    text-decoration: none;
+}
+.link-active a
+{
+    background-color: red;
 }

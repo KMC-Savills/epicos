@@ -13,10 +13,15 @@ html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pr
 	box-sizing: border-box;
 }
 body {
+    position: relative;
+    margin: 0;
+    padding-bottom: 6rem;
+    min-height: 100%;
 	line-height: 1;
 	font-size: 14px;
 	line-height: 20px;
 	font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    overflow-x: hidden;
 }
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
 	display: block;
@@ -134,7 +139,9 @@ b:hover {
 	padding-right: 10px;
 	padding-left: 10px;
 	margin-right: auto;
-	margin-left: auto
+    margin-left: auto;
+    height:100%;
+    width: 100%;
 }
 /* Form */
 form input[type="text"], form input[type="password"], form input[type="color"], form input[type="date"], form input[type="datetime"], form input[type="datetime-local"], form input[type="email"], form input[type="month"], form input[type="number"], form input[type="password"], form input[type="search"], form input[type="tel"], form input[type="text"], form input[type="time"], form input[type="url"], form input[type="week"], form input[type="file"], form select, form textarea {
@@ -431,12 +438,14 @@ a.btn i {
 }
 /* footer */
 footer {
-	background-color: #003366;
-	padding: 10px 0;
-	color: #fff;
-	position: relative;
-	width: 100%;
-	text-align: center;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 1rem;
+    background-color: #003366;
+    text-align: center;
+    color: white;
 }
 footer .left {
 	display: inline-block;

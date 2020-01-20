@@ -1,0 +1,107 @@
+﻿@model EpicOS.Models.Entities.User
+
+@{
+    ViewData["Title"] = "Add";
+}
+<style>
+    .personal-card {
+    }
+
+    .user-details-card {
+    }
+
+    .mother-card {
+    }
+</style>
+
+<div class="container-fluid">
+    <form asp-action="Create">
+        <div class="card mother-card">
+            <div class="card-header">
+                <h4 class="font-weight-bold float-left">Add User</h4>
+                <button class="btn btn-primary float-right"><i class="fa fa-save"></i> Create User</button>
+                <button type="reset" class="btn btn-danger float-right sub-btn"><i class="fa fa-refresh"></i> Reset Fields</button>
+                <a href="~/User/" class="btn btn-secondary float-right" style="margin-right: 10px;">Back to Users</a>
+
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-4">
+                        <div class="card user-details-card">
+                            <div class="card-header">
+                                <h4 class="font-weight-bold float-left">User Details</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="col">
+                                    <label asp-for="UserName" class="control-label">Username</label>
+                                    <input asp-for="UserName" class="form-control" />
+                                    <span asp-validation-for="UserName"></span>
+                                </div>
+                                <div class="col">
+                                    <label asp-for="Password" class="control-label">Password</label>
+                                    <input asp-for="Password" type="password" class="form-control" />
+                                    <span asp-validation-for="Password"></span>
+                                </div>
+                            </div>
+                            <input type="checkbox" asp-for="IsActive" checked="checked" hidden="" />
+                        </div>
+                    </div>
+                    <div class="col-8">
+                        <div class="card personal-card">
+                            <div class="card-header">
+                                <h4 class="font-weight-bold float-left">Personal Information</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="FirstName" class="control-label">Firstname</label>
+                                        <input asp-for="FirstName" class="form-control">
+                                        <span asp-validation-for="FirstName"></span>
+                                    </div>
+                                    <div class="col">
+
+                                        <label asp-for="LastName" class="control-label">Lastname</label>
+                                        <input asp-for="LastName" class="form-control">
+                                        <span asp-validation-for="LastName"></span>
+
+                                    </div>
+                                    @*<div class="col">
+                                                <label asp-for="CompanyID" class="control-label">Company ID</label>
+                                                <input asp-for="CompanyID" class="form-control" />
+                                            </div>
+                                        </div>*@
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <label asp-for="EmailAddress" class="control-label">Email Address</label>
+                                        <input asp-for="EmailAddress" class="form-control" />
+                                        <span asp-validation-for="EmailAddress"></span>
+
+                                    </div>
+                                    <div class="col">
+                                        <label asp-for="Phone" class="control-label">Mobile/Telephone No.</label>
+                                        <input asp-for="Phone" class="form-control" />
+                                        <span asp-validation-for="Phone"></span>
+                                    </div>
+                                    @*<div class="col">
+                                            <label asp-for="RoleID" class="control-label">Role Type</label>
+                                            <input asp-for="RoleID" class="form-control" />
+                                            <span asp-validation-for="RoleID"></span>
+                                        </div>*@
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>>
+    </form>
+</div>>
+
+@*<div class="row">
+        <div class="col">
+            <label asp-for="UserName" class="control-label">Username</label>
+            <input asp-for="UserName" class="form-control" />
+        </div>
+    </div>*@

@@ -20,13 +20,6 @@ namespace EpicOS.Controllers
             DeviceManager deviceManager = new DeviceManager();
             return View(deviceManager.DeviceGetAll());
         }
-        //public void ReadyContextForView(int id = 0)
-        //{
-        //    DropDownManager dropDownManager = new DropDownManager();
-        //    DeviceViewModel deviceViewModel = new DeviceViewModel();
-        //    deviceViewModel.ListOfOffices = dropDownManager.OfficeDropDown();
-        //    ViewBag.Context = deviceViewModel;
-        //}
 
         public DeviceViewModel DefaultValueListing()
         {
@@ -77,6 +70,6 @@ namespace EpicOS.Controllers
             ninja.ClearCache("Hub_GetAll");
             return RedirectToAction("Index");
         }
-
+        
     }
 }

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace EpicOS.Managers
 {
@@ -205,7 +206,7 @@ namespace EpicOS.Managers
         {
             OfficeManager officeManager = new OfficeManager();
             List<DeviceViewModel> deviceViewModels = new List<DeviceViewModel>();
-            List<Workpoint> workpoints = WorkpointGetAll();
+            List<Workpoint> workpointGetAll = WorkpointGetAll();
             List<Office> offices = officeManager.OfficeGetAll();
             List<Hub> hubs = HubGetAll();
             List<Floor> floors = officeManager.FloorGetAll();
@@ -224,7 +225,7 @@ namespace EpicOS.Managers
                 deviceItems.Floor = floors.First(item => item.ID.Equals(hub.FloorID)).Name;
                 deviceViewModels.Add(deviceItems);
             }
-            foreach (Workpoint workpoint in workpoints)
+            foreach (Workpoint workpoint in workpointGetAll)
             {
                 DeviceViewModel deviceItems = new DeviceViewModel();
                 deviceItems.ID = workpoint.ID;
@@ -241,5 +242,6 @@ namespace EpicOS.Managers
             }
             return deviceViewModels;
         }
+       
     }
 }

@@ -11,11 +11,11 @@ namespace EpicOS.Managers
     public class UserManager : BaseManager
     {
 
-        private UserRepository user;
+        private UserRepository userRepository;
 
         public UserManager()
         {
-            this.user = new UserRepository();
+            this.userRepository = new UserRepository();
         }
 
         public List<User> GetAll()
@@ -23,7 +23,7 @@ namespace EpicOS.Managers
             List<User> users = cacheNinja.cache["User_GetAll"] as List<User>;
             if (users == null)
             {
-                users = user.GetUsers();
+                users = userRepository.GetUsers();
                 cacheNinja.cache.Set("User_GetAll", users, cacheNinja.cacheExpiry);
             }
             return users;
@@ -47,13 +47,24 @@ namespace EpicOS.Managers
 
         public Result Insert(User parameter)
         {
-            return user.Insert(parameter);
+            return userRepository.Insert(parameter);
         }
 
         public Result Update(User parameter)
         {
-            return user.Update(parameter);
+            return userRepository.Update(parameter);
         }
+        public Result Delete(int id)
+        {
+            User item = userRepository.GetByID(id);
+            item.IsDeleted = true;
+            Result result = userRepository.Update(item);
+            if (result.IsSuccess)
+            {
+                cacheNinja.ClearCache("Office_GetAll");
+            }
 
+            return result;
+        }
     }
 }

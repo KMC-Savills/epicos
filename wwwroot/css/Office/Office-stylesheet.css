@@ -10,7 +10,7 @@
     margin: 15px 0px 15px 0px
 }
 
-    .img-rounded:hover,
+    .img-rounded:hover, 
     .img-rounded:focus,
     .img-rounded:active {
         transform: scale(1.1);

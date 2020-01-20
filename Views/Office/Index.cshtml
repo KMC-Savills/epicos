@@ -1,68 +1,66 @@
 ﻿@model IEnumerable<EpicOS.Models.ViewModel.OfficeDetailsViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Office";
     var mainOffice = Model.FirstOrDefault();
     var json = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
 }
-
-
-
 <input type="hidden" id="GPSLat" value="@mainOffice.Latitude" />
 <input type="hidden" id="GPSLon" value="@mainOffice.Longitude" />
 <input type="hidden" id="Buildings" value="@json" />
 
-<div class="container-fluid" style="padding: 15px;">
-    <div class="row">
-        <div class="col-3 col-lg-3">
-            <br />
-            <a asp-action="Add" class="btn btn-primary">Add New Office</a>
-            <a href="Home">Back to Homepage</a>
-        </div>
-    </div>
-    <br />
-    <div class="row">
-        <div class="col-xs-2 col-sm-4 col-md-2 col-lg-8">
-            <div class="row" id="officeList">
-                @foreach (var item in Model)
-                {
-                    string filepath = "/uploads/img/office/" + @item.ID + "/" + @item.Filename;
-                    <div class="col-xs-2 col-sm-10 col-md-4 col-lg-4">
-                        <div class="card" onmouseover="centerMap(@item.Latitude, @item.Longitude)" data-latitude="@item.Latitude" data-longitude="@item.Longitude" data-id="@item.ID">
-                            <div class="card-header">
-                                <h5>
-                                    <label class="label-info" id="officesName">@Html.DisplayFor(modelItem => item.Name)</label>
-                                    <br />
-
-                                </h5>
-                            </div>
-                            <div class="card-body">
-                                <a href="/Office/Details/@item.ID">
-
-                                    @*<img id="image" src="" />*@
-
-                                    @if (item.Filename == "")
-                                    {
-                                        <img id="image" src="~/uploads/img/office/default.jpg" />
-                                    }
-                                    else
-                                    {
-                                        <img id="image" src="@filepath" />
-                                    }
-
-                                    <label class="label-address">@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.CityName)</label>
-                                </a>
-                            </div>
-                            <br />
-                        </div>
-                    </div>
-                }
+<div class="container-fluid">
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-xs-10 col-sm-8 col-md-8 col-lg-12">
+                    <h4 class="font-weight-bold float-left">List of Offices</h4>
+                    <a asp-action="Add" class="btn btn-primary float-right"><i class="fa fa-plus"></i>Add New Office</a>
+                </div>
             </div>
         </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xs-2 col-sm-4 col-md-2 col-lg-8">
+                    <div class="row" id="officeList">
+                        @foreach (var item in Model.OrderByDescending(item => item.ID))
+                        {
 
-        <div class="col">
-            <div class="sticky">
-                <div id="map"></div>
+                            string filepath = "/uploads/img/office/" + @item.ID + "/" + @item.Filename;
+
+                            <div class="col-xs-12 col-sm-10 col-md-4 col-lg-4">
+                                <div class="card" onmouseover="centerMap(@item.Latitude, @item.Longitude)" data-latitude="@item.Latitude" data-longitude="@item.Longitude" data-id="@item.ID" style="background-color: ghostwhite;">
+                                    <div class="card-header" style="height: 5em;">
+                                        <h5>
+                                            <label class="label-info" id="officesName">@Html.DisplayFor(modelItem => item.Name)</label>
+                                        </h5>
+                                    </div>
+                                    <div class="card-body">
+                                        <a href="/Office/Details/@item.ID" style="text-decoration: none; color: black;">
+                                            @if (item.Filename == "")
+                                            {
+
+                                                <img id="image" src="~/images/error.png" />
+                                            }
+                                            else
+                                            {
+                                                <img id="image" src="@filepath" />
+                                            }
+                                            <div class="card-footer" style="height: 6em;">
+                                                <label class="label-address" style="font-size: 15px;">@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.CityName)</label>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-5 col-lg-4">
+                    <div class="sticky-map">
+                        <div id="map"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -70,5 +68,5 @@
 @section Scripts
 {
     <script src="~/js/Office/Office-Script.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB2dS9tcUGxQmLovtBlRatCcoeISFEtbXk&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsyB1N3HPmTmg4aFJwPLv6uvqxEYtl9X8&callback=initMap" async defer></script>
 }

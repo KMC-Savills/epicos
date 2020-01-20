@@ -5,85 +5,86 @@
 }
 <div class="container-fluid">
     <form asp-action="Edit">
-        <div class="card-group">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-12 col-sm-8 col-md-12">
-                            <h4 class="font-weight-bold float-left">Edit Office Details</h4>
-                            <a class="btn btn-secondary float-right" asp-action="Index">Back to List</a>
-
-                            <button type="submit" class="btn btn-primary float-right sub-btn">Update</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-sm-8 col-md-12">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-12 col-sm-8 col-md-12">
-                                    <label asp-for="Name" class="control-label"></label>
-                                    <input asp-for="Name" class="form-control" />
-                                    <span asp-validation-for="Name" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-12 col-sm-8 col-md-12">
-                                    <label asp-for="Address" class="control-label"></label>
-                                    <input asp-for="Address" class="form-control" />
-                                    <span asp-validation-for="Address" class="text-danger"></span>
-                                </div>
-                            </div>
-                            
-                            <div class="row">
-                                <div class="col-12 col-sm-8 col-md-12">
-                                    <label asp-for="Filename">Filename</label>
-                                    <input asp-for="Filename" type="file" class="form-control">
-                                    <span asp-validation-for="Address" class="text-danger"></span>
-                                </div>
-                            </div>
-                           
-                            <div class="row">
-                                <div class="col-12 col-sm-4 col-md-4">
-                                    <label asp-for="CityID" class="control-label">City</label>
-                                    @Html.DropDownListFor(Model => Model.CityID, context.ListOfCities, new { @class = "form-control" })
-                                    @*<input asp-for="CityID" class="form-control" />*@
-                                    <span asp-validation-for="CityID" class="text-danger"></span>
-                                </div>
-                                <div class="col-12 col-sm-6 col-md-4">
-                                    <label asp-for="Latitude" class="control-label"></label>
-                                    <input asp-for="Latitude" class="form-control" />
-                                    <span asp-validation-for="Latitude" class="text-danger"></span>
-                                </div>
-                                <div class="col-12 col-sm-6 col-md-4">
-                                    <label asp-for="Longitude" class="control-label"></label>
-                                    <input asp-for="Longitude" class="form-control" />
-                                    <span asp-validation-for="Longitude" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <hr />
-                            <div class="row" hidden>
-                                <div class="form-check">
-                                    <div class="col">
-                                        <input asp-for="IsActive" type="checkbox" class="form-check-input" checked>
-                                        <label asp-for="IsActive" class="form-check-label">IsActive</label>
+        <div class="card">
+            <div class="card-header">
+                <h4 class="font-weight-bold float-left">Edit Office Details</h4>
+                <button type="submit" class="btn btn-primary float-right"><i class="fa fa-save"></i> Update</button>
+                <a href="~/Office/" class="btn btn-secondary float-right btn-margins"><i class="fa fa-arrow-left"></i>Back to Office List</a>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-12 col-sm-8 col-md-12">
+                                            <label asp-for="Name" class="control-label"></label>
+                                            <input asp-for="Name" class="form-control"/>
+                                            <span asp-validation-for="Name" class="text-danger"></span>
+                                        </div>
                                     </div>
-                                    <div class="col">
-                                        <input asp-for="IsDeleted" type="checkbox" class="form-check-input" disabled>
-                                        <label asp-for="IsDeleted" class="form-check-label">IsDeleted</label>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-8 col-md-12">
+                                            <label asp-for="Address" class="control-label"></label>
+                                            <input asp-for="Address" class="form-control"/>
+                                            <span asp-validation-for="Address" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                
+                                    <div class="row">
+                                        <div class="col-12 col-sm-4 col-md-4">
+                                            <label asp-for="CityID" class="control-label">City</label>
+                                            @Html.DropDownListFor(Model => Model.CityID, context.ListOfCities, new {@class = "form-control"})
+                                            @*<input asp-for="CityID" class="form-control" />*@
+                                            <span asp-validation-for="CityID" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-12 col-sm-6 col-md-4">
+                                            <label asp-for="Latitude" class="control-label"></label>
+                                            <input asp-for="Latitude" class="form-control"/>
+                                            <span asp-validation-for="Latitude" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-12 col-sm-6 col-md-4">
+                                            <label asp-for="Longitude" class="control-label"></label>
+                                            <input asp-for="Longitude" class="form-control"/>
+                                            <span asp-validation-for="Longitude" class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    @{
+                                        string filepath = "/uploads/img/office/" + Model.ID + "/" + Model.Filename;
+                                        <div class="row">
+                                            <div class="col-12 col-sm-8 col-md-12">
+                                                <label asp-for="Filename" class="control-label"></label>
+                                                @*<input value="@filepath" id="edit-img" class="form-control" />*@
+                                                <input asp-for="Filename" type="file" class="form-control padding-file"/>
+                                                <span asp-validation-for="Filename" class="text-danger"></span>
+                                            </div>
+                                        </div>
+                                    }
+                                    <hr/>
+                                    <hr />
+                                    <div class="row" hidden>
+                                        <div class="form-check">
+                                            <div class="col">
+                                                <input asp-for="IsActive" type="checkbox" class="form-check-input" checked>
+                                                <label asp-for="IsActive" class="form-check-label">IsActive</label>
+                                            </div>
+                                            <div class="col">
+                                                <input asp-for="IsDeleted" type="checkbox" class="form-check-input" disabled>
+                                                <label asp-for="IsDeleted" class="form-check-label">IsDeleted</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div id="map" class="edit-map"></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header">
-                        <h4 class="font-weight-bold float-left">Map Location</h4>
-                        <small class="font-weight-bold float-right"><i>*Drag the pin to change location coordinates*</i></small>
-                    </div>
-                    <div class="card-body">
-                        <div id="map"></div>
                     </div>
                 </div>
             </div>

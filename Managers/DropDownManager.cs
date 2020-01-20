@@ -16,12 +16,14 @@ namespace EpicOS.Managers
         private LocationRepository locationRepository;
         private OfficeManager officeManager;
         private LocationManager locationManager;
+        private DeviceManager deviceManager;
 
         public DropDownManager()
         {
             this.locationRepository = new LocationRepository();
             this.officeManager = new OfficeManager();
             this.locationManager = new LocationManager();
+            this.deviceManager = new DeviceManager();
         }
         public List<SelectListItem> OfficeDropDown()
         {
@@ -71,6 +73,32 @@ namespace EpicOS.Managers
             result.Add(item2);
             return result;
         }
-
+        public List<SelectListItem> WorkpointsDropdown()
+        {
+            List<SelectListItem> result = new List<SelectListItem>();
+            List<Workpoint> workpoints = deviceManager.WorkpointGetAll();
+            foreach (Workpoint workpoint in workpoints)
+            {
+                SelectListItem items = new SelectListItem();
+                items.Value = workpoint.ID.ToString();
+                items.Text = workpoint.Name;
+                result.Add(items);
+            }
+            return result;
+        }
+        public List<SelectListItem> UsersDropdown()
+        {
+            List<SelectListItem> result = new List<SelectListItem>();
+            UserManager userManager = new UserManager();
+            List<User> users = userManager.GetAll();
+            foreach (User user in users)
+            {
+                SelectListItem items = new SelectListItem();
+                items.Value = user.ID.ToString();
+                items.Text = user.FirstName + " " + user.LastName;
+                result.Add(items);
+            }
+            return result;
+        }
     }
 }

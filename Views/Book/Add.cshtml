@@ -1,0 +1,91 @@
+﻿@model EpicOS.Models.ViewModel.BookViewModel
+
+@{
+    ViewData["Title"] = "Insert Booking";
+}
+
+<div class="container-fluid">
+    <form asp-action="Add">
+
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="font-weight-bold float-left">Add Booking</h4>
+                        <button type="submit" class="btn btn-primary float-right"><i class="fa fa-save"></i> Submit</button>
+                        <a href="~/Book/" class="btn btn-secondary float-right btn-margins"><i class="fa fa-arrow-left"></i>Back to Booking List</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+
+                            <div class="col" hidden>
+                                <label asp-for="ID" class="control-label"></label>
+                                <input asp-for="ID" class="form-control" />
+                                <span asp-validation-for="ID" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <label asp-for="UserID" class="control-label"></label>
+                                @*<input asp-for="UserID" class="form-control" />*@
+                                @Html.DropDownListFor(Model => Model.UserID, Model.ListOfUsers, new { @class = "form-control" })
+
+                                <span asp-validation-for="UserID" class="text-danger"></span>
+                            </div>
+                            <div class="col" >
+                                <label asp-for="WorkpointID" class="control-label"></label>
+                                @*<input asp-for="WorkpointID" class="form-control"/>*@
+                                @Html.DropDownListFor(Model => Model.WorkpointID, Model.ListOfWorkpoint,new {@class = "form-control"})
+
+                                <span asp-validation-for="WorkpointID" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <div class="form-group">
+                                    <label asp-for="FloorID" class="control-label">Floors</label>
+                                    @*<input asp-for="FloorID" class="form-control" />*@
+                                    @Html.DropDownListFor(Model => Model.FloorID, Model.ListOfFloors, new { @class = "form-control"})
+                                    <span asp-validation-for="FloorID" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col">
+                                <label asp-for="OfficeID" class="control-label"></label>
+                                @*<input asp-for="OfficeID" class="form-control" />*@
+                                @Html.DropDownListFor(Model => Model.OfficeID, Model.ListOfOffices, new { @class = "form-control" })
+                                <span asp-validation-for="OfficeID" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <label asp-for="CheckIn" class="control-label"></label>
+                                <input asp-for="CheckIn" class="form-control" />
+                                <span asp-validation-for="CheckIn" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <label asp-for="CheckOut" class="control-label"></label>
+                                <input asp-for="CheckOut" class="form-control" />
+                                <span asp-validation-for="CheckOut" class="text-danger"></span>
+                            </div>
+                            <div class="col" hidden>
+                                
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="IsActive" checked disabled=""/> @Html.DisplayNameFor(model => model.IsActive)
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="checkbox">
+                                        <label>
+                                            <input asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+

@@ -9,23 +9,25 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using EpicOS.Helpers;
 using System.Data.SqlClient;
+using EpicOS.Models.ViewModel;
 
 namespace EpicOS.Controllers
 {
     public class BookController : Controller
     {
-        public IActionResult Index()
+        
+        public IActionResult Index()    
         {
             BookManager manager = new BookManager();
             return View(manager.GetAll());
         }
         [HttpGet]
-        public IActionResult Insert()
+        public IActionResult Add()
         {
-            return View();
+            return View(BookDropdowns());
         }
         [HttpPost]
-        public IActionResult Insert(Book book)
+        public IActionResult Add(Book book)
         {
             BookManager bookManager = new BookManager();
             bookManager.Insert(book);
@@ -40,10 +42,6 @@ namespace EpicOS.Controllers
             
             BookRepository bookRepository = new BookRepository();
             Book book = bookRepository.GetByID(id);
-
-            BookManager manager = new BookManager();
-            manager.Update(book);   
-
             return View(book);
         }
 
@@ -66,6 +64,16 @@ namespace EpicOS.Controllers
 
             return RedirectToAction("Index");
 
+        }
+        public BookViewModel BookDropdowns(int id = 0)
+        {
+            DropDownManager ddManager = new DropDownManager();
+            BookViewModel bookView = new BookViewModel();
+            bookView.ListOfFloors = ddManager.FloorDropdown();
+            bookView.ListOfOffices = ddManager.OfficeDropDown();
+            bookView.ListOfWorkpoint = ddManager.WorkpointsDropdown();
+            bookView.ListOfUsers = ddManager.UsersDropdown();
+            return bookView;
         }
     }
 }

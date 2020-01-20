@@ -25,8 +25,9 @@ namespace EpicOS.Controllers
             hosting = host;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(Office office)
         {
+
             OfficeManager manager = new OfficeManager();
             return View(manager.OfficeExtendedGetAll());
         }
@@ -54,12 +55,9 @@ namespace EpicOS.Controllers
 
         public ActionResult Details(int id)
         {
-            OfficeRepository officeRepo = new OfficeRepository();
-            Office office = officeRepo.OfficeGetByID(id);
-
             OfficeManager manager = new OfficeManager();
-            manager.OfficeUpdate(office);
-            return View(office);
+            return View(manager.OfficeGetByID(id));
+
         }
 
         [HttpGet]

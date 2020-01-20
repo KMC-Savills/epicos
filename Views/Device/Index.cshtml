@@ -8,98 +8,99 @@
     <div class="card">
         <div class="card-header">
             <h4 class="font-weight-bold float-left">Devices</h4>
-            <a asp-action="Add" class="btn btn-primary float-right">Add Device</a>
+            <a asp-action="Add" class="btn btn-primary float-right" style="margin-left: 10px;">Add Device</a>
         </div>
-        
-        <table class="table">
-            @if (Model.Count() > 0)
-            {
-                <thead>
-                    <tr>
-                        <th>
-                            @Html.DisplayNameFor(model => model.ID)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Name)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.Type)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.MAC)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.IPaddress)
-                        </th>
-                        @*<th>
-                        @Html.DisplayNameFor(model => model.OfficeID)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.FloorID)
-                    </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.RoomID)
-                    </th>*@
-                        <th>
-                            @Html.DisplayNameFor(model => model.OfficeName)
-                        </th>
-
-                        <th>
-                            @Html.DisplayNameFor(model => model.Floor)
-                        </th>
-
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach (var item in Model)
-                    {
+        <div class="card-body">
+            <table class="table">
+                @if (Model.Count() > 0)
+                {
+                    <thead>
                         <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.ID)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Name)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Type)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.MAC)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.IPaddress)
-                            </td>
-                            @*<td>
-                            @Html.DisplayFor(modelItem => item.OfficeID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.FloorID)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.RoomID)
-                        </td>*@
-                            <td>
-                                @Html.DisplayFor(modelItem => item.OfficeName)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Floor)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                            </td>
-                        </tr>
-                    }
-                </tbody>
+                            @*<th>
+                                @Html.DisplayNameFor(model => model.ID)
+                            </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.Name)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Type)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.MAC)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.IPaddress)
+                            </th>
+                            @*<th>
+                                @Html.DisplayNameFor(model => model.OfficeID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.FloorID)
+                            </th>
+                            <th>
+                                @Html.DisplayNameFor(model => model.RoomID)
+                            </th>*@
+                            <th>
+                                @Html.DisplayNameFor(model => model.OfficeName)
+                            </th>
 
-            }
-            else
-            {
-                
-                <text>No record yet. Please add!</text>
-            }
-        </table>
+                            <th>
+                                @Html.DisplayNameFor(model => model.Floor)
+                            </th>
+
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.ID)
+                                </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Name)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Type)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MAC)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IPaddress)
+                                </td>
+                                @*<td>
+                                    @Html.DisplayFor(modelItem => item.OfficeID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.FloorID)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.RoomID)
+                                </td>*@
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.OfficeName)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Floor)
+                                </td>
+                                <td>
+                                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+
+                }
+                else
+                {
+
+                    <text>No record yet. Please add!</text>
+                }
+            </table>
+        </div>
     </div>
 </div>

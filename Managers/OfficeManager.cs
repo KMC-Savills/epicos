@@ -88,9 +88,9 @@ namespace EpicOS.Managers
             return result;
         }
 
-        public Office OfficeGetByID(int id)
+        public OfficeDetailsViewModel OfficeGetByID(int id)
         {
-            return OfficeGetAll().FirstOrDefault(e => e.ID.Equals(id));
+            return OfficeExtendedGetAll().FirstOrDefault(e => e.ID.Equals(id));
         }
 
         public Floor FloorGetByID(int id)
@@ -127,9 +127,9 @@ namespace EpicOS.Managers
             return result;
         }
 
-        public Result Delete(int Id)
+        public Result Delete(int id)
         {
-            Office item = officeRepo.OfficeGetByID(Id);
+            Office item = officeRepo.OfficeGetByID(id);
             item.IsDeleted = true;
             Result result = officeRepo.OfficeUpdate(item);
             if (result.IsSuccess) 

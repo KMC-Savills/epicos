@@ -29,7 +29,7 @@ if (window.location.href.indexOf("Details") > -1) {
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'),
             {
-                zoom: 17,
+                zoom: 16,
                 center: coordinates,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
@@ -40,12 +40,10 @@ if (window.location.href.indexOf("Details") > -1) {
             position: coordinates
         });
     }
-}
-else {
-
+} else {
     function initMap() {
         map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 17,
+            zoom: 18,
             center: coordinates,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
@@ -70,23 +68,27 @@ else {
         ];
         map.setOptions({ styles: noPoi });
     }
-}
-function toggleBounce() {
-    if (marker.getAnimation() !== null) {
-        marker.setAnimation(null);
-    } else {
-        marker.setAnimation(google.maps.Animation.BOUNCE);
+
+    
+    function toggleBounce() {
+        if (marker.getAnimation() !== null) {
+            marker.setAnimation(null);
+        } else {
+            marker.setAnimation(google.maps.Animation.BOUNCE);
+        }
     }
-}
 
-function refreshCoordinates() {
-    latitude = parseFloat($("#Latitude").val());
-    longitude = parseFloat($("#Longitude").val());
-    coordinates = { lat: latitude, lng: longitude };
-}
+    function refreshCoordinates() {
+        latitude = parseFloat($("#Latitude").val());
+        longitude = parseFloat($("#Longitude").val());
+        coordinates = { lat: latitude, lng: longitude };
+    }
 
-function updateCoordinates() {
-    $("#Latitude").val(this.position.lat());
-    $("#Longitude").val(this.position.lng());
-    refreshCoordinates();
+    function updateCoordinates() {
+        $("#Latitude").val(this.position.lat());
+        $("#Longitude").val(this.position.lng());
+        transition(refreshCoordinates());
+    }
+
+
 }
