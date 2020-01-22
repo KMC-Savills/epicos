@@ -20,48 +20,48 @@
                                     <div class="row">
                                         <div class="col-12 col-sm-8 col-md-12">
                                             <label asp-for="Name" class="control-label"></label>
-                                            <input asp-for="Name" class="form-control"/>
+                                            <input asp-for="Name" class="form-control" />
                                             <span asp-validation-for="Name" class="text-danger"></span>
                                         </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-12 col-sm-8 col-md-12">
                                             <label asp-for="Address" class="control-label"></label>
-                                            <input asp-for="Address" class="form-control"/>
+                                            <input asp-for="Address" class="form-control" />
                                             <span asp-validation-for="Address" class="text-danger"></span>
                                         </div>
                                     </div>
-                                
+
                                     <div class="row">
-                                        <div class="col-12 col-sm-4 col-md-4">
+                                        <div class="col-12 col-sm-4 col-md-4 col-lg-12">
                                             <label asp-for="CityID" class="control-label">City</label>
-                                            @Html.DropDownListFor(Model => Model.CityID, context.ListOfCities, new {@class = "form-control"})
+                                            @Html.DropDownListFor(Model => Model.CityID, context.ListOfCities, new { @class = "form-control" })
                                             @*<input asp-for="CityID" class="form-control" />*@
                                             <span asp-validation-for="CityID" class="text-danger"></span>
                                         </div>
-                                        <div class="col-12 col-sm-6 col-md-4">
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-6">
                                             <label asp-for="Latitude" class="control-label"></label>
-                                            <input asp-for="Latitude" class="form-control"/>
+                                            <input asp-for="Latitude" class="form-control" />
                                             <span asp-validation-for="Latitude" class="text-danger"></span>
                                         </div>
-                                        <div class="col-12 col-sm-6 col-md-4">
+                                        <div class="col-12 col-sm-6 col-md-4 col-lg-6">
                                             <label asp-for="Longitude" class="control-label"></label>
-                                            <input asp-for="Longitude" class="form-control"/>
+                                            <input asp-for="Longitude" class="form-control" />
                                             <span asp-validation-for="Longitude" class="text-danger"></span>
                                         </div>
                                     </div>
                                     @{
                                         string filepath = "/uploads/img/office/" + Model.ID + "/" + Model.Filename;
                                         <div class="row">
-                                            <div class="col-12 col-sm-8 col-md-12">
+                                            <div class="col-sm-8 col-md-6 col-lg-6">
                                                 <label asp-for="Filename" class="control-label"></label>
                                                 @*<input value="@filepath" id="edit-img" class="form-control" />*@
-                                                <input asp-for="Filename" type="file" class="form-control padding-file"/>
+                                                <input asp-for="Filename" type="file" class="form-control padding-file" />
                                                 <span asp-validation-for="Filename" class="text-danger"></span>
                                             </div>
                                         </div>
                                     }
-                                    <hr/>
+                                    <hr />
                                     <hr />
                                     <div class="row" hidden>
                                         <div class="form-check">
@@ -77,12 +77,11 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div id="map" class="edit-map"></div>
-                                    </div>
-                                </div>
+
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-6 col-lg-6">
+                            <div class="card">
+                                <div id="map" class="edit-map"></div>
                             </div>
                         </div>
                     </div>

@@ -86,7 +86,7 @@ a {
 
 
 
-@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 1) {
+/*@media screen and (min-device-width: 1024px) and (max-device-width: 1920px) and (-webkit-min-device-pixel-ratio: 1) {
     .details-map {
         height: 18.5em !important;
         width: 39em !important;
@@ -111,16 +111,19 @@ a {
             height: 15em !important;
             width: 15em !important;
         }
+
+    .img-fluid {
+        height: 200px !important;
+        width: 1000px !important;
+        border: 5px solid red;
+    }
 }
 
 #details-option-btn {
     border: none;
-}
-/* ----------- Retina Screens ----------- */
-@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
-}
+}*/
 
-@media screen and (min-width: 1920px) {
+/*@media screen and (min-width: 1920px) {
     .details-map {
         height: 19.5em !important;
         width: 56em !important;
@@ -144,7 +147,7 @@ a {
             height: 20em !important;
             width: 20em !important;
         }
-}
+}*/
 
 #custom-button {
     padding: 10px;
@@ -311,13 +314,6 @@ li {
 }
 
 ul li a {
-    margin-bottom: 5px;
-    padding: 10px;
-    text-decoration: none;
-    background-color: #0a437d;
-    display: block;
-    font-weight: bold;
-    text-align: left;
 }
 
 li:hover a {
@@ -353,7 +349,43 @@ li:hover a {
 footer a:hover {
     text-decoration: none;
 }
-.link-active
-{
-    background-color: white;
+
+.link-active {
+    background-color: #00264d;
+}
+
+#office-image {
+    text-align: center;
+    border: 2px solid #b6b8ba;
+    cursor: pointer;
+}
+
+    #office-image img {
+        height: 15em !important;
+        width: 15em !important;
+    }
+
+.img-fluid {
+    height: 200px !important;
+    object-fit: cover;
+    object-position: center center;
+}
+
+#officesName {
+    color: white;
+    font-size: 15px;
+}
+
+#office-title {
+    text-align: center;
+    object-fit: cover;
+    height: 3em;
+    background-color: #003366;
+    border-radius: 2px;
+}
+
+
+.label-address {
+    color: black;
+    font-size: .8em;
 }

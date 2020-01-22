@@ -10722,6 +10722,7 @@ body {
 @media (min-width: 768px) {
   .sidebar {
     width: 225px !important;
+    background-color: #003366;
   }
   .sidebar .nav-item .nav-link {
     display: block;

@@ -51,6 +51,18 @@
                         <label asp-for="Type" class="control-label"></label>
                         @Html.DropDownListFor(Model => Model.Type, Model.ListOfDeviceTypes, new { @class = "form-control" })
                     </div>
+                    <div class="row" hidden>
+                        <div class="form-check">
+                            <div class="col">
+                                <input asp-for="IsActive" type="checkbox" class="form-check-input" checked>
+                                <label asp-for="IsActive" class="form-check-label">IsActive</label>
+                            </div>
+                            <div class="col">
+                                <input asp-for="IsDeleted" type="checkbox" class="form-check-input" disabled>
+                                <label asp-for="IsDeleted" class="form-check-label">IsDeleted</label>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
