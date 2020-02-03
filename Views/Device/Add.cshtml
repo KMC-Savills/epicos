@@ -55,7 +55,10 @@
                         <input asp-for="IPaddress" class="form-control" />
                         <span asp-validation-for="IPaddress"></span>
                     </div>
-
+                    <div class="col">
+                        <label asp-for="Type" class="control-label"></label>
+                        @Html.DropDownListFor(Model => Model.Type, Model.ListOfDeviceTypes, new { @class = "form-control" })
+                    </div>
                     <div class="row" hidden>
                         <div class="form-check">
                             <div class="col">
@@ -67,7 +70,7 @@
                                 <label asp-for="IsDeleted" class="form-check-label">IsDeleted</label>
                             </div>
                         </div>
-                    </div>
+                    </div>*@
                 </div>
             </div>
         </div>

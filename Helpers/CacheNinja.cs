@@ -48,5 +48,29 @@ namespace EpicOS.Helpers
             return status;
         }
 
+        public bool AddItemToCache<T>(string key, T item)
+        {
+            bool status = false;
+            try
+            {
+                List<T> cachedObjects = cache[key] as List<T>;
+                cachedObjects.Add(item);
+                if (cachedObjects == null)
+                {
+                    cache.Set(key, cachedObjects, cacheExpiry);
+                }
+                else
+                {
+                    cache.Add(key, item, cacheExpiry);
+                }
+                status = true;
+            }
+            catch
+            {
+
+            }
+            return status;
+        }
+
     }
 }

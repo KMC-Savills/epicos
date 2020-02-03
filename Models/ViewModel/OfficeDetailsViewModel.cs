@@ -9,5 +9,6 @@ namespace EpicOS.Models.ViewModel
     public class OfficeDetailsViewModel : Office
     {
         public string CityName { get; set; }
+        public List<Floor> Floors { get; set; }
     }
 }
