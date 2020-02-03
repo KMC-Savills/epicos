@@ -148,7 +148,6 @@ a {
             width: 20em !important;
         }
 }*/
-
 #custom-button {
     padding: 10px;
     color: white;
@@ -200,7 +199,6 @@ body {
 .modal {
     display: none; /* Hidden by default */
     position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
     padding-top: 100px; /* Location of the box */
     left: 0;
     top: 0;
@@ -301,7 +299,7 @@ body {
 }
 
 
-span {
+.navbar-nav span {
     color: white;
     font-family: "Verdana", sans-serif;
     text-decoration: none;
@@ -351,22 +349,27 @@ footer a:hover {
 }
 
 .link-active {
-    background-color: #00264d;
+    background-color: #025dbf;
+
+}
+.link-active span {
+    font-weight: bold;
 }
 
 #office-image {
     text-align: center;
-    border: 2px solid #b6b8ba;
     cursor: pointer;
+    height:400px;
 }
 
     #office-image img {
-        height: 15em !important;
-        width: 15em !important;
+        height: 100% !important;
+        width: 100% !important;
     }
 
 .img-fluid {
-    height: 200px !important;
+    height: 250px !important;
+    width: 100%;
     object-fit: cover;
     object-position: center center;
 }
@@ -388,4 +391,24 @@ footer a:hover {
 .label-address {
     color: black;
     font-size: .8em;
+}
+.offices-map
+{
+    height: 50% !important;
+    position: sticky !important;
+}
+/*for details map*/
+.details-map
+{
+    height: 298px !important;
+    position: fixed;
+
+}
+#map{
+    height: 100%;
+    width: 100%;
+}
+.required:after {
+    content: " *";
+    color: red;
 }

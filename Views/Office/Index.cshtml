@@ -8,7 +8,6 @@
 <input type="hidden" id="GPSLat" value="@mainOffice.Latitude" />
 <input type="hidden" id="GPSLon" value="@mainOffice.Longitude" />
 <input type="hidden" id="Buildings" value="@json" />
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-8">
@@ -22,57 +21,57 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-cs-12 col-sm-12 com-md-12">
+                    <div class="col-cs-12 col-sm-12 col-md-12">
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12 col-lg-8">
-                                    <div class="row" id="officeList">
-                                        @foreach (var item in Model.OrderByDescending(item => item.ID))
-                                        {
-
-                                            string filepath = "/uploads/img/office/" + @item.ID + "/" + @item.Filename;
-
-                                            <div class="col-xs-12 col-sm-10 col-md-6 col-lg-4">
-                                                <div class="card" onmouseover="centerMap(@item.Latitude, @item.Longitude)" data-latitude="@item.Latitude" data-longitude="@item.Longitude" data-id="@item.ID" style="background-color: ghostwhite;">
-                                                    <div class="card-title" id="office-title">
-                                                        <small class="label-info" id="officesName">@Html.DisplayFor(modelItem => item.Name)</small>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <a href="/Office/Details/@item.ID" style="text-decoration: none; color: black; text-align: center;">
-                                                            @if (item.Filename == "")
-                                                            {
-
-                                                                <img class="card-img-top img-fluid rounded-top" src="~/images/error.png" />
-                                                            }
-                                                            else
-                                                            {
-                                                                <img class="img-fluid rounded-top" src="@filepath" />
-                                                            }
-
-                                                        </a>
-
-                                                    </div>
-                                                    <div class="card-title m-1" style="text-align: center; height: 3em;">
-                                                        <span class="label-address">@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.CityName)</span>
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="card sticky-top">
+                                    <div class="card">
                                         <div class="card-body">
-                                            <div id="map" style="border: 2px solid red;"></div>
+                                            <div class="row" id="officeList">
+                                                @foreach (var item in Model.OrderByDescending(item => item.ID))
+                                                {
+
+                                                    string filepath = "/uploads/img/office/" + @item.ID + "/" + @item.Filename;
+
+                                                    <div class="col-xs-12 col-sm-10 col-md-4 col-lg-4">
+                                                        <div class="card" onmouseover="centerMap(@item.Latitude, @item.Longitude)" data-latitude="@item.Latitude" data-longitude="@item.Longitude" data-id="@item.ID" style="background-color: ghostwhite;">
+                                                            <div class="card-title" id="office-title">
+                                                                <small class="label-info" id="officesName">@Html.DisplayFor(modelItem => item.Name)</small>
+                                                            </div>
+                                                            <div class="card-body">
+                                                                <a href="/Office/Details/@item.ID" style="text-decoration: none; color: black; text-align: center;">
+                                                                    @if (item.Filename == "")
+                                                                    {
+
+                                                                        <img class="card-img-top img-fluid rounded-top" src="~/images/error.png" />
+                                                                    }
+                                                                    else
+                                                                    {
+                                                                        <img class="img-fluid rounded-top" src="@filepath" />
+                                                                    }
+
+                                                                </a>
+
+                                                            </div>
+                                                            <div class="card-title m-1" style="text-align: center; height: 3em;">
+                                                                <span class="label-address">@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.CityName)</span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            </div>
                                         </div>
                                     </div>
+                                </div>
+                                <div class="col-sm-12 col-md-offset-1 col-md-10 col-lg-offset-2 col-lg-4">
+                                        <div id="map" class="offices-map"></div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </div>
     </div>
 </div>

@@ -27,6 +27,7 @@ namespace EpicOS.Models.ViewModel
         [Required]
         public List<SelectListItem> ListOfDeviceTypes { get; set; }
 
+        public List<SelectListItem> ListOfLogs { get; set; }
         
     }
    

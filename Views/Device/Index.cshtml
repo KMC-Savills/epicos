@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<EpicOS.Models.ViewModel.DeviceViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Devices";
 }
 
 <div class="container-fluid">
@@ -11,88 +11,83 @@
             <a asp-action="Add" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fa fa-plus"></i>Add Device</a>
         </div>
         <div class="card-body">
-            <table class="table">
+            <table class="table table-striped table-bordered" id="customTable">
                 @if (Model.Count() > 0)
                 {
                     <thead>
                         <tr>
-                            @*<th>
-                                    @Html.DisplayNameFor(model => model.ID)
-                                </th>*@
-                            <th>
+                            <th hidden>
+                                @Html.DisplayNameFor(model => model.ID)
+                            </th>
+                            <th scope="col">
                                 @Html.DisplayNameFor(model => model.Name)
                             </th>
-                            <th>
+                            <th scope="col">
                                 @Html.DisplayNameFor(model => model.Type)
                             </th>
-                            <th>
+                            <th scope="col">
                                 @Html.DisplayNameFor(model => model.MAC)
                             </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.IPaddress)
+                            <th scope="col">
+                                IP Address
                             </th>
-                            @*<th>
-                                    @Html.DisplayNameFor(model => model.OfficeID)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.FloorID)
-                                </th>
-                                <th>
-                                    @Html.DisplayNameFor(model => model.RoomID)
-                                </th>*@
-                            <th>
-                                @Html.DisplayNameFor(model => model.OfficeName)
+                            <th scope="col">
+                                Office Name
                             </th>
 
-                            <th>
+                            <th scope="col">
                                 @Html.DisplayNameFor(model => model.Floor)
                             </th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th scope="col">Details</th>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
                         @foreach (var item in Model)
                         {
                             <tr>
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.ID)
-                                    </td>*@
-                                <td>
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.ID)
+                                </td>
+                                <td scope="col">
                                     @Html.DisplayFor(modelItem => item.Name)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Type)
+                                <td scope="col">
+                                    @* @Html.DisplayFor(Model => item.Type)*@
+                                    @{
+                                        if (item.Type == 1)
+                                        {
+                                            <text>Sensor</text>
+                                        }
+                                        if (item.Type == 2)
+                                        {
+                                            <text>Hub</text>
+                                        }
+                                    }
                                 </td>
-                                <td>
+                                <td scope="col">
                                     @Html.DisplayFor(modelItem => item.MAC)
                                 </td>
-                                <td>
+                                <td scope="col">
                                     @Html.DisplayFor(modelItem => item.IPaddress)
                                 </td>
-                                @*<td>
-                                        @Html.DisplayFor(modelItem => item.OfficeID)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.FloorID)
-                                    </td>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.RoomID)
-                                    </td>*@
-                                <td>
+                                <td scope="col">
                                     @Html.DisplayFor(modelItem => item.OfficeName)
                                 </td>
-                                <td>
+                                <td scope="col">
                                     @Html.DisplayFor(modelItem => item.Floor)
                                 </td>
-                                <td>
-                                    <a href="@Url.Action("Edit", "Device", new {id = item.ID})" class="btn btn-info"><i class="fa fa-edit"></i>Edit</a>
+                                <td scope="col">
+                                    <a href="/Device/Details/@item.ID/?type=@item.Type" class="btn btn-success">Details</a>
                                 </td>
-                                <td>
-                                    @*@Html.ActionLink("Delete", "Update", new { id = item.ID }, new { @class = "btn btn-info" })*@
-                                    <a href="@Url.Action("Remove", "Device", new {id = item.ID})" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
+                                <td scope="col">
+                                    <a href="/Device/Edit/@item.ID/?type=@item.Type" class="btn btn-info">Edit</a>
+                                </td>
+                                <td scope="col">
+                                    <a href="/Device/Delete/@item.ID/?type=@item.Type" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
+                                </td>
 
-                                </td>
                             </tr>
                         }
                     </tbody>
@@ -100,7 +95,7 @@
                 else
                 {
 
-                    <text>No record yet. Please add!</text>
+                    <text>No device found. Please add a device.</text>
                 }
             </table>
         </div>

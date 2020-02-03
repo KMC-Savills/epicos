@@ -13,7 +13,5 @@ namespace EpicOS.Models.Entities
         public int OfficeID { get; set; }
         public int FloorID { get; set; }
         public int RoomID { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

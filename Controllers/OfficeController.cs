@@ -34,7 +34,6 @@ namespace EpicOS.Controllers
         public void ReadyContextForView(int id = 0)
         {
             DropDownManager ddManager = new DropDownManager();
-            OfficeManager officeManager = new OfficeManager();
             OfficeViewModel context = new OfficeViewModel();
             context.ListOfCities = ddManager.CityDropDown();
             ViewBag.Context = context;

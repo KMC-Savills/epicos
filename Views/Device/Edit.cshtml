@@ -1,70 +1,72 @@
-﻿@model EpicOS.Models.Entities.Device
+﻿@model EpicOS.Models.ViewModel.DeviceViewModel
 @{
     ViewData["Title"] = "Edit";
     var context = ViewBag.Context as EpicOS.Models.ViewModel.DeviceViewModel;
-
 }
 
-<h2>Edit</h2>
-
-<h4>DeviceViewModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Type" class="control-label"></label>
-                <input asp-for="Type" class="form-control" />
-                <span asp-validation-for="Type" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="MAC" class="control-label"></label>
-                <input asp-for="MAC" class="form-control" />
-                <span asp-validation-for="MAC" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IPaddress" class="control-label"></label>
-                <input asp-for="IPaddress" class="form-control" />
-                <span asp-validation-for="IPaddress" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="FloorID" class="control-label"></label>
-                <input asp-for="FloorID" class="form-control" />
-                <span asp-validation-for="FloorID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="OfficeID" class="control-label"></label>
-                @Html.DropDownListFor(Model => Model.FloorID, Model.ListOfOffices)
-                <span asp-validation-for="OfficeID" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                    </label>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Edit">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="font-weight-bold float-left">Edit Device</h4>
+                        <button type="submit" class="btn btn-primary float-right"><i class="fa fa-save"></i> Update</button>
+                        <a href="/Device/" class="btn btn-secondary float-right btn-margins"><i class="fa fa-arrow-left"></i>Back to Office List</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="Name" class="control-label">Device Name</label>
+                                <input asp-for="Name" class="form-control" />
+                                <span asp-validation-for="Name" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <label asp-for="OfficeID" class="control-label">Office</label>
+                                @*<input asp-for="OfficeID" class="form-control" />*@
+                                @Html.DropDownListFor(Model => Model.OfficeID, context.ListOfOffices, new { @class = "form-control" })
+                                @*<span asp-validation-for="OfficeID" class="text-danger"></span>*@
+                            </div>
+                            <div class="col">
+                                <label asp-for="FloorID" class="control-label">Floor</label>
+                                @*<input asp-for="FloorID" class="form-control" />*@
+                                @Html.DropDownListFor(Model => Model.FloorID, context.ListOfFloors, new { @class = "form-control" })
+                                <span asp-validation-for="FloorID" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label asp-for="MAC" class="control-label"></label>
+                                <input asp-for="MAC" class="form-control" />
+                                <span asp-validation-for="MAC" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <label asp-for="IPaddress" class="control-label"></label>
+                                <input asp-for="IPaddress" class="form-control" />
+                                <span asp-validation-for="IPaddress" class="text-danger"></span>
+                            </div>
+                            <div class="col">
+                                <label asp-for="Type" class="control-label"></label>
+                                <input type="text" value="Changing type of device is not advisable." class="form-control" disabled />
+                                <input asp-for="Type" class="form-control" hidden/>
+                                <span asp-validation-for="Type" class="text-danger"></span>
+                            </div>
+                            <div class="col" hidden>
+                                <div class="checkbox">
+                                    <label>
+                                        <input asp-for="IsActive" checked /> @Html.DisplayNameFor(model => model.IsActive)
+                                    </label>
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        <input asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
-                    </label>
-                </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-

@@ -8,11 +8,12 @@
     <title>@ViewData["Title"] - EpicOS</title>
 
     <environment include="Development">
-        <link href="~/css/stick.css" rel="stylesheet" />
         <link href="~/css/bootstrap.min.css" rel="stylesheet" />
-        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link href="~/css/jquery-ui.css" rel="stylesheet" />
         <link href="~/css/front.css" rel="stylesheet" />
+        <link href="~/css/stick.css" rel="stylesheet" />
+        <link href="~/css/jquery-ui.css" rel="stylesheet" />
+        <link href="~/css/dataTables.bootstrap4.css" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     </environment>
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -29,40 +30,43 @@
     <nav class="navbar navbar-expand static-top" style="background-color: #003366">
 
         <a class="navbar-brand mr-1" href="~/Home">EPIC OS</a>
-        <button class="btn btn-link btn-lg text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+        <button class="btn btn-link btn-md text-white order-1 order-sm-0" id="sidebarToggle" href="#" >
             <i class="fa fa-bars"></i>
         </button>
     </nav>
 
     <div id="wrapper">
         <!-- Sidebar -->
-        <ul class="sidebar navbar-nav">
+        <ul class="sidebar navbar-nav" style="overflow: hidden;">
             <li class="nav-item">
-                <a class="nav-link link-active" href="~/Home">
+                <a class="nav-link" href="/Home">
+                    <i class="fa fa-tachometer"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="~/Office">
-                    <span>Offices</span>
+                <a class="nav-link" href="/Office">
+                    <i class="fa fa-home"></i>
+                    <span> Offices</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="~/Device">
+                <a class="nav-link" href="/Device">
+                    <i class="fa fa-microchip"></i>
                     <span>Devices</span>
                 </a>
             </li>
             <li class="nav-item" hidden>
-                <a class="nav-link" href="~/Book">
+                <a class="nav-link" href="/Book">
                     <span>Bookings</span>
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="~/User">
-                    <span>Users</span>
+                <a class="nav-link" href="/User">
+                    <i class="fa fa-user"></i>
+                    <span> User</span>
                 </a>
             </li>
-
         </ul>
 
         <div id="content-wrapper" style="overflow: hidden;">
@@ -71,7 +75,7 @@
             <!-- /.container-fluid -->
             <!-- Sticky Footer -->
             <footer id="footer-main">
-                <span>Copyright © EPIC OS 2020</span>
+                <small>Copyright © EPIC OS 2020</small>
                 <br />
                 <small>Contact us here:</small>
                 <a href="#" class="fa fa-google google-css"></a>
@@ -87,40 +91,19 @@
     <!-- /#wrapper -->
     <partial name="_CookieConsentPartial" />
     <environment include="Development">
-        <script src="~/js/site.js"></script>
         <script src="~/js/jquery-ui.js"></script>
         <script src="~/js/jquery-3.4.1.js"></script>
-        <script src="~/js/bootstrap.min.js"></script>
-        <script src="~/js/sb-admin.min.js"></script>
-        <script src="~/js/Chart.min.js"></script>
-        <script src="~/js/jquery.easing.min.js"></script>
         <script src="~/js/jquery.dataTables.js"></script>
         <script src="~/js/dataTables.bootstrap4.js"></script>
+        <script src="~/js/bootstrap.min.js"></script>
+        <script src="~/js/site.js"></script>
+        <script src="~/js/jquery.easing.min.js"></script>
+        <script src="~/js/Chart.min.js"></script>
+        <script src="~/js/sb-admin.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
-        <script>
-            // THIS IS WORKING BUT PAGE KEEPS RELOADING
-            var elements = document.getElementsByClassName("nav-link");
-            for (var i = 0; i < elements.length; i++) {
-                elements[i].onclick = function () {
 
-                    // remove class from sibling
-
-                    var el = elements[0];
-                    while (el) {
-                        if (el.tagName === "DIV") {
-                            //remove class
-                            el.classList.remove("link-active");
-
-                        }
-                        // pass to the new sibling
-                        el = el.nextSibling;
-                    }
-
-                    this.classList.add("link-active");
-                };
-            }
-        </script>
+        <!--FOR SHOW PASSWORD IN USER PAGE-->
         <script>
             $(".make-pass").attr("type", "password");
         </script>
@@ -134,6 +117,36 @@
                     x.type = "password";
                 }
             }
+            $(function ($) {
+                $("ul a")
+                    .click(function (e) {
+                        var link = $(this);
+
+                        var item = link.parent("li");
+
+                        if (item.hasClass("link-active")) {
+                            item.removeClass("link-active").children("a").removeClass("link-active");
+                        } else {
+                            item.addClass("link-active").children("a").addClass("link-active");
+                        }
+
+                        if (item.children("ul").length > 0) {
+                            var href = link.attr("href");
+                            link.attr("href", "#");
+                            setTimeout(function () {
+                                link.attr("href", href);
+                            }, 300);
+                            e.preventDefault();
+                        }
+                    })
+                    .each(function () {
+                        var link = $(this);
+                        if (link.get(0).href === location.href) {
+                            link.addClass("link-active").children("li").addClass("link-active");
+                            return false;
+                        }
+                    });
+            });
         </script>
     </environment>
     <environment exclude="Development">

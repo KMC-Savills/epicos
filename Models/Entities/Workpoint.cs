@@ -11,10 +11,8 @@ namespace EpicOS.Models.Entities
         public double CoordinateY { get; set; }
         public double CoordinateZ { get; set; }
         public int OfficeID { get; set; }
-        public int FloorID { get; set; }
+        public int FloorID { get; set; }    
         public int RoomID { get; set; }
         public int HubID { get; set; }
-        public bool IsActive { get; set; }
-        public bool IsDeleted { get; set; }
     }
 }

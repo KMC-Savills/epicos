@@ -14,12 +14,8 @@ namespace EpicOS.Managers
     public class DeviceManager : BaseManager
     {
 
-        private DeviceRepository deviceRepository;
+        private DeviceRepository deviceRepository = new DeviceRepository();
 
-        public DeviceManager()
-        {
-            this.deviceRepository = new DeviceRepository();
-        }
 
         public enum DeviceTypes
         {
@@ -30,6 +26,8 @@ namespace EpicOS.Managers
             Phone = 5,
             Tablet = 6
         }
+
+
 
         public List<Workpoint> WorkpointGetAll()
         {
@@ -69,9 +67,18 @@ namespace EpicOS.Managers
             return deviceRepository.TelemeryGetFilter(parameter);
         }
 
-        public Hub GetByID(int id)
+        public DeviceViewModel DeviceGetByID(int id, int type)
+        {
+            return DeviceGetAll().FirstOrDefault(e => e.ID.Equals(id) && e.Type.Equals(type));
+        }
+        public Hub HubGetByID(int id)
         {
             return HubGetAll().FirstOrDefault(e => e.ID.Equals(id));
+        }
+
+        public Workpoint WorkpointGetByID(int id)
+        {
+            return WorkpointGetAll().FirstOrDefault(e => e.ID.Equals(id));
         }
 
         public Hub HubGetByMAC(string MAC)
@@ -148,6 +155,7 @@ namespace EpicOS.Managers
         public Result WorkpointUpdate(Workpoint workpoint)
         {
             Result result = deviceRepository.WorkpointUpdate(workpoint);
+            cacheNinja.ClearCache("Workpoint_GetAll");
             return result;
         }
 
@@ -163,10 +171,33 @@ namespace EpicOS.Managers
             return result;
         }
 
+        // Get all Logs
+        public List<Log> LogGetAll()
+        {
+            List<Log> logs = cacheNinja.cache["Log_GetAll"] as List<Log>;
+            if (logs == null)
+            {
+                logs = deviceRepository.LogGetAll();
+                cacheNinja.cache.Set("Log_GetAll", logs, cacheNinja.cacheExpiry);
+            }
+            return logs;
+        }
+
         public Result LogInsert(Log log)
         {
             Result result = deviceRepository.LogInsert(log);
             return result;
+        }
+        public Result LogUpdate(Log log)
+        {
+            Result result = deviceRepository.LogUpdate(log);
+            return result;
+        }
+        // GET LOGS BY MAC
+        public List<Log> LogGetByMAC(int MAC)
+        {
+            List<Log> results = LogGetAll().Where(l => l.MAC.Equals(MAC)).ToList();
+            return results;
         }
 
         public Result TelemeryInsert(Telemery telemery)
@@ -220,6 +251,8 @@ namespace EpicOS.Managers
                 deviceItems.MAC = hub.MAC;
                 deviceItems.IPaddress = hub.IPaddress;
                 deviceItems.OfficeID = hub.OfficeID;
+                deviceItems.IsActive = hub.IsActive;
+                deviceItems.IsDeleted = hub.IsDeleted;
                 try
                 {
                     deviceItems.FloorID = hub.FloorID;
@@ -257,6 +290,30 @@ namespace EpicOS.Managers
             }
             return deviceViewModels;
         }
-       
+        public bool Delete(int id, int type)
+        {
+            bool result = true;
+            {
+                switch (type)
+                {
+                    case 1:
+                        Workpoint workpoint = deviceRepository.WorkpointGetByID(id);
+                        workpoint.IsDeleted = true;
+                        deviceRepository.WorkpointUpdate(workpoint);
+                        cacheNinja.ClearCache("Workpoint_GetAll");
+                        break;
+                    case 2:
+                        Hub hub = deviceRepository.HubGetByID(id);
+                        hub.IsDeleted = true;
+                        deviceRepository.HubUpdate(hub);
+                        cacheNinja.ClearCache("Hub_GetAll");
+                        break;
+                    default:
+                        break;
+                }
+            }
+            return result;
+
+        }
     }
 }

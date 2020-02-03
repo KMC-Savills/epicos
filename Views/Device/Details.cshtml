@@ -1,0 +1,98 @@
+﻿@model EpicOS.Models.ViewModel.DeviceViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="font-weight-bold float-left">Device Details</h4>
+                    <a href="/Device/" class="btn btn-secondary float-right"><i class="fa fa-arrow-left"></i>Back to Device List</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col">
+                            <dl>
+                                <dt>@Html.DisplayNameFor(Model => Model.Name):</dt>
+                                <dd>@Html.DisplayFor(Model => Model.Name)</dd>
+                            </dl>
+                        </div>
+                        <div class="col">
+                            <dl>
+                                <dt>@Html.DisplayNameFor(Model => Model.OfficeName):</dt>
+                                <dd>@Html.DisplayFor(Model => Model.OfficeName)</dd>
+                            </dl>
+                        </div>
+                        <div class="col">
+                            <dl>
+                                <dt>@Html.DisplayNameFor(Model => Model.Floor):</dt>
+                                <dd>@Html.DisplayFor(Model => Model.Floor)</dd>
+                            </dl>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <dl>
+                                <dt>@Html.DisplayNameFor(Model => Model.MAC):</dt>
+                                <dd>@Html.DisplayFor(Model => Model.MAC)</dd>
+                            </dl>
+                        </div>
+                        <div class="col">
+                            <dl>
+                                <dt>@Html.DisplayNameFor(Model => Model.IPaddress):</dt>
+                                <dd>@Html.DisplayFor(Model => Model.IPaddress)</dd>
+                            </dl>
+                        </div>
+                        <div class="col">
+                            <dl>
+                                <dt>@Html.DisplayNameFor(Model => Model.Type):</dt>
+                                <dd>
+                                    @{
+                                        if (Model.Type == 1)
+                                        {
+                                            <text>Sensor</text>
+                                        }
+                                        if (Model.Type == 2)
+                                        {
+                                            <text>Hub</text>
+                                        }
+                                    }
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="font-weight-bold float-left">Logs</h4>
+                </div>
+                <div class="card-body">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Date Created</th>
+                                <th>MAC Address</th>
+                                <th>IP Address</th>
+                                <th>Message</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>2/3/2020 10:13AM</td>
+                                <td>@Html.DisplayFor(Model => Model.MAC)</td>
+                                <td>@Html.DisplayFor(Model => Model.IPaddress)</td>
+                                <td>Battery is low.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

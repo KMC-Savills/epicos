@@ -10,6 +10,32 @@ namespace EpicOS.Repository
 {
     public class DeviceRepository : BaseRepository
     {
+        public List<Log> LogGetAll()
+        {
+            List<Log> result = new List<Log>();
+
+            var reader = dbConnection.Select("usp_Log_GetAll", null, CommandType.StoredProcedure);
+            if (reader != null)
+            {
+                if (reader.Rows.Count > 0)
+                {
+                    foreach (DataRow row in reader.Rows)
+                    {
+                        Log item = new Log();
+                        item.ID = transform.ToInt(row["ID"]);
+                        item.DateCreated = transform.ToDateTime(row["DateCreated"]);
+                        item.MAC = row["MAC"].ToString();
+                        item.IPaddress = row["IPaddress"].ToString();
+                        item.Message = row["Message"].ToString();
+                        item.IsDeleted = transform.ToBool(row["IsDeleted"]);
+                        result.Add(item);
+                    }
+                }
+            }
+            return result;
+        }
+
+
 
         public List<Workpoint> WorkpointGetAll()
         {
@@ -71,16 +97,16 @@ namespace EpicOS.Repository
             return result;
         }
 
-        internal List<Telemery> TelemeryGetAll() 
+        internal List<Telemery> TelemeryGetAll()
         {
             var result = new List<Telemery>();
 
             var reader = dbConnection.Select("usp_Telemetry_GetAll", null, CommandType.StoredProcedure);
-            if (reader != null) 
+            if (reader != null)
             {
-                if (reader.Rows.Count > 0) 
+                if (reader.Rows.Count > 0)
                 {
-                    foreach (DataRow row in reader.Rows) 
+                    foreach (DataRow row in reader.Rows)
                     {
                         Telemery item = new Telemery();
                         item.ID = transform.ToInt(row["ID"]);
@@ -127,13 +153,13 @@ namespace EpicOS.Repository
             return result;
         }
 
-        public Hub GetByID(int ID)
+        public Hub HubGetByID(int id)
         {
             Hub item = new Hub();
 
             object parameter = new Hub()
             {
-                ID = ID
+                ID = id
             };
             var reader = dbConnection.Select("usp_Hub_GetByID", parameter, CommandType.StoredProcedure);
 
@@ -141,10 +167,10 @@ namespace EpicOS.Repository
             {
                 if (reader.Rows.Count > 0)
                 {
-                    item.ID = ID;
+                    item.ID = id;
                     item.Name = reader.Rows[0]["Name"].ToString();
                     item.DeviceType = transform.ToInt(reader.Rows[0]["DeviceType"]);
-                    item.MAC = reader.Rows[0]["Type"].ToString();
+                    item.MAC = reader.Rows[0]["MAC"].ToString();
                     item.IPaddress = reader.Rows[0]["OfficeID"].ToString();
                     item.OfficeID = transform.ToInt(reader.Rows[0]["OfficeID"]);
                     item.RoomID = transform.ToInt(reader.Rows[0]["RoomID"]);
@@ -155,7 +181,31 @@ namespace EpicOS.Repository
             }
             return item;
         }
+        public Workpoint WorkpointGetByID(int id)
+        {
+            Workpoint item = new Workpoint();
 
+            object parameter = new Workpoint()
+            {
+                ID = id
+            };
+            var reader = dbConnection.Select("usp_Workpoint_GetByID", parameter, CommandType.StoredProcedure);
+
+            if (reader != null)
+            {
+                if (reader.Rows.Count > 0)
+                {
+                    item.ID = id;
+                    item.IPaddress = reader.Rows[0]["OfficeID"].ToString();
+                    item.OfficeID = transform.ToInt(reader.Rows[0]["OfficeID"]);
+                    item.RoomID = transform.ToInt(reader.Rows[0]["RoomID"]);
+                    item.FloorID = transform.ToInt(reader.Rows[0]["FloorID"]);
+                    item.IsActive = transform.ToBool(reader.Rows[0]["IsActive"]);
+                    item.IsDeleted = transform.ToBool(reader.Rows[0]["IsDeleted"]);
+                }
+            }
+            return item;
+        }
         public Result WorkpointInsert(Workpoint parameter)
         {
             var result = dbConnection.Insert("usp_Workpoint_Insert", parameter);
@@ -195,6 +245,11 @@ namespace EpicOS.Repository
         public Result LogInsert(Log parameter)
         {
             var result = dbConnection.Insert("usp_Log_Insert", parameter);
+            return result;
+        }
+        public Result LogUpdate(Log parameter)
+        {
+            var result = dbConnection.Update("usp_Log_Update", parameter);
             return result;
         }
     }

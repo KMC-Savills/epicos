@@ -5,7 +5,6 @@
     //var context = ViewBag.Context as EpicOS.Models.ViewModel.OfficeDetailsViewModel;
 
 }
-<br />
 <div class="container-fluid">
     <div class="card">
         <div class="card-header">
@@ -13,7 +12,6 @@
             <a href="@Url.Action("Delete", "Office", new {id = Model.ID})" class="btn btn-danger float-right" onclick="return confirm('Are you sure you want to delete this?')"><i class="fa fa-trash"></i>Delete Office</a>
             <a href="@Url.Action("Edit", "Office", new {id = Model.ID})" class="btn btn-info float-right btn-margins"><i class="fa fa-edit"></i>Edit Office</a>
             <a href="~/Office/" class="btn btn-secondary float-right btn-margins"><i class="fa fa-arrow-left"></i>Back to Office List</a>
-
         </div>
         <br />
         <div class="row">
@@ -24,15 +22,14 @@
                             <div class="col-sm-8 col-md-12">
                                 <h5 style="font-weight: bold;">@Html.DisplayFor(model => model.Name)</h5>
                                 @*<a class="btn btn-secondary float-right" asp-action="Index"><i class="fa fa-arrow-left"></i>Back to List</a>
-                            <a href="@Url.Action("Delete", "Office", new {id = Model.ID})" class="btn btn-danger float-right sub-btn" onclick="return confirm('Are you sure you want to delete this?')"><i class="fa fa-trash"></i>Delete</a>
-                            <a href="@Url.Action("Edit", "Office", new {id = Model.ID})" class="btn btn-info float-right sub-btn"><i class="fa fa-edit"></i>Edit</a>*@
+                                    <a href="@Url.Action("Delete", "Office", new {id = Model.ID})" class="btn btn-danger float-right sub-btn" onclick="return confirm('Are you sure you want to delete this?')"><i class="fa fa-trash"></i>Delete</a>
+                                    <a href="@Url.Action("Edit", "Office", new {id = Model.ID})" class="btn btn-info float-right sub-btn"><i class="fa fa-edit"></i>Edit</a>*@
                                 @*@Html.ActionLink("Edit", "Edit", new { id = Model.ID }, new { @class = "btn btn-primary float-right sub-btn " })*@
                                 @*@Html.ActionLink("Delete", "Delete", new { id = Model.ID }, new { @class = "btn btn-danger float-right sub-btn" })*@
 
                             </div>
                         </div>
                     </div>
-
 
                     <div class="card-body">
                         <div class="row">
@@ -42,7 +39,7 @@
                                         string imagepath = "/uploads/img/office/" + Model.ID + "/" + Model.Filename;
                                         if (Model.Filename == "")
                                         {
-                                            <img src="~/images/error.png" width="500" height="500" />
+                                            <img src="~/images/error.png" />
                                         }
                                         else
                                         {
@@ -146,7 +143,7 @@
                     <div class="col">
                         <br />
                         <div class="table-wrapper-scroll-y my-custom-scrollbar overflow-auto">
-                            <table class="table table-bordered table-striped mb-0" id="dtBasicExample">
+                            <table class="table table-bordered table-striped" id="customTable">
                                 <thead>
                                     <tr>
                                         <th scope="col">Image</th>
@@ -249,16 +246,7 @@
 </div>
 @section Scripts
 {
-    <script>
-        // Basic example
-        $(document).ready(function () {
-            $('#dtBasicExample').DataTable({
-                "pagingType": "simple", // "simple" option for 'Previous' and 'Next' buttons only
-                "pageLength": 5
-            });
-            $('.dataTables_length').addClass('bs-select');
-        });
-    </script>
     <script src="~/js/track.js"></script>
+    <script src="~/js/customDataTable.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsyB1N3HPmTmg4aFJwPLv6uvqxEYtl9X8&callback=initMap" async defer></script>
 }

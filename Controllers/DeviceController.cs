@@ -15,22 +15,33 @@ namespace EpicOS.Controllers
 {
     public class DeviceController : Controller
     {
+        private DeviceManager deviceManager = new DeviceManager();
+        private DeviceViewModel deviceViewModel = new DeviceViewModel();
+        private DropDownManager dropDownManager = new DropDownManager();
+        private CacheNinja cacheNinja = new CacheNinja();
+
         public IActionResult Index()
         {
-            DeviceManager deviceManager = new DeviceManager();
+
             return View(deviceManager.DeviceGetAll());
         }
 
         public DeviceViewModel DefaultValueListing()
         {
-            DeviceViewModel deviceViewModel = new DeviceViewModel();
-            DropDownManager dropDownManager = new DropDownManager();
             deviceViewModel.ListOfOffices = dropDownManager.OfficeDropDown();
             deviceViewModel.ListOfFloors = dropDownManager.FloorDropdown();
             deviceViewModel.ListOfDeviceTypes = dropDownManager.DeviceTypeDropdown();
             return deviceViewModel;
         }
 
+        public void DropdownForEdit()
+        {
+            DeviceViewModel context = new DeviceViewModel();
+            context.ListOfOffices = dropDownManager.OfficeDropDown();
+            context.ListOfFloors = dropDownManager.FloorDropdown();
+            context.ListOfDeviceTypes = dropDownManager.DeviceTypeDropdown();
+            ViewBag.Context = context;
+        }
         [HttpGet]
         public IActionResult Add()
         {
@@ -40,7 +51,6 @@ namespace EpicOS.Controllers
         [HttpPost]
         public IActionResult Add(DeviceViewModel deviceViewModel)
         {
-            DeviceManager deviceManager = new DeviceManager();
             if (deviceViewModel.Type == 1)
             {
                 Workpoint workpoint = new Workpoint();
@@ -50,6 +60,8 @@ namespace EpicOS.Controllers
                 workpoint.IPaddress = deviceViewModel.IPaddress;
                 workpoint.OfficeID = deviceViewModel.OfficeID;
                 workpoint.FloorID = deviceViewModel.FloorID;
+                workpoint.IsActive = deviceViewModel.IsActive;
+                workpoint.IsDeleted = deviceViewModel.IsDeleted;
                 deviceManager.WorkpointInsert(workpoint);
             }
             else
@@ -63,55 +75,70 @@ namespace EpicOS.Controllers
                 hubs.IPaddress = deviceViewModel.IPaddress;
                 hubs.OfficeID = deviceViewModel.OfficeID;
                 hubs.FloorID = deviceViewModel.FloorID;
+                hubs.IsActive = deviceViewModel.IsActive;
+                hubs.IsDeleted = deviceViewModel.IsDeleted;
                 deviceManager.HubInsert(hubs);
             }
-            CacheNinja ninja = new CacheNinja();
-            ninja.ClearCache("Workpoint_GetAll");
-            ninja.ClearCache("Hub_GetAll");
+            cacheNinja.ClearCache("Workpoint_GetAll");
+            cacheNinja.ClearCache("Hub_GetAll");
             return RedirectToAction("Index");
         }
-
-        [HttpGet]
-        public IActionResult Edit(int id)
-        {
-            DeviceManager deviceManager = new DeviceManager();
-            var getDevices = deviceManager.GetByID(id);
-            return View(getDevices);
-        }
         
-        //[HttpPost]
-        //public IActionResult Edit(DeviceViewModel deviceViewModel)
-        //{
-        //    DeviceManager deviceManager = new DeviceManager();
-        //    if (deviceViewModel.Type == 1)
-        //    {
-        //        Workpoint workpoint = new Workpoint();
-        //        workpoint.Name = deviceViewModel.Name;
-        //        workpoint.Type = deviceViewModel.Type;
-        //        workpoint.MAC = deviceViewModel.MAC;
-        //        workpoint.IPaddress = deviceViewModel.IPaddress;
-        //        workpoint.OfficeID = deviceViewModel.OfficeID;
-        //        workpoint.FloorID = deviceViewModel.FloorID;
-        //        deviceManager.WorkpointUpdate(workpoint);
-        //    }
-        //    else
-        //    if (deviceViewModel.Type == 2)
-        //    {
-        //        Hub hubs = new Hub();
-        //        hubs.ID = deviceViewModel.ID;
-        //        hubs.Name = deviceViewModel.Name;
-        //        hubs.Type = deviceViewModel.Type;
-        //        hubs.MAC = deviceViewModel.MAC;
-        //        hubs.IPaddress = deviceViewModel.IPaddress;
-        //        hubs.OfficeID = deviceViewModel.OfficeID;
-        //        hubs.FloorID = deviceViewModel.FloorID;
-        //        deviceManager.HubUpdate(hubs);
-        //    }
-        //    CacheNinja ninja = new CacheNinja();
-        //    ninja.ClearCache("Workpoint_GetAll");
-        //    ninja.ClearCache("Hub_GetAll");
-        //    return RedirectToAction("Index");
-        //}
+        [HttpGet]
+        public IActionResult Details(int id, int type)
+        {
+            return View(deviceManager.DeviceGetByID(id, type));
+        }
+        [HttpGet]
+        public IActionResult Edit(int id, int type)
+        {
+            DropdownForEdit();
+            return View(deviceManager.DeviceGetByID(id, type));
+        }
+
+        [HttpPost]
+        public IActionResult Edit(DeviceViewModel deviceViewModel, int type)
+        {
+            switch (type)
+            {
+                case 1:
+                    Workpoint workpoints = new Workpoint();
+                    workpoints.ID = deviceViewModel.ID;
+                    workpoints.Name = deviceViewModel.Name;
+                    workpoints.Type = deviceViewModel.Type;
+                    workpoints.MAC = deviceViewModel.MAC;
+                    workpoints.IPaddress = deviceViewModel.IPaddress;
+                    workpoints.OfficeID = deviceViewModel.OfficeID;
+                    workpoints.FloorID = deviceViewModel.FloorID;
+                    workpoints.IsActive = deviceViewModel.IsActive;
+                    workpoints.IsDeleted = deviceViewModel.IsDeleted;
+                    deviceManager.WorkpointUpdate(workpoints);
+                    cacheNinja.ClearCache("Workpoint_GetAll");
+                    break;
+                case 2:
+                    Hub hubs = new Hub();
+                    hubs.ID = deviceViewModel.ID;
+                    hubs.Name = deviceViewModel.Name;
+                    hubs.Type = deviceViewModel.Type;
+                    hubs.MAC = deviceViewModel.MAC;
+                    hubs.IPaddress = deviceViewModel.IPaddress;
+                    hubs.OfficeID = deviceViewModel.OfficeID;
+                    hubs.FloorID = deviceViewModel.FloorID;
+                    hubs.IsActive = deviceViewModel.IsActive;
+                    hubs.IsDeleted = deviceViewModel.IsDeleted;
+                    deviceManager.HubUpdate(hubs);
+                    cacheNinja.ClearCache("Hub_GetAll");
+                    break;
+                default:
+                    break;
+            }
+            return RedirectToAction("Index");
+        }
+        public IActionResult Delete(int id, int type)
+        {
+            deviceManager.Delete(id, type);
+            return RedirectToAction("Index");
+        }
     }
 }
 
