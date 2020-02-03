@@ -1,8 +1,6 @@
-﻿@model EpicOS.Models.Entities.Device
+﻿@model EpicOS.Models.ViewModel.DeviceDetailsViewModel
 @{
     ViewData["Title"] = "Edit";
-    var context = ViewBag.Context as EpicOS.Models.ViewModel.DeviceViewModel;
-
 }
 
 <h2>Edit</h2>
@@ -33,7 +31,7 @@
                 <input asp-for="IPaddress" class="form-control" />
                 <span asp-validation-for="IPaddress" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            @*<div class="form-group">
                 <label asp-for="FloorID" class="control-label"></label>
                 <input asp-for="FloorID" class="form-control" />
                 <span asp-validation-for="FloorID" class="text-danger"></span>
@@ -56,7 +54,7 @@
                         <input asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
                     </label>
                 </div>
-            </div>
+            </div>*@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>

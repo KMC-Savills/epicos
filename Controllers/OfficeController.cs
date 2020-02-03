@@ -27,14 +27,13 @@ namespace EpicOS.Controllers
 
         public IActionResult Index(Office office)
         {
-
             OfficeManager manager = new OfficeManager();
             return View(manager.OfficeExtendedGetAll());
         }
+
         public void ReadyContextForView(int id = 0)
         {
             DropDownManager ddManager = new DropDownManager();
-            OfficeManager officeManager = new OfficeManager();
             OfficeViewModel context = new OfficeViewModel();
             context.ListOfCities = ddManager.CityDropDown();
             ViewBag.Context = context;
@@ -57,7 +56,6 @@ namespace EpicOS.Controllers
         {
             OfficeManager manager = new OfficeManager();
             return View(manager.OfficeGetByID(id));
-
         }
 
         [HttpGet]
@@ -119,21 +117,40 @@ namespace EpicOS.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Office office)
+        public async Task<ActionResult> Edit(Office office)
         {
             OfficeManager manager = new OfficeManager();
-            manager.OfficeUpdate(office);
-
-            CacheNinja cache = new CacheNinja();
-            cache.ClearCache("Office_GetAll");
-
+            var files = HttpContext.Request.Form.Files;
+            Result result = manager.OfficeUpdate(office);
+            if (result.IsSuccess)
+            {
+                foreach (var Image in files)
+                {
+                    var file = Image;
+                    var uploads = Path.Combine(hosting.WebRootPath, officeFilePath + "\\" + office.ID);
+                    if (!Directory.Exists(uploads))
+                    {
+                        Directory.CreateDirectory(uploads);
+                    }
+                    if (file.Length > 0)
+                    {
+                        var fileName = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(file.FileName);
+                        using (var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create))
+                        {
+                            await file.CopyToAsync(fileStream);
+                            office.Filename = fileName;
+                            manager.OfficeUpdate(office);
+                        }
+                    }
+                }
+            }
             return RedirectToAction("Index");
         }
 
         public ActionResult Delete(int Id)
         {
             OfficeManager manager = new OfficeManager();
-            manager.Delete(Id);
+            manager.OfficeDelete(Id);
             return RedirectToAction("Index");
         }
         public OfficeViewModel DefaultValueListing()

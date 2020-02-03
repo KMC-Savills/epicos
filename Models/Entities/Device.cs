@@ -27,5 +27,8 @@ namespace EpicOS.Models.Entities
             Phone = 5,
             Tablet = 6
         }
+
+        public bool IsActive { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
