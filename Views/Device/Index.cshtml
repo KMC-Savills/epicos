@@ -38,20 +38,20 @@
                             <th scope="col">
                                 @Html.DisplayNameFor(model => model.Floor)
                             </th>
-                            <th scope="col">Details</th>
+                            @*<th scope="col">Details</th>*@
                             <th scope="col">Edit</th>
                             <th scope="col">Delete</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.OrderBy(item => item.Name))
                         {
                             <tr>
                                 <td hidden>
                                     @Html.DisplayFor(modelItem => item.ID)
                                 </td>
                                 <td scope="col">
-                                    @Html.DisplayFor(modelItem => item.Name)
+                                    <a href="/Device/Details/@item.ID/?type=@item.Type" style="color: #0037ff;" title="View Details">@Html.DisplayFor(modelItem => item.Name)</a>
                                 </td>
                                 <td scope="col">
                                     @* @Html.DisplayFor(Model => item.Type)*@
@@ -78,9 +78,9 @@
                                 <td scope="col">
                                     @Html.DisplayFor(modelItem => item.Floor)
                                 </td>
-                                <td scope="col">
-                                    <a href="/Device/Details/@item.ID/?type=@item.Type" class="btn btn-success">Details</a>
-                                </td>
+                                @*<td scope="col">
+                                        <a href="/Device/Details/@item.ID/?type=@item.Type" class="btn btn-success">Details</a>
+                                    </td>*@
                                 <td scope="col">
                                     <a href="/Device/Edit/@item.ID/?type=@item.Type" class="btn btn-info">Edit</a>
                                 </td>
@@ -101,3 +101,11 @@
         </div>
     </div>
 </div>
+@section Scripts
+{
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+}

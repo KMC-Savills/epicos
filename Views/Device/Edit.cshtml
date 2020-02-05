@@ -1,7 +1,7 @@
 ﻿@model EpicOS.Models.ViewModel.DeviceViewModel
 @{
     ViewData["Title"] = "Edit";
-    var context = ViewBag.Context as EpicOS.Models.ViewModel.DeviceViewModel;
+    var context = ViewBag.Context as EpicOS.Models.ViewModel.DeviceEditViewModel;
 }
 
 <div class="container-fluid">
@@ -28,10 +28,12 @@
                                 @*<span asp-validation-for="OfficeID" class="text-danger"></span>*@
                             </div>
                             <div class="col">
-                                <label asp-for="FloorID" class="control-label">Floor</label>
-                                @*<input asp-for="FloorID" class="form-control" />*@
-                                @Html.DropDownListFor(Model => Model.FloorID, context.ListOfFloors, new { @class = "form-control" })
-                                <span asp-validation-for="FloorID" class="text-danger"></span>
+                                <label class="control-label">Floor</label>
+                               @* @Html.DropDownListFor(Model => Model.FloorID, context.ListOfFloors, new { @class = "form-control" })*@
+                                @Html.HiddenFor(Model => Model.FloorID)
+                                <select id="hidden-floor" class="form-control">
+                                    <option>@Model.Floor</option>
+                                </select>
                             </div>
                         </div>
                         <div class="row">
@@ -48,7 +50,7 @@
                             <div class="col">
                                 <label asp-for="Type" class="control-label"></label>
                                 <input type="text" value="Changing type of device is not advisable." class="form-control" disabled />
-                                <input asp-for="Type" class="form-control" hidden/>
+                                <input asp-for="Type" class="form-control" hidden />
                                 <span asp-validation-for="Type" class="text-danger"></span>
                             </div>
                             <div class="col" hidden>
@@ -70,3 +72,7 @@
         </div>
     </div>
 </div>
+@section Scripts
+{
+    <script src="~/js/device-form.js"></script>
+}

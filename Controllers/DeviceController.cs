@@ -19,6 +19,7 @@ namespace EpicOS.Controllers
         private DeviceViewModel deviceViewModel = new DeviceViewModel();
         private DropDownManager dropDownManager = new DropDownManager();
         private CacheNinja cacheNinja = new CacheNinja();
+        private DeviceEditViewModel devicedetailsViewModel = new DeviceEditViewModel();
 
         public IActionResult Index()
         {
@@ -36,12 +37,13 @@ namespace EpicOS.Controllers
 
         public void DropdownForEdit()
         {
-            DeviceViewModel context = new DeviceViewModel();
+            DeviceEditViewModel context = new DeviceEditViewModel();
             context.ListOfOffices = dropDownManager.OfficeDropDown();
-            context.ListOfFloors = dropDownManager.FloorDropdown();
-            context.ListOfDeviceTypes = dropDownManager.DeviceTypeDropdown();
+            //context.ListOfFloors = dropDownManager.FloorDropdown();
+            //context.ListOfDeviceTypes = dropDownManager.DeviceTypeDropdown();
             ViewBag.Context = context;
         }
+
         [HttpGet]
         public IActionResult Add()
         {
@@ -83,7 +85,7 @@ namespace EpicOS.Controllers
             cacheNinja.ClearCache("Hub_GetAll");
             return RedirectToAction("Index");
         }
-        
+       
         [HttpGet]
         public IActionResult Details(int id, int type)
         {

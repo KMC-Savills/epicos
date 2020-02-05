@@ -42,16 +42,12 @@
 
                                                         @if (item.Filename == "")
                                                         {
-
                                                             <img class="card-img-top img-fluid rounded-top" src="~/images/error.png" />
                                                         }
                                                         else
                                                         {
                                                             <img class="img-fluid rounded-top" src="@filepath" />
                                                         }
-
-
-
                                                     </div>
                                                     <div class="card-title m-1" style="text-align: center; height: 3em;">
                                                         <span class="label-address">@Html.DisplayFor(modelItem => item.Address), @Html.DisplayFor(modelItem => item.CityName)</span>

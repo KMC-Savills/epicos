@@ -9,7 +9,7 @@
         <div class="card">
             <div class="card-header">
                 <h4 class="font-weight-bold float-left">Add Device Details</h4>
-                <button type="submit" class="btn btn-primary float-right"><i class="fa fa-save"></i> Submit</button>
+                <button type="submit" id="submit" class="btn btn-primary float-right"><i class="fa fa-save"></i> Submit</button>
                 <a class="btn btn-secondary float-right sub-btn" asp-action="Index"><i class="fa fa-arrow-left"></i>Back to List</a>
             </div>
 
@@ -29,23 +29,6 @@
                         <span asp-validation-for="Name"></span>
                     </div>
                     <div class="col">
-                        <label class="control-label">Office Name</label>
-                        @Html.DropDownListFor(Model => Model.OfficeID, Model.ListOfOffices, new { @class = "form-control" })
-
-                    </div>
-
-                </div>
-
-                <div class="row">
-                    <div class="col" hidden>
-                        <label asp-for="RoomID" class="control-label"></label>
-                        <input asp-for="RoomID" class="form-control" />
-                    </div>
-                    <div class="col">
-                        <label class="control-label">Floor</label>
-                        @Html.DropDownListFor(Model => Model.FloorID, Model.ListOfFloors, new { @class = "form-control" })
-                    </div>
-                    <div class="col">
                         <label asp-for="MAC" class="control-label">MAC Address</label>
                         <input asp-for="MAC" class="form-control" />
                         <span asp-validation-for="MAC"></span>
@@ -55,10 +38,28 @@
                         <input asp-for="IPaddress" class="form-control" />
                         <span asp-validation-for="IPaddress"></span>
                     </div>
+
+
+                </div>
+                <div class="row">
                     <div class="col">
-                        <label asp-for="Type" class="control-label"></label>
-                        @Html.DropDownListFor(Model => Model.Type, Model.ListOfDeviceTypes, new { @class = "form-control" })
+                        <label class="control-label">Office Name</label>
+                        @Html.DropDownListFor(Model => Model.OfficeID, Model.ListOfOffices, new { @class = "form-control"})
                     </div>
+                    <div class="col" hidden>
+                        <label asp-for="RoomID" class="control-label"></label>
+                        <input asp-for="RoomID" class="form-control" />
+                    </div>
+                    <div class="col">
+                        <label class="control-label">Floor</label>
+                        @*@Html.DropDownListFor(Model => Model.FloorID, Model.ListOfFloors, new { @class = "form-control" })*@
+                        @*<input asp-for="FloorID" class="form-control" />*@
+                        @Html.HiddenFor(Model => Model.FloorID)
+                    <select id="hidden-floor" class="form-control">
+                        <option selected disabled>Select Office First</option>
+                    </select>
+                    </div>
+
                     <div class="row" hidden>
                         <div class="form-check">
                             <div class="col">
@@ -70,10 +71,14 @@
                                 <label asp-for="IsDeleted" class="form-check-label">IsDeleted</label>
                             </div>
                         </div>
-                    </div>*@
+                    </div>
                 </div>
             </div>
         </div>
 
     </form>
 </div>
+@section Scripts
+{
+    <script src="~/js/device-form.js"></script>
+}

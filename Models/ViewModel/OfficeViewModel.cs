@@ -9,6 +9,6 @@ namespace EpicOS.Models.ViewModel
 {
     public class OfficeViewModel : Office
     {
-        public List<SelectListItem> ListOfCities { get; set; }
+        public List<SelectListItem> ListOfCities { get; set;}
     }
 }

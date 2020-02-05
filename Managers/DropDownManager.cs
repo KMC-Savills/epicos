@@ -64,6 +64,20 @@ namespace EpicOS.Managers
             }
             return result;
         }
+
+        public List<SelectListItem> LogDropDown()
+        {
+            List<SelectListItem> result = new List<SelectListItem>();
+            List<Log> logs = deviceManager.LogGetAll();
+            foreach (Log log in logs)
+            {
+                SelectListItem item = new SelectListItem();
+                item.Value = log.ID.ToString();
+                item.Text = log.MAC;
+                result.Add(item);
+            }
+            return result;
+        }
         public List<SelectListItem> DeviceTypeDropdown()
         {
             List<SelectListItem> result = new List<SelectListItem>();
@@ -100,5 +114,6 @@ namespace EpicOS.Managers
             }
             return result;
         }
+        
     }
 }

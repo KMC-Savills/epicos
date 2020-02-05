@@ -259,6 +259,8 @@ namespace EpicOS.Managers
                     deviceItems.RoomID = hub.RoomID;
                     deviceItems.OfficeName = offices.FirstOrDefault(item => item.ID.Equals(hub.OfficeID)).Name;
                     deviceItems.Floor = floors.FirstOrDefault(item => item.ID.Equals(hub.FloorID)).Name;
+                    deviceItems.ListOfLogs = LogGetAll().Where(l => l.MAC.Equals(hub.MAC)).ToList();
+
                 }
                 catch
                 {
@@ -281,6 +283,8 @@ namespace EpicOS.Managers
                     deviceItems.RoomID = workpoint.RoomID;
                     deviceItems.OfficeName = offices.FirstOrDefault(item => item.ID.Equals(workpoint.OfficeID)).Name;
                     deviceItems.Floor = floors.FirstOrDefault(item => item.ID.Equals(workpoint.FloorID)).Name;
+                    deviceItems.ListOfLogs = LogGetAll().Where(l => l.MAC.Equals(workpoint.MAC)).ToList();
+
                 }
                 catch
                 {

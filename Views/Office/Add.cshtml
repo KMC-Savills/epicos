@@ -41,7 +41,7 @@
                                     <div class="row" disabled>
                                         <div class="col-12 col-sm-4 col-md-4 col-lg-12">
                                             <label asp-for="CityID">City</label>
-                                            @Html.DropDownListFor(Model => Model.CityID, Model.ListOfCities, new { @class = "form-control" })
+                                            @Html.DropDownListFor(Model => Model.CityID, Model.ListOfCities.OrderBy(x => x.Text), new { @class = "form-control" })
                                             <span asp-validation-for="CityID"></span>
                                         </div>
                                         <div class="col-12 col-sm-6 col-md-4 col-lg-6">
