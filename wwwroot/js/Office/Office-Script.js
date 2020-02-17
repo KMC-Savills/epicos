@@ -12,27 +12,31 @@ function initMap() {
         center: coordinates,
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
-
     showAllMarker();
+   
 }
 
 function showAllMarker() {
     $.each(buildings, function (i, item) {
-
+       
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(item.Latitude, item.Longitude),
             map: map
         });
+       
 
         var imageInfo =
             "<div class='card'>" +
-            "<div class='card-body'>" +
+            "<div class='card-header'>" +
             "<span style='color:black;font-size:14px'>" + item.Name +
-            "</span>" + "<br/>" +
+            "</span>" +
+            "</div>" +
+            "<div class='card-body'>" +
+            "<br/>" +
             "<span style='color: blue;'>" + item.Address + ", " + item.CityName + "</span>" +
             "</div>" +
             "</div>";
-
+       
         var infowindow = new google.maps.InfoWindow({
             content: imageInfo
         });
@@ -45,12 +49,12 @@ function showAllMarker() {
                 infowindows[i].close();
             }
             infowindow.open(map, marker);
+
         });
 
         if (item.ID != 0) {
             marker.addListener('mouseover', function () {
-                infowindow.open(map, this);
-
+                infowindow.open(map, marker);
             });
 
             // assuming you also want to hide the infowindow when user mouses-out
@@ -58,6 +62,7 @@ function showAllMarker() {
                 infowindow.close();
             });
         }
+
 
         markers.push(marker);
 
@@ -68,7 +73,6 @@ function centerMap(x, y) {
     latitude = x;
     longitude = y;
     coordinates = { lat: latitude, lng: longitude };
-
     map.setCenter(coordinates);
 
     for (var i = 0; i < buildings.length; i++) {

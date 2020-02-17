@@ -1,6 +1,3 @@
 ﻿.sticky-map {
-    position: sticky;
-    border: 2px solid red;
-    width: 360px;
-    top: 0;
+    position: fixed;
 }

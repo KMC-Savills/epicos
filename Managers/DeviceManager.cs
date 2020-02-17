@@ -194,11 +194,11 @@ namespace EpicOS.Managers
             return result;
         }
         // GET LOGS BY MAC
-        public List<Log> LogGetByMAC(int MAC)
-        {
-            List<Log> results = LogGetAll().Where(l => l.MAC.Equals(MAC)).ToList();
-            return results;
-        }
+        //public List<Log> LogGetByMAC(int MAC)
+        //{
+        //    List<Log> results = LogGetAll().Where(l => l.MAC.Equals(MAC)).ToList();
+        //    return results;
+        //}
 
         public Result TelemeryInsert(Telemery telemery)
         {

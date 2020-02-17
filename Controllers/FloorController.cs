@@ -42,6 +42,11 @@ namespace EpicOS.Controllers
             return View();
         }
 
+        public IActionResult Details(int id)
+        {
+            OfficeManager officeManager = new OfficeManager();
+            return View(officeManager.DeviceGetByFloorID(id));
+        }
         [HttpPost]
         public async Task<ActionResult> Add(Floor floor)
         {
@@ -54,7 +59,7 @@ namespace EpicOS.Controllers
                     foreach (var Image in files)
                     {
                         var file = Image;
-                        var uploads = Path.Combine(hosting.WebRootPath, officeFilePath + "\\" + floor.OfficeID + "\\floor\\" + + result.ID);
+                        var uploads = Path.Combine(hosting.WebRootPath, officeFilePath + "\\" + floor.OfficeID + "\\floor\\" + +result.ID);
                         if (!Directory.Exists(uploads))
                         {
                             Directory.CreateDirectory(uploads);
@@ -82,3 +87,28 @@ namespace EpicOS.Controllers
         }
     }
 }
+
+//public List<OfficeDetailsViewModel> OfficeExtendedGetAll()
+//{
+//    List<OfficeDetailsViewModel> officeDetailsViewModels = new List<OfficeDetailsViewModel>();
+//    List<Office> offices = OfficeGetAll();
+//    LocationManager locationManager = new LocationManager();
+//    List<City> cities = locationManager.GetCities();
+//    foreach (Office office in offices)
+//    {
+//        OfficeDetailsViewModel officeItems = new OfficeDetailsViewModel();
+//        officeItems.ID = office.ID;
+//        officeItems.Name = office.Name;
+//        officeItems.Address = office.Address;
+//        officeItems.CityID = office.CityID;
+//        officeItems.Latitude = office.Latitude;
+//        officeItems.Longitude = office.Longitude;
+//        officeItems.Filename = office.Filename;
+//        officeItems.IsActive = office.IsActive;
+//        officeItems.IsDeleted = office.IsDeleted;
+//        officeItems.CityName = cities.First(item => item.CityID.Equals(office.CityID)).CityName;
+//        officeItems.Floors = FloorGetAll().Where(f => f.OfficeID.Equals(office.ID)).ToList();
+//        officeDetailsViewModels.Add(officeItems);
+//    }
+//    return officeDetailsViewModels;
+//}

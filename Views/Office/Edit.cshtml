@@ -17,6 +17,25 @@
                         <div class="row">
                             <div class="col">
                                 <div class="card-body">
+                                    @{
+                                        string filepath = "/uploads/img/office/" + Model.ID + "/" + Model.Filename;
+                                        <div class="row">
+                                            <div class="col-12 col-sm-8 col-md-12">
+                                                <div id="edit-image">
+                                                    @if (Model.Filename == "")
+                                                    {
+                                                        <img class="card-img-top" src="~/images/error-default.jpg" />
+                                                    }
+                                                    else
+                                                    {
+                                                        <img src="@filepath" class="card-img-top" />
+                                                    }
+                                                    @*<input asp-for="Filename" type="text" class="form-control padding-file" hidden />*@
+                                                    @*<input asp-for="Filename" type="file" class="form-control padding-file" />*@
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
                                     <div class="row">
                                         <div class="col-12 col-sm-8 col-md-12">
                                             <label asp-for="Name" class="control-label"></label>
@@ -50,27 +69,41 @@
                                             <span asp-validation-for="Longitude" class="text-danger"></span>
                                         </div>
                                     </div>
-                                    @{
-                                        string filepath = "/uploads/img/office/" + Model.ID + "/" + Model.Filename;
-                                        <div class="row">
-                                            <div class="col-sm-8 col-md-6 col-lg-6">
-                                                <label asp-for="Filename" class="control-label"></label>
-                                                @*<input value="@filepath" id="edit-img" class="form-control" />*@
-                                                @if (Model.Filename == "")
-                                                {
-                                                    <img class="card-img-top img-fluid rounded-top" src="~/images/error.png" />
-                                                }
-                                                else
-                                                {
-                                                    <img class="img-fluid rounded-top" src="@filepath" />
-                                                }
-                                                <input asp-for="Filename" type="file" value="@filepath" class="form-control padding-file" />
-                                                <span asp-validation-for="Filename" class="text-danger"></span>
+
+                                    <!-- Modal for file upload-->
+                                    <div class="modal fade" id="fileModal" role="dialog">
+                                        <div class="modal-dialog">
+
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Upload New Photo</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <small class="font-italic" style="color: red;">*Select image and click done*</small>
+                                                        <input type="file" name="file" id="Filename" onchange="updateList()" />
+                                                        <input asp-for="Filename" type="text" class="form-control padding-file" hidden />
+                                                        <img src="" id="profile-img-tag" />
+
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success" data-dismiss="modal">Done</button>
+                                                </div>
                                             </div>
+
                                         </div>
-                                    }
-                                    <hr />
-                                    <hr />
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-2">
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#fileModal">Upload New Photo: </button>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-9">
+                                            <div id="fileList"></div>
+                                        </div>
+                                        <span asp-validation-for="Filename" class="text-danger"></span>
+                                    </div>
                                     <div class="row" hidden>
                                         <div class="form-check">
                                             <div class="col">
@@ -98,6 +131,20 @@
 </div>
 @section Scripts
 {
+    <script>
+        function updateList() {
+            alert("File upload..");
+            var input = document.getElementById('Filename');
+            var output = document.getElementById('fileList');
+
+            output.innerHTML = '<ul>';
+            for (var i = 0; i < input.files.length; ++i) {
+                output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
+            }
+            output.innerHTML += '</ul>';
+        }
+    </script>
+    <script src="~/js/viewimageonchange.js"></script>
     <script src="~/js/track.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsyB1N3HPmTmg4aFJwPLv6uvqxEYtl9X8&callback=initMap" async defer></script>
 }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace EpicOS.Models.ViewModel
 {
-    public class DeviceDetailsViewModel : Device
+    public class FloorViewModel : Floor
     {
-        public string TypeName { get; set; }
+        public List<Workpoint> ListOfWorkpoints { get; set; }
+        public List<Hub> ListOfHubs { get; set; }
     }
 }

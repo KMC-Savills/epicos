@@ -1,23 +1,21 @@
-﻿$(document).ready(function () {
+﻿
+$(document).ready(function () {
 
     setInterval(function () {
         refreshOccupancy();
     }, 5000);
-
 });
-
 function refreshOccupancy() {
-    var url = "https://epicos.kmcmaggroup.com/api/device/telemery/list"
-
+    var url = '/api/device/telemery/list';
     var dt = new Date();
     var currentStart = + dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate() + " " + dt.getHours() + ":" + ((dt.getMinutes() > 5) ? dt.getMinutes() - 5 : dt.getMinutes()) + ":" + dt.getSeconds();
     var currentTime = + dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate() + " " + dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
-    
+
     var filter = new Object();
     filter.DateStart = currentStart;
     filter.DateEnd = currentTime;
-    filter.OfficeID = 1;
-    filter.FloorID = 20;
+    filter.OfficeID = getOfficeID;
+    filter.FloorID = getFloorID;
 
     var parameter = JSON.stringify(filter);
 
@@ -33,7 +31,8 @@ function refreshOccupancy() {
         success: function (xd) {
             $(".workpoint").removeClass("green");
             $.each(xd, function (i, item) {
-                $("#workpoint-" + item.workpointID).addClass("green");
+                $("#workpoint-" + item.getWorkpointID  ).addClass("green");
+                console.log(item.getWorkpointID + "HAHAHA");
             });
         }
     });

@@ -104,7 +104,33 @@ namespace EpicOS.Managers
             }
             return floor;
         }
-
+        public FloorViewModel DeviceGetByFloorID(int id)
+        {
+            return GetDevicesByFloorID().FirstOrDefault(e => e.ID.Equals(id));
+        }
+        public List<FloorViewModel> GetDevicesByFloorID()
+        {
+            DeviceManager deviceManager = new DeviceManager();
+            List<FloorViewModel> floorViewModels = new List<FloorViewModel>();
+            List<Workpoint> workpoints = deviceManager.WorkpointGetAll();
+            List<Hub> hubs = deviceManager.HubGetAll();
+            List<Floor> floors = FloorGetAll();
+            foreach (Floor floor in floors)
+            {
+                FloorViewModel floorItems = new FloorViewModel();
+                floorItems.ID = floor.ID;
+                floorItems.Name = floor.Name;
+                floorItems.Filename = floor.Filename;
+                floorItems.Type = floor.Type;
+                floorItems.OfficeID = floor.OfficeID;
+                floorItems.IsActive = floor.IsActive;
+                floorItems.IsDeleted = floor.IsDeleted;
+                floorItems.ListOfWorkpoints = deviceManager.WorkpointGetAll().Where(w => w.FloorID.Equals(floor.ID)).ToList();
+                floorItems.ListOfHubs = deviceManager.HubGetAll().Where(h => h.FloorID.Equals(floor.ID)).ToList();
+                floorViewModels.Add(floorItems);
+            }
+            return floorViewModels;
+        }
         public Floor FloorGetByID(int id)
         {
             return FloorGetAll().FirstOrDefault(e => e.ID.Equals(id));
@@ -129,7 +155,10 @@ namespace EpicOS.Managers
             Result result = officeRepo.FloorUpdate(floor);
             return result;
         }
-
+        public List<Floor> FloorGetByOfficeID(int id)
+        {
+            return FloorGetAll().Where(f => f.OfficeID.Equals(id)).ToList();
+        }
         #endregion
 
         #region Company

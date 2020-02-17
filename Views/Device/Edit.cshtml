@@ -3,7 +3,6 @@
     ViewData["Title"] = "Edit";
     var context = ViewBag.Context as EpicOS.Models.ViewModel.DeviceEditViewModel;
 }
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -29,10 +28,9 @@
                             </div>
                             <div class="col">
                                 <label class="control-label">Floor</label>
-                               @* @Html.DropDownListFor(Model => Model.FloorID, context.ListOfFloors, new { @class = "form-control" })*@
                                 @Html.HiddenFor(Model => Model.FloorID)
                                 <select id="hidden-floor" class="form-control">
-                                    <option>@Model.Floor</option>
+                                    <option value="@Model.FloorID">@Model.Floor</option>
                                 </select>
                             </div>
                         </div>

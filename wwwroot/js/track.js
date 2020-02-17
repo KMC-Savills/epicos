@@ -91,4 +91,5 @@ if (window.location.href.indexOf("Details") > -1) {
     }
 
 
+
 }

@@ -291,8 +291,11 @@ body {
 }
 
 #footer-main {
+    position: absolute;
     background-color: #00264d;
     height: 96px;
+    left: 0;
+    bottom: 0;
     margin-top: -100px;
     clear: both;
     text-align: center;
@@ -350,25 +353,24 @@ footer a:hover {
 
 .link-active {
     background-color: #025dbf;
+}
 
-}
-.link-active span {
-    font-weight: bold;
-}
+    .link-active span {
+        font-weight: bold;
+    }
 
 #office-image {
     text-align: center;
     cursor: pointer;
-    height:400px;
 }
 
     #office-image img {
-        height: 100% !important;
-        width: 100% !important;
+        height: 350px !important;
+        width: 250px !important;
     }
 
 .img-fluid {
-    height: 250px !important;
+    height: 300px !important;
     width: 100%;
     object-fit: cover;
     object-position: center center;
@@ -392,23 +394,63 @@ footer a:hover {
     color: black;
     font-size: .8em;
 }
-.offices-map
-{
-    height: 50% !important;
-    position: sticky !important;
-}
-/*for details map*/
-.details-map
-{
-    height: 298px !important;
-    position: fixed;
 
+/*for details map*/
+.details-map {
+    height: 725px !important;
+    position: fixed;
 }
-#map{
+
+#map {
     height: 100%;
     width: 100%;
 }
+
 .required:after {
     content: " *";
     color: red;
+}
+
+
+/*For MAP in Office Index*/
+.map-index {
+    width: 100% !important;
+    height: 500px !important;
+}
+
+#profile-img-tag {
+    width: 365px;
+    height: 400px;
+}
+
+#edit-image {
+    text-align: center;
+    cursor: pointer;
+    height: 400px;
+}
+
+    #edit-image img {
+        width: 300px !important;
+        height: 350px !important;
+    }
+
+#buildings-img img {
+    height: 450px !important;
+    width: 350px !important;
+    text-align: center;
+}
+
+/*Offices List*/
+#officeList {
+    overflow-y: scroll;
+    height: 850px;
+}
+
+.home-map {
+    width: 100% !important;
+    height: 915px !important;
+}
+#myModal /*Image Modal*/
+{
+    padding: 0;
 }

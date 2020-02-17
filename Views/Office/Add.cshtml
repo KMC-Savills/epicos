@@ -46,21 +46,44 @@
                                         </div>
                                         <div class="col-12 col-sm-6 col-md-4 col-lg-6">
                                             <label asp-for="Latitude">Latitude</label>
-                                            <input asp-for="Latitude" type="text" class="form-control" required>
+                                            <input asp-for="Latitude" type="text" class="form-control lat" required>
                                         </div>
                                         <div class="col-12 col-sm-6 col-md-4 col-lg-6">
                                             <label asp-for="Longitude">Longitude</label>
-                                            <input asp-for="Longitude" type="text" class="form-control" required>
+                                            <input asp-for="Longitude" type="text" class="form-control lng" required>
                                         </div>
                                     </div>
+                                    <!-- Modal for file upload-->
+                                    <div class="modal fade" id="fileModal" role="dialog">
+                                        <div class="modal-dialog">
 
-                                    <div class="row">
-                                        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
-                                            <div class="form-group">
-                                                <label asp-for="Filename">Upload Image: </label>
-                                                <input asp-for="Filename" type="file" class="form-control padding-file">
+                                            <!-- Modal content-->
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h4 class="modal-title">Upload Image</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group">
+                                                        <small class="font-italic" style="color: red;">*Select image and click done*</small>
+                                                        <input asp-for="Filename" type="file" class="form-control padding-file" onchange="updateList()">
+                                                        <img src="" id="profile-img-tag" />
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-success" data-dismiss="modal">Done</button>
+                                                </div>
                                             </div>
+
                                         </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-2">
+                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#fileModal">Upload Photo: </button>
+                                        </div>
+                                        <div class="col-12 col-sm-12 col-md-6 col-lg-9">
+                                            <div id="fileList"></div>
+                                        </div>
+                                        <span asp-validation-for="Filename" class="text-danger"></span>
                                     </div>
                                     <hr />
                                     <hr />
@@ -89,8 +112,53 @@
     </form>
 </div>
 
+
 @section Scripts
 {
+    <script>
+        var searchInput = 'Address';
+        $(document).ready(function () {
+            var autocomplete;
+            autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
+                types: ['geocode']
+            });
+
+            google.maps.event.addListener(autocomplete, 'place_changed', function () {
+                var near_place = autocomplete.getPlace();
+                document.getElementById('Latitude').value = near_place.geometry.location.lat();
+                document.getElementById('Longitude').value = near_place.geometry.location.lng();
+
+                document.getElementById('Latitude').innerHTML = near_place.geometry.location.lat();
+                document.getElementById('Longitude').innerHTML = near_place.geometry.location.lng();
+
+            });
+        })
+        $(document).on('change', '#' + searchInput, function () {
+            alert("Hello");
+            document.getElementById('Latitude').value = '';
+            document.getElementById('Longitude').value = '';
+            document.getElementById('Latitude').innerHTML = '';
+            document.getElementById('Longitude').innerHTML = '';
+        });
+    </script>
+    <script>
+        function updateList() {
+            alert("File upload..");
+            var input = document.getElementById('Filename');
+            var output = document.getElementById('fileList');
+
+            output.innerHTML = '<ul>';
+            for (var i = 0; i < input.files.length; ++i) {
+                output.innerHTML += '<li>' + input.files.item(i).name + '</li>';
+            }
+            output.innerHTML += '</ul>';
+        }
+
+
+    </script>
+
+
+    <script src="~/js/viewimageonchange.js"></script>
     <script src="~/js/track.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDsyB1N3HPmTmg4aFJwPLv6uvqxEYtl9X8&callback=initMap" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyDsyB1N3HPmTmg4aFJwPLv6uvqxEYtl9X8&callback=initMap" async defer></script>
 }

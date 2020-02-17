@@ -23,7 +23,7 @@
                     <div class="card-header">
                         <div class="row">
                             <div class="col-sm-8 col-md-12">
-                                <h5 style="font-weight: bold;">@Html.DisplayFor(model => model.Name)</h5>
+                                <h4 class="font-weight-bold">Office</h4>
                             </div>
                         </div>
                     </div>
@@ -34,20 +34,28 @@
                             <div class="col-md-6 col-lg-12">
                                 <div id="office-image">
                                     @{
+                                        string defaultimage = "/images/error-default.jpg";
+
                                         string imagepath = "/uploads/img/office/" + Model.ID + "/" + Model.Filename;
                                         if (Model.Filename == "")
                                         {
-                                            <img src="~/images/error.png" width="500" height="500" />
+                                            <a data-toggle="modal" data-target="#myModal"><img src="@defaultimage" width="500" height="500" /></a>
                                         }
                                         else
                                         {
-                                            <img src="@imagepath" />
+                                            <a data-toggle="modal" data-target="#myModal"><img src="@imagepath" /></a>
                                         }
                                     }
                                 </div>
                             </div>
                         </div>
                         <br />
+                        <div class="row">
+                            <div class="col">
+                                <label class="control-label"> @Html.DisplayNameFor(model => model.Name):</label>
+                                <input disabled value="@Html.DisplayFor(model => model.Name)" class="form-control" />
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="col">
                                 <label class="control-label"> @Html.DisplayNameFor(model => model.Address):</label>
@@ -88,7 +96,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="col-xs-2 col-sm-2 col-md-6 col-lg-6">
                 <div class="card">
                     <div class="card-header">
@@ -97,12 +104,43 @@
                     <div class="card-body">
                         <div id="map" class="details-map"></div>
                     </div>
-                    
+
                 </div>
             </div>
+            <!--IMAGE MODAL-->
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">@Model.Name Building</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="modal-body" id="buildings-img">
+                            <div class="card">
+                                @{
+                                    if (Model.Filename == "")
+                                    {
+                                        <img src="@defaultimage" />
+                                    }
+                                    else
+                                    {
+                                        <img src="@imagepath" />
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!--Floor Modal-->
             <div class="col-lg-12">
                 <!-- The Modal -->
-                <div class="modal" id="myModal">
+                <div class="modal" id="floorModal">
                     <div class="modal-dialog">
                         <div class="modal-content">
                             <form asp-action="Add" asp-controller="Floor" enctype="multipart/form-data">
@@ -114,20 +152,17 @@
                                 <!-- Modal body -->
                                 <div class="modal-body">
                                     <div class="container-fluid">
-                                                <input name="Type" type="hidden" value="0" />
-                                                <input name="OfficeID" type="hidden" value="@Model.ID" />
-                                                <input name="IsActive" type="hidden" value="true" />
-                                                <input name="IsDeleted" type="hidden" value="false" />
-                                                <label>Floor No:</label>
-                                                <input name="Name" type="text" class="form-control" />
-                                                <label>Add Floor Plan:</label>
-                                                <br />
-                                                <input name="Filename" type="file" class="form-control padding-file">
-                                        
+                                        <input name="Type" type="hidden" value="0" />
+                                        <input name="OfficeID" type="hidden" value="@Model.ID" />
+                                        <input name="IsActive" type="hidden" value="true" />
+                                        <input name="IsDeleted" type="hidden" value="false" />
+                                        <label>Floor No:</label>
+                                        <input name="Name" type="text" class="form-control" />
+                                        <label>Add Floor Plan:</label>
+                                        <br />
+                                        <input name="Filename" type="file" class="form-control padding-file">
                                     </div>
-
                                 </div>
-
                                 <!-- Modal footer -->
                                 <div class="modal-footer">
                                     <button type="submit" class="btn btn-success">Add</button>
@@ -141,7 +176,7 @@
                     <!--FLOOR-->
                     <div class="card-header">
                         <h4 class="font-weight-bold float-left">Floors</h4>
-                        <button asp-action="AddFloor" class="btn btn-primary float-right" data-toggle="modal" data-target="#myModal">
+                        <button asp-action="AddFloor" class="btn btn-primary float-right" data-toggle="modal" data-target="#floorModal">
                             Add Floor
                         </button>
                     </div>
@@ -154,9 +189,9 @@
                                         <th scope="col">Image</th>
                                         <th scope="col">Name</th>
                                         @*<th scope="col">Workplace</th>
-                                        <th scope="col">Owner</th>
-                                        <th scope="col">Edit</th>
-                                        <th scope="col">Delete</th>*@
+                                            <th scope="col">Owner</th>
+                                            <th scope="col">Edit</th>
+                                            <th scope="col">Delete</th>*@
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -164,10 +199,14 @@
                                     {
                                         <tr>
                                             <td>
-                                                <a href="/Floor/@floor.ID">
-                                                    <img src="/uploads/img/office/@Model.ID/floor/@floor.ID/@floor.Filename" alt="@floor.Name" />
-                                                </a>
+                                                @{
+                                                    string floorPath = "/uploads/img/office/" + Model.ID + "/floor/" + @floor.ID + "/" + @floor.Filename;
+                                                    <a href="/Floor/Details/@floor.ID">
+                                                        <img src="@floorPath" alt="@floor.Name" />
+                                                    </a>
+                                                }
                                             </td>
+
                                             <td>@floor.Name</td>
                                         </tr>
                                     }
