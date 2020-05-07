@@ -2,13 +2,18 @@
 @{
     ViewData["Title"] = "Add Office";
 }
+<style>
+    .tip {
+        color: red;
+    }
+</style>
 <div class="container-fluid">
     <form asp-action="Add" enctype="multipart/form-data">
         <div class="card">
             <div class="card-header">
                 <h4 class="font-weight-bold float-left">Add Office Details</h4>
                 <button type="submit" class="btn btn-primary float-right" onclick="ResizeImage()"><i class="fa fa-save"></i> Submit</button>
-                <a href="~/Office/" class="btn btn-secondary float-right btn-margins"><i class="fa fa-arrow-left"></i>Back to Office List</a>
+                <a href="~/Office" class="btn btn-secondary float-right btn-margins"><i class="fa fa-arrow-left"></i>Back to Office List</a>
             </div>
             <div class="row">
                 <div class="col-12">
@@ -54,36 +59,16 @@
                                         </div>
                                     </div>
                                     <!-- Modal for file upload-->
-                                    <div class="modal fade" id="fileModal" role="dialog">
-                                        <div class="modal-dialog">
 
-                                            <!-- Modal content-->
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Upload Image</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <small class="font-italic" style="color: red;">*Select image and click done*</small>
-                                                        <input asp-for="Filename" type="file" class="form-control padding-file" onchange="updateList()">
-                                                        <img src="" id="profile-img-tag" />
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success" data-dismiss="modal">Done</button>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
                                     <div class="row">
-                                        <div class="col-12 col-sm-12 col-md-6 col-lg-2">
-                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#fileModal">Upload Photo: </button>
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="Filename" class="control-label">Upload Image: <i class="fa fa-exclamation-circle tip" data-toggle="tooltip" title="If no image to be uploaded, leave it blank."></i></label>
+                                                <input type="file" name="file" id="Filename" class="form-control padding-file" />
+                                                <input asp-for="Filename" type="text" class="form-control padding-file" hidden />
+                                                <span asp-validation-for="Filename" class="text-danger"></span>
+                                            </div>
                                         </div>
-                                        <div class="col-12 col-sm-12 col-md-6 col-lg-9">
-                                            <div id="fileList"></div>
-                                        </div>
-                                        <span asp-validation-for="Filename" class="text-danger"></span>
                                     </div>
                                     <hr />
                                     <hr />
@@ -115,32 +100,7 @@
 
 @section Scripts
 {
-    <script>
-        var searchInput = 'Address';
-        $(document).ready(function () {
-            var autocomplete;
-            autocomplete = new google.maps.places.Autocomplete((document.getElementById(searchInput)), {
-                types: ['geocode']
-            });
 
-            google.maps.event.addListener(autocomplete, 'place_changed', function () {
-                var near_place = autocomplete.getPlace();
-                document.getElementById('Latitude').value = near_place.geometry.location.lat();
-                document.getElementById('Longitude').value = near_place.geometry.location.lng();
-
-                document.getElementById('Latitude').innerHTML = near_place.geometry.location.lat();
-                document.getElementById('Longitude').innerHTML = near_place.geometry.location.lng();
-
-            });
-        })
-        $(document).on('change', '#' + searchInput, function () {
-            alert("Hello");
-            document.getElementById('Latitude').value = '';
-            document.getElementById('Longitude').value = '';
-            document.getElementById('Latitude').innerHTML = '';
-            document.getElementById('Longitude').innerHTML = '';
-        });
-    </script>
     <script>
         function updateList() {
             alert("File upload..");

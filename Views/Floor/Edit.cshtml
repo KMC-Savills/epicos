@@ -1,0 +1,83 @@
+﻿@model EpicOS.Models.Entities.Floor
+@{
+    ViewData["Title"] = "Edit Floor";
+}
+<style>
+    .tip {
+        color: red;
+    }
+</style>
+<form asp-action="Edit" enctype="multipart/form-data">
+    <div class="card shadow">
+        <div class="card-header">
+            <h4 class="font-weight-bold float-left">Edit Floor</h4>
+            <button type="submit" class="btn btn-primary float-right"><i class="fa fa-save"></i> Update</button>
+            <a href="~/Office/Details/@Model.OfficeID" class="btn btn-secondary float-right mr-2"><i class="fa fa-arrow-left"></i>Back to Office Details</a>
+        </div>
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+
+                <div class="card-body">
+
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group" hidden>
+                        <label asp-for="OfficeID" class="control-label"></label>
+                        <input asp-for="OfficeID" class="form-control" />
+                        <span asp-validation-for="OfficeID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group" hidden>
+                        <label asp-for="ID" class="control-label"></label>
+                        <input asp-for="ID" class="form-control" />
+                        <span asp-validation-for="ID" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label">Floor No:</label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Filename" class="control-label">Upload New Floor Plan: <i class="fa fa-exclamation-circle tip" data-toggle="tooltip" title="If no changes in floor plan, leave it blank."></i></label>
+                        <input type="file" name="file" id="Filename" class="form-control padding-file" />
+                        <input asp-for="Filename" type="text" class="form-control padding-file" hidden />
+                        <span asp-validation-for="Filename" class="text-danger"></span>
+                    </div>
+                    @{
+                        string floorImage = "/uploads/img/office/" + Model.OfficeID + "/floor/" + Model.ID + "/" + Model.Filename;
+                        if (!string.IsNullOrEmpty(Model.Filename))
+                        {
+                            <img src="@floorImage" class="card-img-top" />
+                        }
+                        else
+                        {
+                            <img src="~/images/error.png" />
+                        }
+
+
+                    }
+                    <div hidden>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input asp-for="IsDeleted" /> @Html.DisplayNameFor(model => model.IsDeleted)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</form>
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+    });
+</script>

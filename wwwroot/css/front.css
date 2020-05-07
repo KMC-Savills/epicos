@@ -170,7 +170,7 @@ a {
 .my-custom-scrollbar {
     position: relative;
     height: 300px;
-    overflow: auto;
+    overflow-x: hidden;
 }
 
 .table-wrapper-scroll-y {
@@ -314,21 +314,6 @@ li {
     margin: 0;
 }
 
-ul li a {
-}
-
-li:hover a {
-    text-decoration: none;
-    background-color: #025dbf;
-}
-
-/*ul li.active a {
-    padding: 10px;
-    box-shadow: none;
-    text-decoration: none;
-    background-color: #0077f7;
-}*/
-
 .google-css {
     font-size: 30px;
     text-align: center;
@@ -351,24 +336,36 @@ footer a:hover {
     text-decoration: none;
 }
 
-.link-active {
+.nav-active {
     background-color: #025dbf;
 }
 
-    .link-active span {
+    .nav-active span {
         font-weight: bold;
     }
 
 #office-image {
     text-align: center;
-    cursor: pointer;
+    display: grid;
+    height: 100%;
 }
 
     #office-image img {
-        height: 350px !important;
-        width: 250px !important;
+        max-width: 100%;
+        max-height: 50vh;
+        margin: auto;
     }
+#edit-image {
+    text-align: center;
+    display: grid;
+    height: 100%;
+}
 
+    #edit-image img {
+        max-width: 35%;
+        max-height: 50vh;
+        margin: 0 auto;
+    }
 .img-fluid {
     height: 300px !important;
     width: 100%;
@@ -397,7 +394,7 @@ footer a:hover {
 
 /*for details map*/
 .details-map {
-    height: 725px !important;
+    height: 750px !important;
     position: fixed;
 }
 
@@ -423,22 +420,8 @@ footer a:hover {
     height: 400px;
 }
 
-#edit-image {
-    text-align: center;
-    cursor: pointer;
-    height: 400px;
-}
 
-    #edit-image img {
-        width: 300px !important;
-        height: 350px !important;
-    }
 
-#buildings-img img {
-    height: 450px !important;
-    width: 350px !important;
-    text-align: center;
-}
 
 /*Offices List*/
 #officeList {
@@ -450,7 +433,45 @@ footer a:hover {
     width: 100% !important;
     height: 915px !important;
 }
-#myModal /*Image Modal*/
-{
+
+#myModal /*Image Modal*/ {
     padding: 0;
 }
+
+.card-img {
+    max-width: 40%;
+    max-height: 100vh;
+}
+/*sidebar dropdown hover*/
+.sidebar {
+    background-color: #003366 !important;
+}
+
+    .sidebar li a:hover {
+        background-color: #025dbf;
+    }
+/*Enlarge fa fa-bars*/
+#sidebarToggle i {
+    font-size: 25px;
+}
+
+
+/*Style sidebar spans*/
+.sidebar .nav-item .nav-link span {
+    font-size: 1rem;
+    display: inline;
+}
+/*Navbar dropdown hover*/
+.navbar-nav a:hover {
+    background-color: gray;
+}
+
+/*Color of Button for User dropdown*/
+#userDropdown {
+    background-color: #025dbf;
+    outline: none;
+}
+
+    #userDropdown i {
+        color: white;
+    }

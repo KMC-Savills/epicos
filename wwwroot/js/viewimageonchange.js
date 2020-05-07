@@ -1,5 +1,4 @@
 ﻿function readURL(input) {
-    console.log("Hello!!!!!!!");
     if (input.files && input.files[0]) {
         var reader = new FileReader();
         reader.onload = function (e) {
@@ -9,6 +8,5 @@
     }
 }
 $("#Filename").change(function () {
-    console.log("Hello");
     readURL(this);
 });

@@ -24,6 +24,13 @@ namespace EpicOS.Controllers.API
             return manager.OfficeGetAll();
         }
 
+        [HttpGet("/api/floor/getbyofficeid/{id}", Name = "Floor_GetByOfficeID")]
+        public IEnumerable<Floor> FloorGetByOfficeID(int id)
+        {
+            OfficeManager manager = new OfficeManager();
+            return manager.FloorGetByOfficeID(id);
+        }
+
         [HttpPost("/api/device/telemery/list", Name = "Device_Telemery_LatestList")]
         [Consumes(MediaTypeNames.Application.Json)]
         [ProducesResponseType(StatusCodes.Status201Created)]
@@ -155,18 +162,6 @@ namespace EpicOS.Controllers.API
                 }
             }
             return BadRequest();
-        }
-
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-
-        }
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-
         }
     }
 }

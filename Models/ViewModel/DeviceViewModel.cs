@@ -18,15 +18,15 @@ namespace EpicOS.Models.ViewModel
         public int RoomID { get; set; }
         [Required]
         public string OfficeName { get; set; }
-        [Required]
+
+        public double CoordinateX { get; set; }
+        public double CoordinateY { get; set; }
+        public double CoordinateZ { get; set; }
+
         public string Floor { get; set; }
         public List<SelectListItem> ListOfOffices { get; set; }
         public List<SelectListItem> ListOfFloors { get; set; }
         public List<SelectListItem> ListOfDeviceTypes { get; set; }
         public List<Log> ListOfLogs { get; set; }
-        
     }
-   
-
-
 }

@@ -12,9 +12,12 @@ namespace EpicOS.Controllers
 {
     public class UserController : Controller
     {
+        private UserManager userManager = new UserManager();
+        private CacheNinja cacheNinja = new CacheNinja();
+
+
         public IActionResult Index()
         {
-            UserManager userManager = new UserManager();
             return View(userManager.GetAll());
         }
 
@@ -26,31 +29,32 @@ namespace EpicOS.Controllers
         [HttpPost]
         public IActionResult Create(User user)
         {
-
-            UserManager userManager = new UserManager();
-            userManager.Insert(user);
-            CacheNinja ninja = new CacheNinja();
-            ninja.ClearCache("User_GetAll");
+            if (ModelState.IsValid)
+            {
+                userManager.Insert(user);
+                cacheNinja.ClearCache("User_GetAll");
+            }
+            else
+            {
+                ViewBag.Message = "Something went wrong!";
+            }
             return RedirectToAction("Index");
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-           
-            UserManager userManager = new UserManager();
-            var getUsers = userManager.GetByID(id);
-            return View(getUsers);
-
+            return View(userManager.GetByID(id));
         }
 
         [HttpPost]
         public IActionResult Edit(User user)
         {
-            UserManager userManager = new UserManager();
-            userManager.Update(user);
-            CacheNinja cache = new CacheNinja();
-            cache.ClearCache("User_GetAll");
+            if (ModelState.IsValid)
+            {
+                userManager.Update(user);
+                cacheNinja.ClearCache("User_GetAll");
+            }
             return RedirectToAction("Index");
         }
 
@@ -58,8 +62,7 @@ namespace EpicOS.Controllers
         {
             UserManager userManager = new UserManager();
             userManager.Delete(id);
-            CacheNinja cache = new CacheNinja();
-            cache.ClearCache("User_GetAll");
+            cacheNinja.ClearCache("User_GetAll");
             return RedirectToAction("Index");
         }
     }

@@ -10,5 +10,6 @@ namespace EpicOS.Models.ViewModel
     {
         public List<Workpoint> ListOfWorkpoints { get; set; }
         public List<Hub> ListOfHubs { get; set; }
+        public string OfficeName { get; set; }
     }
 }

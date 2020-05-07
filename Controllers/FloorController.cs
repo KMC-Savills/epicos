@@ -6,13 +6,15 @@ using System.Threading.Tasks;
 using EpicOS.Managers;
 using EpicOS.Models.Entities;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EpicOS.Controllers
 {
     public class FloorController : Controller
     {
-        OfficeManager manager = new OfficeManager();
+        private OfficeManager officeManager = new OfficeManager();
+        private DeviceManager deviceManager = new DeviceManager();
 
         IHostingEnvironment hosting;
         private string officeFilePath = "uploads\\img\\office";
@@ -27,39 +29,46 @@ namespace EpicOS.Controllers
             return View();
         }
 
-        public IActionResult Assign()
+        public IActionResult Details(int id)
         {
-            return View();
+            return View(officeManager.DeviceGetByFloorID(id));
         }
-
+        [HttpGet]
+        public IActionResult Assign(int id)
+        {
+            return View(officeManager.DeviceGetByFloorID(id));
+        }
+        [HttpPost]
+        public IActionResult Assign(Workpoint workpoint)
+        {
+            deviceManager.WorkpointUpdate(workpoint);
+            return Redirect("/Office/Details/" + workpoint.OfficeID);
+        }
+        [HttpGet]
         public IActionResult Monitor()
         {
             return View();
         }
-
+        [HttpGet]
         public IActionResult Add()
         {
             return View();
         }
 
-        public IActionResult Details(int id)
-        {
-            OfficeManager officeManager = new OfficeManager();
-            return View(officeManager.DeviceGetByFloorID(id));
-        }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> Add(Floor floor)
         {
             if (ModelState.IsValid)
             {
                 var files = HttpContext.Request.Form.Files;
-                Result result = manager.FloorInsert(floor);
+                Result result = officeManager.FloorInsert(floor);
                 if (result.IsSuccess)
                 {
                     foreach (var Image in files)
                     {
                         var file = Image;
-                        var uploads = Path.Combine(hosting.WebRootPath, officeFilePath + "\\" + floor.OfficeID + "\\floor\\" + +result.ID);
+                        var uploads = Path.Combine(hosting.WebRootPath, officeFilePath + "\\" + floor.OfficeID + "\\floor\\" + result.ID);
                         if (!Directory.Exists(uploads))
                         {
                             Directory.CreateDirectory(uploads);
@@ -72,7 +81,7 @@ namespace EpicOS.Controllers
                                 await file.CopyToAsync(fileStream);
                                 floor.ID = result.ID;
                                 floor.Filename = fileName;
-                                manager.FloorUpdate(floor);
+                                officeManager.FloorUpdate(floor);
                             }
                         }
                     }
@@ -85,30 +94,50 @@ namespace EpicOS.Controllers
             }
             return View();
         }
+        [HttpGet]
+        public IActionResult Edit(int id)
+        {
+            return View(officeManager.FloorGetByID(id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit(Floor floor)
+        {
+            if (ModelState.IsValid)
+            {
+                var files = HttpContext.Request.Form.Files;
+                Result result = officeManager.FloorUpdate(floor);
+                if (result.IsSuccess)
+                {
+                    foreach (var image in files)
+                    {
+                        var newFile = image;
+                        var uploads = Path.Combine(hosting.WebRootPath, officeFilePath + "\\" + floor.OfficeID + "\\floor\\" + floor.ID);
+                        if (!Directory.Exists(uploads))
+                        {
+                            Directory.CreateDirectory(uploads);
+                        }
+                        if (newFile.Length > 0)
+                        {
+                            var fileName = Guid.NewGuid().ToString().Replace("-", "") + Path.GetExtension(newFile.FileName);
+                            using (var fileStream = new FileStream(Path.Combine(uploads, fileName), FileMode.Create))
+                            {
+                                await newFile.CopyToAsync(fileStream);
+                                floor.Filename = fileName;
+                                officeManager.FloorUpdate(floor);
+                            }
+                        }
+                    }
+
+                }
+            }
+            else
+            {
+                ViewBag.Error = "Error, something is not right";
+            }
+
+            return Redirect("/office/details/" + floor.OfficeID);
+        }
     }
 }
-
-//public List<OfficeDetailsViewModel> OfficeExtendedGetAll()
-//{
-//    List<OfficeDetailsViewModel> officeDetailsViewModels = new List<OfficeDetailsViewModel>();
-//    List<Office> offices = OfficeGetAll();
-//    LocationManager locationManager = new LocationManager();
-//    List<City> cities = locationManager.GetCities();
-//    foreach (Office office in offices)
-//    {
-//        OfficeDetailsViewModel officeItems = new OfficeDetailsViewModel();
-//        officeItems.ID = office.ID;
-//        officeItems.Name = office.Name;
-//        officeItems.Address = office.Address;
-//        officeItems.CityID = office.CityID;
-//        officeItems.Latitude = office.Latitude;
-//        officeItems.Longitude = office.Longitude;
-//        officeItems.Filename = office.Filename;
-//        officeItems.IsActive = office.IsActive;
-//        officeItems.IsDeleted = office.IsDeleted;
-//        officeItems.CityName = cities.First(item => item.CityID.Equals(office.CityID)).CityName;
-//        officeItems.Floors = FloorGetAll().Where(f => f.OfficeID.Equals(office.ID)).ToList();
-//        officeDetailsViewModels.Add(officeItems);
-//    }
-//    return officeDetailsViewModels;
-//}

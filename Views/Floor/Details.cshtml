@@ -1,47 +1,59 @@
 ﻿@model EpicOS.Models.ViewModel.FloorViewModel
-@using EpicOS.Models.Entities;
 @{
     ViewData["Title"] = "Floor Details";
-    var context = ViewBag.Context as EpicOS.Models.Entities.Workpoint;
 }
 
-@section Styles {
-    <link href="~/css/floor/floor-style.min.css" rel="stylesheet" />
-}
-<style>
-    .responsive {
-        width: 1110px;
-        height: auto;
-    }
-</style>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="font-weight-bold">@Html.DisplayFor(Model => Model.Name)</h4>
-                </div>
-                <div class="card-img">
-                    <img src="~/uploads//img/office/@Model.OfficeID/floor/@Model.ID/@Model.Filename" class="responsive" />
-                </div>
-                @foreach (Workpoint workpoint in Model.ListOfWorkpoints)
-                {
-                    if (Model.ID == workpoint.FloorID)
-                    {
-                        string XYZStyle = "top:" + @workpoint.CoordinateX + "px;" + "left:" + @workpoint.CoordinateY + "px;" + "transform: rotate(" + @workpoint.CoordinateZ + "deg);";
-                        <div id="workpoint-@workpoint.ID" class="workpoint green" style="@XYZStyle">
-                            <img src="~/images/workpoint.png" />
+    <div class="card">
+        <div class="card-header">
+            <h4 class="font-weight-bold float-left">@Model.Name - @Model.OfficeName</h4>
+            <a href="~/Office/Details/@Model.OfficeID" class="btn btn-secondary float-right"><i class="fa fa-arrow-left"></i>Back to Office Details</a>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-8 col-md-10 col-lg-10">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <div>
+                                @if (string.IsNullOrEmpty(Model.Filename))
+                                {
+                                    <img src="~/images/error.png" class="card-img-top" />
+                                }
+                                else
+                                {
+                                    <img src="~/uploads/img/office/@Model.OfficeID/floor/@Model.ID/@Model.Filename" class="card-img-top" />
+                                }
+                                @foreach (var workpoint in Model.ListOfWorkpoints)
+                                {
+                                    if (Model.ID == workpoint.FloorID)
+                                    {
+                                        string XYZStyle = "top:" + @workpoint.CoordinateX + "px;" + "left:" + @workpoint.CoordinateY + "px;" + "transform: rotate(" + @workpoint.CoordinateZ + "deg);";
+                                        <div id="workpoint-@workpoint.ID" class="workpoint" style="@XYZStyle">
+                                            <img src="~/images/workpoint.png" />
+                                        </div>
+                                    }
+                                }
+                            </div>
                         </div>
-                    }
-                }
-
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <div class="card h-100">
+                        <div class="card-header">
+                            <h4 class="font-weight-bold">Devices</h4>
+                        </div>
+                        <div class="card-body">
+                            @foreach (var workpoint in Model.ListOfWorkpoints)
+                            {
+                                <small><i class="fa fa-microchip"></i> @workpoint.Name</small>
+                                <br />
+                                <hr />
+                            }
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
-@section Scripts{
-
-    <script src="~/js/floor-monitor.js"></script>
-}

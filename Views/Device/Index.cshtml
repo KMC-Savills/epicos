@@ -5,7 +5,7 @@
 }
 
 <div class="container-fluid">
-    <div class="card">
+    <div class="card shadow">
         <div class="card-header">
             <h4 class="font-weight-bold float-left">Devices</h4>
             <a asp-action="Add" class="btn btn-primary float-right" style="margin-left: 10px;"><i class="fa fa-plus"></i>Add Device</a>
@@ -82,10 +82,10 @@
                                         <a href="/Device/Details/@item.ID/?type=@item.Type" class="btn btn-success">Details</a>
                                     </td>*@
                                 <td scope="col">
-                                    <a href="/Device/Edit/@item.ID/?type=@item.Type" class="btn btn-info">Edit</a>
+                                    <a href="/Device/Edit/@item.ID/?type=@item.Type"><i class="fa fa-edit"></i></a>
                                 </td>
                                 <td scope="col">
-                                    <a href="/Device/Delete/@item.ID/?type=@item.Type" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this?')">Delete</a>
+                                    <a href="/Device/Delete/@item.ID/?type=@item.Type" onclick="return confirm('Are you sure you want to delete this?')"><i class="fa fa-trash-o"></i></a>
                                 </td>
 
                             </tr>
