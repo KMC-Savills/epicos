@@ -3,57 +3,87 @@
     ViewData["Title"] = "Floor Details";
 }
 
+@section Styles
+{
+    <style>
+        .item {
+            position: absolute;
+        }
 
+        .drag {
+            z-index: 999999;
+        }
+    </style>
+}
 <div class="container-fluid">
-    <div class="card">
-        <div class="card-header">
-            <h4 class="font-weight-bold float-left">@Model.Name - @Model.OfficeName</h4>
-            <a href="~/Office/Details/@Model.OfficeID" class="btn btn-secondary float-right"><i class="fa fa-arrow-left"></i>Back to Office Details</a>
-        </div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-sm-8 col-md-10 col-lg-10">
-                    <div class="card shadow">
-                        <div class="card-body">
-                            <div>
-                                @if (string.IsNullOrEmpty(Model.Filename))
-                                {
-                                    <img src="~/images/error.png" class="card-img-top" />
-                                }
-                                else
-                                {
-                                    <img src="~/uploads/img/office/@Model.OfficeID/floor/@Model.ID/@Model.Filename" class="card-img-top" />
-                                }
+    <form method="get">
+        <div class="card shadow">
+            <div class="card-header">
+                <h5 class="font-weight-bold float-left">Floor Details</h5>
+                <a href="~/Office/Details/@Model.OfficeID" class="btn btn-secondary float-right btn-margins"><i class="fa fa-arrow-left"></i>Back to Office Details</a>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-sm-8 col-md-10 col-lg-10">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <div id="frame" class="ui-droppable">
+                                    @if (!string.IsNullOrEmpty(Model.Filename))
+                                    {
+                                        <img src="~/uploads/img/office/@Model.OfficeID/floor/@Model.ID/@Model.Filename" class="card-img-top" />
+                                    }
+                                    else
+                                    {
+                                        <img src="~/images/error.png" />
+                                    }
+                                </div>
                                 @foreach (var workpoint in Model.ListOfWorkpoints)
                                 {
                                     if (Model.ID == workpoint.FloorID)
                                     {
-                                        string XYZStyle = "top:" + @workpoint.CoordinateX + "px;" + "left:" + @workpoint.CoordinateY + "px;" + "transform: rotate(" + @workpoint.CoordinateZ + "deg);";
-                                        <div id="workpoint-@workpoint.ID" class="workpoint" style="@XYZStyle">
-                                            <img src="~/images/workpoint.png" />
-                                        </div>
+                                        if (!(workpoint.CoordinateX == 0) && (workpoint.CoordinateY == 0) && (workpoint.CoordinateZ == 0))
+                                        {
+                                            string XYZStyle = "left: " + @workpoint.CoordinateX + "px;" + "top: " + @workpoint.CoordinateY + "px;" + "transform: rotate(" + @workpoint.CoordinateZ + "deg);";
+
+                                            <div id="workpoint-@workpoint.ID" class="workpoint" style="@XYZStyle">
+                                                <img src="~/images/workpoint.png" style="width:30px; height:auto;" title="@workpoint.Name">
+                                            </div>
+                                        }
+                                        if (!(workpoint.CoordinateX == 0 && workpoint.CoordinateY == 0))
+                                        {
+                                            string XYZStyle = "left: " + @workpoint.CoordinateX + "px;" + " top: " + @workpoint.CoordinateY + "px;";
+
+                                            <div id="workpoint-@workpoint.ID" class="workpoint" style="@XYZStyle">
+                                                <img src="~/images/workpoint.png" style="width:30px; height:auto;" title="@workpoint.Name">
+                                            </div>
+                                        }
+
                                     }
                                 }
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-lg-2">
-                    <div class="card h-100">
-                        <div class="card-header">
-                            <h4 class="font-weight-bold">Devices</h4>
-                        </div>
-                        <div class="card-body">
-                            @foreach (var workpoint in Model.ListOfWorkpoints)
-                            {
-                                <small><i class="fa fa-microchip"></i> @workpoint.Name</small>
-                                <br />
-                                <hr />
-                            }
+                    <div class="col-lg-2">
+                        <div class="card shadow">
+                            <div class="card-header">
+                                <h5 class="font-weight-bold">Work Tags</h5>
+                            </div>
+                            <div class="card-body">
+                                @foreach (var workpoint in Model.ListOfWorkpoints)
+                                {
+                                    <small class="font-weight-bold" id="@workpoint.ID"><i class="fa fa-microchip"></i> @workpoint.Name</small>
+                                    <br />
+                                    <hr />
+                                }
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </div>
+<script src="~/js/jquery-3.4.1.js"></script>
+<script src="~/js/assign-device.js"></script>
+
+

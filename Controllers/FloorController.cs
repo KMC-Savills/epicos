@@ -29,26 +29,36 @@ namespace EpicOS.Controllers
             return View();
         }
 
+        [HttpGet]
         public IActionResult Details(int id)
         {
             return View(officeManager.DeviceGetByFloorID(id));
         }
+
         [HttpGet]
         public IActionResult Assign(int id)
         {
             return View(officeManager.DeviceGetByFloorID(id));
         }
+
         [HttpPost]
-        public IActionResult Assign(Workpoint workpoint)
+        public IActionResult Assign(List<Workpoint> workpoints, int OfficeID)
         {
-            deviceManager.WorkpointUpdate(workpoint);
-            return Redirect("/Office/Details/" + workpoint.OfficeID);
+            foreach (var workpoint in workpoints)
+            {
+                if (!(workpoint.CoordinateX == 0 && workpoint.CoordinateY == 0 && workpoint.CoordinateZ == 0))
+                {
+                    deviceManager.WorkpointUpdate(workpoint);
+                }
+            }
+            return Redirect("/Office/Details/" + OfficeID);
         }
         [HttpGet]
         public IActionResult Monitor()
         {
             return View();
         }
+
         [HttpGet]
         public IActionResult Add()
         {
@@ -94,6 +104,7 @@ namespace EpicOS.Controllers
             }
             return View();
         }
+
         [HttpGet]
         public IActionResult Edit(int id)
         {
@@ -129,14 +140,12 @@ namespace EpicOS.Controllers
                             }
                         }
                     }
-
                 }
             }
             else
             {
                 ViewBag.Error = "Error, something is not right";
             }
-
             return Redirect("/office/details/" + floor.OfficeID);
         }
     }

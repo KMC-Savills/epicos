@@ -1,6 +1,23 @@
-﻿var xCoor;
-var yCoor;
-var zCoor;
+﻿$(document).ready(function () {
+    $('.wp-submit').click(function () {
+        var devices = JSON.parse($("#Devices").val());
+        var workpoints = new Array();
+        for (var i = 0; i < devices.length; i++) {
+            devices[i].CoordinateX = $('[id="CoordinateX-' + devices[i].ID + '"]').eq(0).val();
+            devices[i].CoordinateY = $('[id="CoordinateY-' + devices[i].ID + '"]').eq(0).val();
+            devices[i].CoordinateZ = $('[id="CoordinateZ-' + devices[i].ID + '"]').eq(0).val();
+            workpoints.push(devices[i].CoordinateX);
+            workpoints.push(devices[i].CoordinateY);
+            workpoints.push(devices[i].CoordinateZ);
+        }
+
+        $.post('@Url.Action("Assign", "Floor")', { 'Workpoints': devices },
+            function () {
+                console.log("Success!");
+            });
+    });
+});
+
 $(function () {
     $(".drag").draggable({
         revert: "invalid",
@@ -13,13 +30,15 @@ $(function () {
             var id = element.attr('id');
             var left = ui.offset.left - $(this).offset().left;
             var top = ui.offset.top - $(this).offset().top;
-            var wpId = id;
-            console.log(id);
-            console.log("Workpoint ID: " + wpId);
-            if (id == wpId) {
-                $('[name="CoordinateX"]').eq(0).val(left);
-                $('[name="CoordinateY"]').eq(0).val(top);
+            var coorID = $(".coordinates-" + id).attr('id');
+            console.log("The ID:" + id);
+            console.log("Coordinate ID: " + coorID);
+
+            if (id == coorID) {
+                $('[id="CoordinateX-' + id + '"]').eq(0).val(left);
+                $('[id="CoordinateY-' + id + '"]').eq(0).val(top);
             }
+
             if ($('#frame').find('#' + id).length == 0) {
                 $(this).append(element);
                 $("#frame .drag").addClass("item " + id);
@@ -29,19 +48,21 @@ $(function () {
                     "top": top
                 });
                 $('.' + id).html('<img id="image_' + id + '" src="/images/1.png" class="image" style="width:30px; height:auto" />');
-                $(".item").draggable({
+                $(".item" + '.' + id).draggable({
+                    containment: 'frame',
                     drag: function (event, ui) {
                         var id = ui.helper.attr('id');
                         var X = $("#" + id).css("left");
                         var Y = $("#" + id).css("top");
                         X = X.split("px");
                         Y = Y.split("px");
-                        if (id == wpId) {
-                            $('[name="CoordinateX"]').eq(0).val(X[0]);
-                            $('[name="CoordinateY"]').eq(0).val(Y[0]);
-                        }
+                        console.log("ID Drag:" + id);
                         console.log("Left: " + X);
                         console.log("Top: " + Y);
+                        if (id == coorID) {
+                            $('[id="CoordinateX-' + id + '"]').eq(0).val(X[0]);
+                            $('[id="CoordinateY-' + id + '"]').eq(0).val(Y[0]);
+                        }
                         image(id);
                     }
                 });
@@ -54,6 +75,7 @@ $(function () {
 
 function image(id) {
     var img = $('#image_' + id);
+    var rotationCoorID = $(".coordinates-" + id).attr('id');
     if (img.length > 0) {
         var offset = img.offset();
         function mouse(event) {
@@ -68,7 +90,10 @@ function image(id) {
                 img.css('-webkit-transform', 'rotate(' + degree + 'deg)');
                 img.css('-o-transform', 'rotate(' + degree + 'deg)');
                 img.css('-ms-transform', 'rotate(' + degree + 'deg)');
-
+                if (id == rotationCoorID) {
+                    $('[id="CoordinateZ-' + id + '"]').eq(0).val(degree);
+                }
+                console.log(degree);
             }
         }
 

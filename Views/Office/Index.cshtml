@@ -31,7 +31,7 @@
                                             string filepath = "/uploads/img/office/" + @item.ID + "/" + @item.Filename;
                                             <div class="col-xs-12 col-sm-10 col-md-12 col-lg-4">
                                                 <a href="/Office/Details/@item.ID" style="text-decoration: none; color: black; text-align: center;">
-                                                    <div class="card shadow" onmouseover="centerMap(@item.Latitude, @item.Longitude)" data-latitude="@item.Latitude" data-longitude="@item.Longitude" data-id="@item.ID" style="background-color: ghostwhite;">
+                                                    <div class="card shadow" onmouseover="centerMap(@item.Latitude, @item.Longitude)" style="background-color: ghostwhite;">
                                                         <div class="card-title" id="office-title">
                                                             <small class="label-info" id="officesName">@Html.DisplayFor(modelItem => item.Name)</small>
                                                         </div>

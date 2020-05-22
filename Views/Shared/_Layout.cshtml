@@ -111,7 +111,6 @@
         <script src="~/js/dataTables.bootstrap4.js"></script>
         <script src="~/js/site.js"></script>
         <script src="~/js/sb-admin.min.js"></script>
-        <script src="~/js/floor-monitor.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
 
@@ -168,32 +167,20 @@
             if (strUrl.indexOf("Home") == true) {
                 $("#nav-home").addClass("nav-active");
             }
-            else {
-                console.log("Not Home " + strUrl);
-            }
             // Office HIGHLIGHT
             var strUrl = String(window.location.pathname);
             if (strUrl.indexOf("Office") == true) {
                 $("#nav-office").addClass("nav-active");
-            }
-            else {
-                console.log("Not Office " + strUrl);
             }
             // Device HIGHLIGHT
             var strUrl = String(window.location.pathname);
             if (strUrl.indexOf("Device") == true) {
                 $("#nav-device").addClass("nav-active");
             }
-            else {
-                console.log("Not Device " + strUrl);
-            }
             // User HIGHLIGHT
             var strUrl = String(window.location.pathname);
             if (strUrl.indexOf("User") == true) {
                 $("#nav-user").addClass("nav-active");
-            }
-            else {
-                console.log("Not User " + strUrl);
             }
         </script>
     </environment>

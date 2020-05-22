@@ -27,8 +27,6 @@ namespace EpicOS.Managers
             Tablet = 6
         }
 
-
-
         public List<Workpoint> WorkpointGetAll()
         {
             List<Workpoint> workpoints = cacheNinja.cache["Workpoint_GetAll"] as List<Workpoint>;

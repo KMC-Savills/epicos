@@ -13,30 +13,26 @@ function initMap() {
         mapTypeId: google.maps.MapTypeId.ROADMAP
     });
     showAllMarker();
-   
+
 }
 
 function showAllMarker() {
     $.each(buildings, function (i, item) {
-       
+
         var marker = new google.maps.Marker({
             position: new google.maps.LatLng(item.Latitude, item.Longitude),
             map: map
         });
-       
-
         var imageInfo =
             "<div class='card'>" +
-            "<div class='card-header'>" +
-            "<span style='color:black;font-size:14px'>" + item.Name +
-            "</span>" +
-            "</div>" +
             "<div class='card-body'>" +
-            "<br/>" +
+            "<small style='color:black;font-size:15px'>" + item.Name +
+            "</small> " +
+            "<br />" +
             "<span style='color: blue;'>" + item.Address + ", " + item.CityName + "</span>" +
             "</div>" +
             "</div>";
-       
+
         var infowindow = new google.maps.InfoWindow({
             content: imageInfo
         });
