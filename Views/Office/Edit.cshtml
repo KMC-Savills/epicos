@@ -3,13 +3,19 @@
     ViewData["Title"] = "Edit";
     var context = ViewBag.Context as EpicOS.Models.ViewModel.OfficeViewModel;
 }
+
+<style>
+    .tip {
+        color: red;
+    }
+</style>
 <div class="container-fluid">
     <form asp-action="Edit" enctype="multipart/form-data">
         <div class="card">
             <div class="card-header">
                 <h4 class="font-weight-bold float-left">Edit Office Details</h4>
                 <button type="submit" class="btn btn-primary float-right"><i class="fa fa-save"></i> Update</button>
-                <a href="~/Office/" class="btn btn-secondary float-right btn-margins"><i class="fa fa-arrow-left"></i>Back to Office List</a>
+                <a href="~/Office/Details/@Model.ID" class="btn btn-secondary float-right btn-margins"><i class="fa fa-arrow-left"></i>Back to Office Details</a>
             </div>
             <div class="row">
                 <div class="col">
@@ -17,25 +23,24 @@
                         <div class="row">
                             <div class="col">
                                 <div class="card-body">
-                                    @{
-                                        string filepath = "/uploads/img/office/" + Model.ID + "/" + Model.Filename;
-                                        <div class="row">
-                                            <div class="col-12 col-sm-8 col-md-12">
-                                                <div id="edit-image">
-                                                    @if (Model.Filename == "")
+                                    <div class="row">
+                                        <div class="col-md-12 col-lg-12">
+                                            <div id="edit-image">
+                                                @{
+                                                    string filepath = "/uploads/img/office/" + Model.ID + "/" + Model.Filename;
+
+                                                    @if (!string.IsNullOrEmpty(Model.Filename))
                                                     {
-                                                        <img class="card-img-top" src="~/images/error-default.jpg" />
+                                                        <img src="@filepath" />
                                                     }
                                                     else
                                                     {
-                                                        <img src="@filepath" class="card-img-top" />
+                                                        <img src="~/images/error.png" />
                                                     }
-                                                    @*<input asp-for="Filename" type="text" class="form-control padding-file" hidden />*@
-                                                    @*<input asp-for="Filename" type="file" class="form-control padding-file" />*@
-                                                </div>
+                                                }
                                             </div>
                                         </div>
-                                    }
+                                    </div>
                                     <div class="row">
                                         <div class="col-12 col-sm-8 col-md-12">
                                             <label asp-for="Name" class="control-label"></label>
@@ -70,39 +75,15 @@
                                         </div>
                                     </div>
 
-                                    <!-- Modal for file upload-->
-                                    <div class="modal fade" id="fileModal" role="dialog">
-                                        <div class="modal-dialog">
-
-                                            <!-- Modal content-->
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h4 class="modal-title">Upload New Photo</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <small class="font-italic" style="color: red;">*Select image and click done*</small>
-                                                        <input type="file" name="file" id="Filename" onchange="updateList()" />
-                                                        <input asp-for="Filename" type="text" class="form-control padding-file" hidden />
-                                                        <img src="" id="profile-img-tag" />
-
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-success" data-dismiss="modal">Done</button>
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </div>
                                     <div class="row">
-                                        <div class="col-12 col-sm-12 col-md-6 col-lg-2">
-                                            <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#fileModal">Upload New Photo: </button>
+                                        <div class="col-sm-6 col-md-12 col-lg-12">
+                                            <div class="form-group">
+                                                <label asp-for="Filename" class="control-label">Upload New Image: <i class="fa fa-exclamation-circle tip" data-toggle="tooltip" title="If no image to be uploaded, leave it blank."></i></label>
+                                                <input type="file" name="file" id="Filename" class="form-control padding-file" />
+                                                <input asp-for="Filename" type="text" class="form-control padding-file" hidden />
+                                                <span asp-validation-for="Filename" class="text-danger"></span>
+                                            </div>
                                         </div>
-                                        <div class="col-12 col-sm-12 col-md-6 col-lg-9">
-                                            <div id="fileList"></div>
-                                        </div>
-                                        <span asp-validation-for="Filename" class="text-danger"></span>
                                     </div>
                                     <div class="row" hidden>
                                         <div class="form-check">
@@ -133,7 +114,6 @@
 {
     <script>
         function updateList() {
-            alert("File upload..");
             var input = document.getElementById('Filename');
             var output = document.getElementById('fileList');
 

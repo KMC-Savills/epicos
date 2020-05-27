@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-12">
             <form asp-action="Edit">
-                <div class="card">
+                <div class="card shadow">
                     <div class="card-header">
                         <h4 class="font-weight-bold float-left">Edit Device</h4>
                         <button type="submit" class="btn btn-primary float-right"><i class="fa fa-save"></i> Update</button>
@@ -41,7 +41,7 @@
                                 <span asp-validation-for="MAC" class="text-danger"></span>
                             </div>
                             <div class="col">
-                                <label asp-for="IPaddress" class="control-label"></label>
+                                <label asp-for="IPaddress" class="control-label">IP Address</label>
                                 <input asp-for="IPaddress" class="form-control" />
                                 <span asp-validation-for="IPaddress" class="text-danger"></span>
                             </div>

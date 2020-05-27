@@ -17,6 +17,9 @@ namespace EpicOS.Controllers
 {
     public class OfficeController : Controller
     {
+        private OfficeManager officeManager = new OfficeManager();
+        private DropDownManager ddManager = new DropDownManager();
+
         IHostingEnvironment hosting;
         private string officeFilePath = "uploads\\img\\office";
 
@@ -27,13 +30,17 @@ namespace EpicOS.Controllers
 
         public IActionResult Index(Office office)
         {
-            OfficeManager manager = new OfficeManager();
-            return View(manager.OfficeExtendedGetAll());
+            var model = officeManager.OfficeExtendedGetAll();
+            if (model == null)
+            {
+                ViewBag.Message = "Record is empty!";
+                return View(model);
+            }
+            return View(model);
         }
 
         public void ReadyContextForView(int id = 0)
         {
-            DropDownManager ddManager = new DropDownManager();
             OfficeViewModel context = new OfficeViewModel();
             context.ListOfCities = ddManager.CityDropDown();
             ViewBag.Context = context;
@@ -41,8 +48,7 @@ namespace EpicOS.Controllers
 
         public IActionResult OfficeList()
         {
-            OfficeManager manager = new OfficeManager();
-            return View(manager.OfficeGetAll());
+            return View(officeManager.OfficeGetAll());
         }
 
         [HttpGet]
@@ -54,8 +60,7 @@ namespace EpicOS.Controllers
 
         public ActionResult Details(int id)
         {
-            OfficeManager manager = new OfficeManager();
-            return View(manager.OfficeGetByID(id));
+            return View(officeManager.OfficeGetByID(id));
         }
 
         [HttpGet]
@@ -70,10 +75,9 @@ namespace EpicOS.Controllers
 
             if (ModelState.IsValid)
             {
-                OfficeManager manager = new OfficeManager();
                 var files = HttpContext.Request.Form.Files;
 
-                Result result = manager.OfficeInsert(office);
+                Result result = officeManager.OfficeInsert(office);
                 if (result.IsSuccess)
                 {
                     foreach (var Image in files)
@@ -92,7 +96,7 @@ namespace EpicOS.Controllers
                                 await file.CopyToAsync(fileStream);
                                 office.Filename = fileName;
                                 office.ID = result.ID;
-                                manager.OfficeUpdate(office);
+                                officeManager.OfficeUpdate(office);
                             }
                         }
                     }
@@ -109,8 +113,7 @@ namespace EpicOS.Controllers
         [HttpGet]
         public ActionResult Edit(int id)
         {
-            OfficeManager manager = new OfficeManager();
-            var model = manager.OfficeGetByID(id);
+            var model = officeManager.OfficeGetByID(id);
             ReadyContextForView(id);
             return View(model);
         }
@@ -119,9 +122,8 @@ namespace EpicOS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit(Office office)
         {
-            OfficeManager manager = new OfficeManager();
             var files = HttpContext.Request.Form.Files;
-            Result result = manager.OfficeUpdate(office);
+            Result result = officeManager.OfficeUpdate(office);
             if (result.IsSuccess)
             {
                 foreach (var Image in files)
@@ -139,7 +141,7 @@ namespace EpicOS.Controllers
                         {
                             await file.CopyToAsync(fileStream);
                             office.Filename = fileName;
-                            manager.OfficeUpdate(office);
+                            officeManager.OfficeUpdate(office);
                         }
                     }
                 }
@@ -149,27 +151,24 @@ namespace EpicOS.Controllers
 
         public ActionResult Delete(int Id)
         {
-            OfficeManager manager = new OfficeManager();
-            manager.OfficeDelete(Id);
+            officeManager.OfficeDelete(Id);
             return RedirectToAction("Index");
         }
         public OfficeViewModel DefaultValueListing()
         {
             var defaultDate = DateTime.UtcNow;
-            OfficeViewModel model = new OfficeViewModel();
-            model.Latitude = 14.5477349;
-            model.Longitude = 121.04621500000007;
-            DropDownManager dropDownManager = new DropDownManager();
-            model.ListOfCities = dropDownManager.CityDropDown();
-            return model;
+            OfficeViewModel officeViewModel = new OfficeViewModel();
+            officeViewModel.Latitude = 14.5477349;
+            officeViewModel.Longitude = 121.04621500000007;
+            officeViewModel.ListOfCities = ddManager.CityDropDown();
+            return officeViewModel;
         }
 
         public OfficeViewModel EditDefaultCityList(int id)
         {
-            OfficeViewModel model = new OfficeViewModel();
-            DropDownManager dropDownManager = new DropDownManager();
-            model.ListOfCities = dropDownManager.CityDropDown();
-            return model;
+            OfficeViewModel officeViewModel = new OfficeViewModel();
+            officeViewModel.ListOfCities = ddManager.CityDropDown();
+            return officeViewModel;
         }
     }
 }

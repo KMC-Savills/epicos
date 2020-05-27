@@ -1,18 +1,17 @@
 ﻿@model IEnumerable<EpicOS.Models.ViewModel.OfficeDetailsViewModel>
-
+@using Newtonsoft.Json
 @{
     ViewData["Title"] = "Office";
     var mainOffice = Model.FirstOrDefault();
-    var json = Newtonsoft.Json.JsonConvert.SerializeObject(Model);
+    var json = JsonConvert.SerializeObject(Model);
 }
 <input type="hidden" id="GPSLat" value="@mainOffice.Latitude" />
 <input type="hidden" id="GPSLon" value="@mainOffice.Longitude" />
 <input type="hidden" id="Buildings" value="@json" />
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-8">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">
                     <div class="row">
                         <div class="col-xs-12 col-sm-8 col-md-10 col-lg-12">
@@ -26,24 +25,24 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12">
-                                    <div class="row" id="officeList" >
+                                    <div class="row" id="officeList">
                                         @foreach (var item in Model.OrderByDescending(item => item.ID))
                                         {
                                             string filepath = "/uploads/img/office/" + @item.ID + "/" + @item.Filename;
                                             <div class="col-xs-12 col-sm-10 col-md-12 col-lg-4">
                                                 <a href="/Office/Details/@item.ID" style="text-decoration: none; color: black; text-align: center;">
-                                                    <div class="card" onmouseover="centerMap(@item.Latitude, @item.Longitude)" data-latitude="@item.Latitude" data-longitude="@item.Longitude" data-id="@item.ID" style="background-color: ghostwhite;">
+                                                    <div class="card shadow" onmouseover="centerMap(@item.Latitude, @item.Longitude)" style="background-color: ghostwhite;">
                                                         <div class="card-title" id="office-title">
                                                             <small class="label-info" id="officesName">@Html.DisplayFor(modelItem => item.Name)</small>
                                                         </div>
                                                         <div class="card-body">
-                                                            @if (item.Filename == "")
+                                                            @if (!string.IsNullOrEmpty(item.Filename))
                                                             {
-                                                                <img class="card-img-top img-fluid rounded-top" src="~/images/error-default.jpg" />
+                                                                <img class="img-fluid rounded-top" src="@filepath" />
                                                             }
                                                             else
                                                             {
-                                                                <img class="img-fluid rounded-top" src="@filepath" />
+                                                                <img class="card-img-top img-fluid rounded-top" src="~/images/error.png" />
                                                             }
                                                         </div>
                                                         <div class="card-title m-1" style="text-align: center; height: 3em;">
@@ -52,6 +51,7 @@
                                                     </div>
                                                 </a>
                                             </div>
+
                                         }
                                     </div>
                                 </div>
@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="col-sm-12 col-md-10 col-lg-4">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-body">
                     <div id="map" class="home-map"></div>
                 </div>

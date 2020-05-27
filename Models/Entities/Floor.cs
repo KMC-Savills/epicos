@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace EpicOS.Models.Entities
 {
-    public class Floor
+    public class Floor : Workpoint
     {
         public int ID { get; set; }
         public string Name { get; set; }

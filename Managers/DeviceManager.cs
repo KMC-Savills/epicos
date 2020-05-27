@@ -27,8 +27,6 @@ namespace EpicOS.Managers
             Tablet = 6
         }
 
-
-
         public List<Workpoint> WorkpointGetAll()
         {
             List<Workpoint> workpoints = cacheNinja.cache["Workpoint_GetAll"] as List<Workpoint>;
@@ -238,7 +236,7 @@ namespace EpicOS.Managers
         {
             OfficeManager officeManager = new OfficeManager();
             List<DeviceViewModel> deviceViewModels = new List<DeviceViewModel>();
-            List<Workpoint> workpointGetAll = WorkpointGetAll();
+            List<Workpoint> workpoints = WorkpointGetAll();
             List<Office> offices = officeManager.OfficeGetAll();
             List<Hub> hubs = HubGetAll();
             List<Floor> floors = officeManager.FloorGetAll();
@@ -268,7 +266,7 @@ namespace EpicOS.Managers
                 }
                 deviceViewModels.Add(deviceItems);
             }
-            foreach (Workpoint workpoint in workpointGetAll)
+            foreach (Workpoint workpoint in workpoints)
             {
                 DeviceViewModel deviceItems = new DeviceViewModel();
                 deviceItems.ID = workpoint.ID;

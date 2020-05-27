@@ -39,8 +39,6 @@ namespace EpicOS.Controllers
         {
             DeviceEditViewModel context = new DeviceEditViewModel();
             context.ListOfOffices = dropDownManager.OfficeDropDown();
-            //context.ListOfFloors = dropDownManager.FloorDropdown();
-            //context.ListOfDeviceTypes = dropDownManager.DeviceTypeDropdown();
             ViewBag.Context = context;
         }
 
@@ -51,41 +49,22 @@ namespace EpicOS.Controllers
         }
 
         [HttpPost]
-        public IActionResult Add(DeviceViewModel deviceViewModel)
+        public IActionResult Add(Workpoint workpoints, Hub hubs)
         {
-            if (deviceViewModel.Type == 1)
+            if (workpoints.Type == 1)
             {
-                Workpoint workpoint = new Workpoint();
-                workpoint.Name = deviceViewModel.Name;
-                workpoint.Type = deviceViewModel.Type;
-                workpoint.MAC = deviceViewModel.MAC;
-                workpoint.IPaddress = deviceViewModel.IPaddress;
-                workpoint.OfficeID = deviceViewModel.OfficeID;
-                workpoint.FloorID = deviceViewModel.FloorID;
-                workpoint.IsActive = deviceViewModel.IsActive;
-                workpoint.IsDeleted = deviceViewModel.IsDeleted;
-                deviceManager.WorkpointInsert(workpoint);
+                deviceManager.WorkpointInsert(workpoints);
             }
             else
-            if (deviceViewModel.Type == 2)
+            if (hubs.Type == 2)
             {
-                Hub hubs = new Hub();
-                hubs.ID = deviceViewModel.ID;
-                hubs.Name = deviceViewModel.Name;
-                hubs.Type = deviceViewModel.Type;
-                hubs.MAC = deviceViewModel.MAC;
-                hubs.IPaddress = deviceViewModel.IPaddress;
-                hubs.OfficeID = deviceViewModel.OfficeID;
-                hubs.FloorID = deviceViewModel.FloorID;
-                hubs.IsActive = deviceViewModel.IsActive;
-                hubs.IsDeleted = deviceViewModel.IsDeleted;
                 deviceManager.HubInsert(hubs);
             }
             cacheNinja.ClearCache("Workpoint_GetAll");
             cacheNinja.ClearCache("Hub_GetAll");
             return RedirectToAction("Index");
         }
-       
+
         [HttpGet]
         public IActionResult Details(int id, int type)
         {
@@ -99,36 +78,16 @@ namespace EpicOS.Controllers
         }
 
         [HttpPost]
-        public IActionResult Edit(DeviceViewModel deviceViewModel, int type)
+        public IActionResult Edit(Workpoint workpoint, Hub hub, int type)
         {
             switch (type)
             {
                 case 1:
-                    Workpoint workpoints = new Workpoint();
-                    workpoints.ID = deviceViewModel.ID;
-                    workpoints.Name = deviceViewModel.Name;
-                    workpoints.Type = deviceViewModel.Type;
-                    workpoints.MAC = deviceViewModel.MAC;
-                    workpoints.IPaddress = deviceViewModel.IPaddress;
-                    workpoints.OfficeID = deviceViewModel.OfficeID;
-                    workpoints.FloorID = deviceViewModel.FloorID;
-                    workpoints.IsActive = deviceViewModel.IsActive;
-                    workpoints.IsDeleted = deviceViewModel.IsDeleted;
-                    deviceManager.WorkpointUpdate(workpoints);
+                    deviceManager.WorkpointUpdate(workpoint);
                     cacheNinja.ClearCache("Workpoint_GetAll");
                     break;
                 case 2:
-                    Hub hubs = new Hub();
-                    hubs.ID = deviceViewModel.ID;
-                    hubs.Name = deviceViewModel.Name;
-                    hubs.Type = deviceViewModel.Type;
-                    hubs.MAC = deviceViewModel.MAC;
-                    hubs.IPaddress = deviceViewModel.IPaddress;
-                    hubs.OfficeID = deviceViewModel.OfficeID;
-                    hubs.FloorID = deviceViewModel.FloorID;
-                    hubs.IsActive = deviceViewModel.IsActive;
-                    hubs.IsDeleted = deviceViewModel.IsDeleted;
-                    deviceManager.HubUpdate(hubs);
+                    deviceManager.HubUpdate(hub);
                     cacheNinja.ClearCache("Hub_GetAll");
                     break;
                 default:

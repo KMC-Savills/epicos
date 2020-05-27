@@ -11372,6 +11372,8 @@ body {
     #wrapper #content-wrapper {
         overflow-x: hidden;
         width: 100%;
+        padding-top: 1rem;
+        padding-bottom: 80px;
     }
 
 .scroll-to-top {
@@ -11462,7 +11464,7 @@ body {
 
 .sidebar {
     width: 90px !important;
-    background-color: #003366;
+    background-color: #212529;
     min-height: calc(100vh - 56px);
 }
 
@@ -11513,9 +11515,7 @@ body {
 
 @media (min-width: 768px) {
     .sidebar {
-        width: 200px !important;
-        background-color: #003366;
-        text-align: left;
+        width: 225px !important;
     }
 
         .sidebar .nav-item .nav-link {
@@ -11524,7 +11524,6 @@ body {
             text-align: left;
             padding: 1rem;
             width: 225px;
-            overflow: hidden;
         }
 
             .sidebar .nav-item .nav-link span {

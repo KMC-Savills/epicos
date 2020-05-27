@@ -12,11 +12,9 @@ namespace EpicOS.Managers
 {
     public class OfficeManager : BaseManager
     {
-        private OfficeRepository officeRepo;
-        public OfficeManager()
-        {
-            this.officeRepo = new OfficeRepository();
-        }
+        private OfficeRepository officeRepo = new OfficeRepository();
+        private DeviceManager deviceManager = new DeviceManager();
+        private LocationManager locationManager = new LocationManager();
 
         #region Office
 
@@ -35,7 +33,6 @@ namespace EpicOS.Managers
         {
             List<OfficeDetailsViewModel> officeDetailsViewModels = new List<OfficeDetailsViewModel>();
             List<Office> offices = OfficeGetAll();
-            LocationManager locationManager = new LocationManager();
             List<City> cities = locationManager.GetCities();
             foreach (Office office in offices)
             {
@@ -93,7 +90,6 @@ namespace EpicOS.Managers
         #endregion
 
         #region Floor
-
         public List<Floor> FloorGetAll()
         {
             List<Floor> floor = cacheNinja.cache["Floor_GetAll"] as List<Floor>;
@@ -110,7 +106,6 @@ namespace EpicOS.Managers
         }
         public List<FloorViewModel> GetDevicesByFloorID()
         {
-            DeviceManager deviceManager = new DeviceManager();
             List<FloorViewModel> floorViewModels = new List<FloorViewModel>();
             List<Workpoint> workpoints = deviceManager.WorkpointGetAll();
             List<Hub> hubs = deviceManager.HubGetAll();
@@ -125,6 +120,8 @@ namespace EpicOS.Managers
                 floorItems.OfficeID = floor.OfficeID;
                 floorItems.IsActive = floor.IsActive;
                 floorItems.IsDeleted = floor.IsDeleted;
+                floorItems.Filename = floor.Filename;
+                floorItems.OfficeName = OfficeGetByID(floorItems.OfficeID).Name;
                 floorItems.ListOfWorkpoints = deviceManager.WorkpointGetAll().Where(w => w.FloorID.Equals(floor.ID)).ToList();
                 floorItems.ListOfHubs = deviceManager.HubGetAll().Where(h => h.FloorID.Equals(floor.ID)).ToList();
                 floorViewModels.Add(floorItems);
